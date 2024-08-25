@@ -1,0 +1,6 @@
+spring:
+  application:
+    name = back
+
+jwt:
+  secret: 12341234
