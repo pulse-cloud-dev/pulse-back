@@ -30,6 +30,7 @@ public class MemberController {
             @RequestBody @Valid MemberLoginRequestDto requestDto,
             ServerWebExchange exchange
     ) {
+        log.info("requestDto : {}", requestDto);
         return memberProcessor.login(requestDto, exchange);
     }
 }
