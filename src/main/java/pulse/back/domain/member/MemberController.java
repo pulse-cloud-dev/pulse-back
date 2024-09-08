@@ -25,7 +25,7 @@ public class MemberController {
      * 로그인
      */
     @PostMapping("/login")
-    @Operation(operationId = "2329", summary = "로그인", description = "로그인을 진행합니다. ")
+    @Operation(operationId = "SVO-17", summary = "로그인", description = "로그인을 진행합니다. ")
     public ResultData<TokenResponseDto> login(
             @RequestBody @Valid MemberLoginRequestDto requestDto,
             ServerWebExchange exchange

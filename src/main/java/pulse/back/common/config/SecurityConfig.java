@@ -24,17 +24,17 @@ public class SecurityConfig {
     };
 
     private static final String[] PERMIT_STATIC_URLs = {
-            "/api-docs",
-            "/api-docs/swagger-config",
+            "/favicon.ico", // 정적 리소스 추가
+            "/api-docs/**",
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",
             "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html/**",
             "/v3/api-docs/**",
-            "/swagger-ui/**"
+            "/webjars/**"
     };
 
     private static final String[] PERMIT_URLs;
@@ -52,12 +52,9 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable) // CSRF 보호 비활성화
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers(PERMIT_URLs).permitAll()
-                        .anyExchange().authenticated()
+                        .pathMatchers(PERMIT_URLs).permitAll() // 모든 허용된 경로는 인증 없이 접근 가능
+                        .anyExchange().authenticated() // 그 외 모든 요청은 인증 필요
                 );
-//                .httpBasic().disable() // HTTP Basic 인증 비활성화
-//                .formLogin().disable(); // Form 기반 로그인 비활성화
-
         return http.build();
     }
 

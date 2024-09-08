@@ -2,7 +2,10 @@ server:
   port: 8080
   tomcat:
     max-swallow-size: 10MB
-
+logging:
+  level:
+    root: DEBUG
+    org.springframework: DEBUG
 data:
   mongodb:
     url: mongodb://localhost:27017/pulse
@@ -10,14 +13,14 @@ data:
 
 springdoc:
   swagger-ui:
-    path: /swagger-ui
+    path: /swagger-ui/index.html
     groups-order: DESC
     operations-sorter: alpha
     disable-swagger-default-url: true
     display-request-duration: true
     persist-authorization: true
   api-docs:
-    path: /api-docs
+    path: /v3/api-docs
   show-actuator: true
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
@@ -36,3 +39,6 @@ jwt:
 spring:
   main:
     web-application-type: reactive
+  resources:
+    cache:
+      period: 0  # 리소스 캐시 비활성화
