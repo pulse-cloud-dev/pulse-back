@@ -9,13 +9,17 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.reactive.config.EnableWebFlux;
+import org.springframework.web.reactive.config.ResourceHandlerRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 @Configuration
 @EnableWebFluxSecurity
-public class SecurityConfig {
+@EnableWebFlux
+public class SecurityConfig implements WebFluxConfigurer {
 
     private static final String[] PERMIT_API_URLs = {
             "/api/v1/**",
@@ -32,7 +36,7 @@ public class SecurityConfig {
             "/configuration/ui",
             "/configuration/security",
             "/swagger-ui/**",
-            "/swagger-ui.html/**",
+            "/swagger-ui.html",
             "/v3/api-docs/**",
             "/webjars/**"
     };
@@ -52,7 +56,7 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable) // CSRF 보호 비활성화
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers(PERMIT_URLs).permitAll() // 모든 허용된 경로는 인증 없이 접근 가능
+                        .pathMatchers(PERMIT_URLs).permitAll() // 허용된 경로에 인증 없이 접근 가능
                         .anyExchange().authenticated() // 그 외 모든 요청은 인증 필요
                 );
         return http.build();
@@ -74,5 +78,13 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

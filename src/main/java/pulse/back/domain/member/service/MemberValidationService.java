@@ -9,6 +9,7 @@ import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.entity.member.Member;
 import pulse.back.common.enums.ErrorCodes;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Service
@@ -16,18 +17,9 @@ import pulse.back.common.enums.ErrorCodes;
 public class MemberValidationService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    public Member validateToLogin(MemberLoginRequestDto requestDto){
-        // 아이디가 존재하는지 확인
-        Member member = memberRepository.findByEmail(requestDto.email());
-        if (member == null) {
-            throw new CustomException(ErrorCodes.MEMBER_NOT_FOUND);
-        }
-        log.debug("member: {}", member);
-
-        // 비밀번호가 일치하는지 확인
-//        if (passwordEncoder.matches(requestDto.password(), member.password())) {
-            return member;
-//        }
-//        throw new CustomException(ErrorCodes.INVALID_MEMBER_LOGIN_INFO);
+    public Mono<Member> validateToLogin(MemberLoginRequestDto requestDto) {
+        return memberRepository.findByEmail(requestDto.email())
+                .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
+                .doOnNext(member -> log.debug("member: {}", member));
     }
 }
