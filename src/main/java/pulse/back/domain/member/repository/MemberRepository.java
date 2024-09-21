@@ -8,5 +8,5 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface MemberRepository extends ReactiveMongoRepository<Member, ObjectId> {
-    Member findByEmail(String email);
+    Mono<Member> findByEmail(String email);
 }

@@ -18,6 +18,7 @@ import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.service.MemberBusinessService;
 import pulse.back.domain.member.service.MemberValidationService;
 import pulse.back.entity.member.Member;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Component
@@ -27,15 +28,22 @@ public class MemberProcessor {
     private final MemberBusinessService memberBusinessService;
     private final TokenProvider tokenProvider;
 
-    public ResultData<TokenResponseDto> login(
+
+    public Mono<ResultData<TokenResponseDto>> login(
             MemberLoginRequestDto requestDto,
             ServerWebExchange exchange
     ) {
-        //로그인 테스트
-        Member member = memberValidationService.validateToLogin(requestDto);
-        TokenResponseDto tokenResponseDto = memberBusinessService.login(member, exchange);
-
-        tokenResponseDto = new TokenResponseDto(tokenResponseDto.accessToken(), null);
-        return new ResultData<>(tokenResponseDto, "로그인에 성공하였습니다. ");
+        log.debug("[validation] request : {}" , requestDto);
+        // 로그인 테스트
+        return memberValidationService.validateToLogin(requestDto)
+                .flatMap(member ->
+                        memberBusinessService.login(member, exchange)
+                                .flatMap(tokenResponseDto ->
+                                        Mono.just(new ResultData<>(tokenResponseDto, "로그인에 성공하였습니다."))
+                                )
+                )
+                .defaultIfEmpty(new ResultData<>(null, "로그인에 실패하였습니다.")); // member가 없는 경우 처리
     }
+
 }
+

@@ -8,6 +8,7 @@ import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenProvider;
 import pulse.back.common.config.auth.TokenResponseDto;
 import pulse.back.entity.member.Member;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Service
@@ -18,7 +19,7 @@ public class MemberBusinessService {
     /**
      * 로그인
      */
-    public TokenResponseDto login(Member member, ServerWebExchange exchange) {
-        return tokenProvider.generateTokenDto(member.id(), member.memberRole());
+    public Mono<TokenResponseDto> login(Member member, ServerWebExchange exchange) {
+        return Mono.just(tokenProvider.generateTokenDto(member.id(), member.memberRole()));
     }
 }

@@ -15,10 +15,10 @@ data:
 
 springdoc:
   swagger-ui:
-    path: /swagger-ui/index.html
+    path: /swagger-ui.html
     groups-order: DESC
     operations-sorter: alpha
-    disable-swagger-default-url: true
+    disable-swagger-default-url: false
     display-request-duration: true
     persist-authorization: true
   api-docs:
