@@ -8,6 +8,7 @@ logging:
     org.springframework: DEBUG
 data:
   mongodb:
+    database: pulse
     url: mongodb://localhost:27017/pulse
     auto-index-creation: true
   redis:
