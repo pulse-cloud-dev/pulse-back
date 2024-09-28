@@ -36,8 +36,31 @@ public class MemberController {
         return memberProcessor.login(requestDto, exchange);
     }
 
+    /**
+     * 회원가입
+     */
+    @PostMapping("/join")
+    @Operation(operationId = "SVO-17", summary = "회원가입", description = "회원가입 진행합니다. ")
+    public Mono<ResultData<String>> join(
+
+    ){
+        return null;
+    }
+
+    /**
+     * 카카오 redirect
+     * */
+    @GetMapping("/join/kakao-redirect")
+    @Operation(operationId = "SVO-17", summary = "카카오 리다이렉트", description = "카카오톡 리다이렉트 엔드포인트 입니다. ")
+    public Mono<String> kakaoRedirect(
+
+    ){
+        log.info("test");
+        return Mono.just("카카오톡 리다이렉트 입니다. ");
+    }
+
     @GetMapping("/test")
-    public Flux<Member> test(){
+    public Flux<Member> test() {
         return memberRepository.findAll();
     }
 }
