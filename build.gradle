@@ -33,6 +33,7 @@ dependencies {
 //	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 //	implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.7.0' // WebFlux 호환 Swagger UI
 	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.2'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
