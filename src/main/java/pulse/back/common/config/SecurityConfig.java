@@ -9,56 +9,46 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
-import org.springframework.web.reactive.config.WebFluxConfigurer;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebSession;
+import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 @Configuration
 @EnableWebFluxSecurity
-@EnableWebFlux
-public class SecurityConfig implements WebFluxConfigurer {
+public class SecurityConfig {
 
     private static final String[] PERMIT_API_URLs = {
             "/api/v1/**",
-            "/api/v1/s3/upload",
-            "/login"
-    };
-
-    private static final String[] PERMIT_STATIC_URLs = {
-            "/favicon.ico", // 정적 리소스 추가
-            "/api-docs/**",
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
             "/configuration/ui",
             "/configuration/security",
             "/swagger-ui/**",
-            "/swagger-ui.html",
+            "/swagger-ui.html/**",
             "/v3/api-docs/**",
             "/webjars/**"
     };
 
-    private static final String[] PERMIT_URLs;
-
-    static {
-        PERMIT_URLs = Stream.concat(
-                Stream.of(PERMIT_STATIC_URLs),
-                Stream.of(PERMIT_API_URLs)
-        ).toArray(String[]::new);
-    }
-
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
-                .csrf(ServerHttpSecurity.CsrfSpec::disable) // CSRF 보호 비활성화
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers(PERMIT_URLs).permitAll() // 허용된 경로에 인증 없이 접근 가능
-                        .anyExchange().authenticated() // 그 외 모든 요청은 인증 필요
+                        .pathMatchers(PERMIT_API_URLs).permitAll()
+                        .anyExchange().authenticated()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .authenticationSuccessHandler((exchange, authentication) -> {
+                            // 인증 성공 후 세션에 SecurityContext 저장
+                            return exchange.getExchange().getSession()
+                                    .doOnNext(webSession -> {
+                                        webSession.getAttributes().put("SPRING_SECURITY_CONTEXT", authentication);
+                                    }).then();
+                        })
                 );
+
         return http.build();
     }
 
@@ -80,7 +70,6 @@ public class SecurityConfig implements WebFluxConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");

@@ -4,6 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenResponseDto;
@@ -22,6 +27,8 @@ public class MemberController {
 
     private final MemberProcessor memberProcessor;
     private final MemberRepository memberRepository;
+    private final ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
+
 
     /**
      * 로그인
@@ -51,12 +58,34 @@ public class MemberController {
      * 카카오 redirect
      * */
     @GetMapping("/join/kakao-redirect")
-    @Operation(operationId = "SVO-17", summary = "카카오 리다이렉트", description = "카카오톡 리다이렉트 엔드포인트 입니다. ")
-    public Mono<String> kakaoRedirect(
+    public Mono<String> handleKakaoLogin(ServerWebExchange exchange) {
+        log.info("진입 test 진행");
+        return exchange.getPrincipal()
+                .cast(OAuth2AuthenticationToken.class)
+                .flatMap(auth -> authorizedClientRepository.loadAuthorizedClient(auth.getAuthorizedClientRegistrationId(), auth, exchange)
+                        .flatMap(client -> {
+                            OAuth2User oAuth2User = auth.getPrincipal();
 
-    ){
-        log.info("test");
-        return Mono.just("카카오톡 리다이렉트 입니다. ");
+                            if (oAuth2User == null || oAuth2User.getAttributes().isEmpty()) {
+                                return Mono.error(new RuntimeException("OAuth2User 정보가 없습니다."));
+                            }
+
+                            // 카카오에서 받은 사용자 정보
+                            String kakaoId = oAuth2User.getName();
+                            String email = (String) oAuth2User.getAttributes().get("kakao_account.email");
+                            String nickname = (String) oAuth2User.getAttributes().get("properties.nickname");
+
+                            // 사용자 정보 로그 출력
+                            log.info("카카오 로그인 성공 - 사용자 ID: {}", kakaoId);
+                            log.info("카카오 사용자 이메일: {}", email);
+                            log.info("카카오 사용자 닉네임: {}", nickname);
+
+                            return Mono.just("카카오 로그인 성공, 사용자 정보가 로그에 기록되었습니다.");
+                        }))
+                .onErrorResume(e -> {
+                    log.error("인증 정보 처리 중 오류 발생: {}", e.getMessage());
+                    return Mono.error(new RuntimeException("인증 정보 처리 중 오류 발생"));
+                });
     }
 
     @GetMapping("/test")
