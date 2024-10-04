@@ -64,6 +64,8 @@ jobs:
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
+          # JAR 파일이 존재하는지 확인
+          ls -l build/libs/  # 여기서 JAR 파일이 있는지 확인
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/back-0.0.1-SNAPSHOT.jar ec2-user@13.209.104.215:/home/ec2-user/back-0.0.1-SNAPSHOT.jar
           ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "pgrep java | xargs kill -9; nohup java -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &"
           rm -f private_key.pem
