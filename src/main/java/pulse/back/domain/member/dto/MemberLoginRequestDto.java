@@ -11,6 +11,7 @@ public record MemberLoginRequestDto(
 
         @NotEmpty
 //        @Pattern(regexp = GlobalPatterns.EMAIL)EMAIL
+//        @Pattern(regexp = GlobalPatterns.EMAIL)EMAIL
         @Schema(description = "아이디(이메일)", example = "test@test.com")
         String email,
 
