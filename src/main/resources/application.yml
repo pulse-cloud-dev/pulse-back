@@ -1,6 +1,62 @@
-spring:
-  application:
-    name = back
+server:
+  port: 8080
+  tomcat:
+    max-swallow-size: 10MB
+logging:
+  level:
+    root: DEBUG
+    org.springframework: DEBUG
+data:
+  mongodb:
+    database: pulse
+    url: mongodb://localhost:27017/pulse
+    auto-index-creation: true
+  redis:
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: DESC
+    operations-sorter: alpha
+    disable-swagger-default-url: false
+    display-request-duration: true
+    persist-authorization: true
+  api-docs:
+    path: /v3/api-docs
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
 
 jwt:
-  secret: 12341234
+  secret: E1d4FPF9cL13/CnL5ko+ZUsQHazNLpwleboEmV/EeLeH68SXQPWF8k5wmGiihT+q4uVxuser75ftfuHgmWrXBfU6UhgXZrkV3mY=
+  ## $ openssl rand -base64 74
+  access-token:
+    timeout: 1
+    timeunit: HOURS
+  refresh-token:
+    timeout: 7
+    timeunit: DAYS
+    ## jwt.*.timeunit : MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 0ff15f2cbe3c3db523d374e4be7595dd
+            client-secret: x1Zug7Y0gLu2mDhPuE7HT5GbAQKAgLxg
+            client-name: Kakao
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"  # Spring Security 기본 경로 사용
+            scope: profile_nickname, account_email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+
+
