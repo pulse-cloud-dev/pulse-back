@@ -17,8 +17,14 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("API Test")					// API 제목
-                .description("API 테스트 swagger")	// API에 대한 설명
+                .title("PULSE API docs")
+                .description("PULSE API 서비스 docs<br/>" +
+                             "<br/>" +
+                             "----------------------------<br/>" +
+                             "api의 request 파라미터에 대한 개별적인 description은 해당 페이지 최하단의 \"Schemas\"를 참고하시면 됩니다.<br/>" +
+                             "별표 (<font color=\"red\">*</font>) : 필수값. <br/>" +
+                             "[...] 을 누르시면 해당 값의 자세한 설명을 확인 하실 수 있습니다.<br/>" +
+                             "----------------------------<br/>")
                 .version("1.0.0");
     }
 }
