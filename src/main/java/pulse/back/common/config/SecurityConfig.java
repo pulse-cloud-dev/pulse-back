@@ -27,7 +27,11 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/swagger-ui.html/**",
             "/v3/api-docs/**",
-            "/webjars/**"
+            "/webjars/**",
+    };
+
+    private static final String[] PERMIT_IP_URLs = {
+            "http://13.209.104.215:8080/**",
     };
 
     @Bean
@@ -37,6 +41,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers(PERMIT_API_URLs).permitAll()
+                        .pathMatchers(PERMIT_IP_URLs).permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2

@@ -18,6 +18,8 @@ import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Slf4j
 @RestController
@@ -36,8 +38,8 @@ public class MemberController {
     @PostMapping("/login")
     @Operation(operationId = "SVO-17", summary = "로그인", description = "로그인을 진행합니다. ")
     public Mono<ResultData<TokenResponseDto>> login(
-            @RequestBody @Valid MemberLoginRequestDto requestDto,
-            ServerWebExchange exchange
+    @RequestBody @Valid MemberLoginRequestDto requestDto,
+    ServerWebExchange exchange
     ) {
         log.info("requestDto : {}", requestDto);
         return memberProcessor.login(requestDto, exchange);
@@ -57,8 +59,9 @@ public class MemberController {
     /**
      * 카카오 redirect
      * */
+
     @GetMapping("/join/kakao-redirect")
-    public Mono<String> handleKakaoLogin(ServerWebExchange exchange) {
+    public Mono<ServerResponse> handleKakaoLogin(ServerWebExchange exchange) {
         log.info("진입 test 진행");
         return exchange.getPrincipal()
                 .cast(OAuth2AuthenticationToken.class)
@@ -80,13 +83,20 @@ public class MemberController {
                             log.info("카카오 사용자 이메일: {}", email);
                             log.info("카카오 사용자 닉네임: {}", nickname);
 
-                            return Mono.just("카카오 로그인 성공, 사용자 정보가 로그에 기록되었습니다.");
+                            // 응답을 ServerResponse로 설정
+                            String responseMessage = "카카오 로그인 성공, 사용자 정보가 로그에 기록되었습니다.";
+                            return ServerResponse.ok()
+                                    .contentType(MediaType.TEXT_PLAIN)
+                                    .bodyValue(responseMessage);
                         }))
                 .onErrorResume(e -> {
                     log.error("인증 정보 처리 중 오류 발생: {}", e.getMessage());
-                    return Mono.error(new RuntimeException("인증 정보 처리 중 오류 발생"));
+                    return ServerResponse.status(500)
+                            .contentType(MediaType.TEXT_PLAIN)
+                            .bodyValue("인증 정보 처리 중 오류 발생");
                 });
     }
+
 
     @GetMapping("/test")
     public Flux<Member> test() {
