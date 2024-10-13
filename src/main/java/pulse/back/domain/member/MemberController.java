@@ -31,6 +31,10 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
 
+    /**
+     * 소셜 로그인 인증
+     * */
+    @
 
     /**
      * 로그인
