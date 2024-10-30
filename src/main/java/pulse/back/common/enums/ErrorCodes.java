@@ -4,9 +4,10 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCodes {
     //400
+    MEMBER_ALREADY_EXIST(HttpStatus.BAD_REQUEST.value(), "이미 존재하는 회원입니다."),
     BAD_REQUEST(HttpStatus.BAD_REQUEST.value(), "잘못된 요청입니다."),
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "존재하지 않는 회원입니다. 회원가입 진행해주세요. "),
-
+    SOCIAL_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "소셜 로그인 정보가 올바르지 않습니다."),
     INVALID_MEMBER_LOGIN_INFO(HttpStatus.BAD_REQUEST.value(), "아이디 또는 비밀번호가 올바르지 않습니다."),
     //401
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "인증되지 않은 사용자입니다."),

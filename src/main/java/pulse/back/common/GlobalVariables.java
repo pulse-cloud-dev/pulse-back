@@ -12,6 +12,11 @@ public class GlobalVariables {
     public static long REFRESH_TOKEN_EXPIRED_TIME;  // REFRESH TOKEN 만료시간
 
 
+    public static String KAKAO_LOGIN_PATH = "https://kauth.kakao.com/oauth/authorize?client_id=0ff15f2cbe3c3db523d374e4be7595dd&redirect_uri=http://localhost:8080/api/v1/members/join/kakao-redirect&response_type=code";
+    public static String NAVER_LOGIN_PATH = "";
+    public static String GOOGLE_LOGIN_PATH = "";
+
+
     @Autowired
     public void setTokenExpiredTime(
             @Value("${jwt.access-token.timeout:1}") long accessTokenTimeout,

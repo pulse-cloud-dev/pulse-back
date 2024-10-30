@@ -7,50 +7,70 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import pulse.back.common.enums.MemberRole;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document
 public record Member(
-    //pk
-    @Id
-    ObjectId id,
+        // pk
+        @Id
+        ObjectId id,
 
-    //이메일
-    String email,
+        // 이메일
+        String email,
 
-    //비밀번호
-    String password,
+        // 비밀번호
+        String password,
 
-    //휴대폰번호
-    String phoneNumber,
+        // 휴대폰번호
+        String phoneNumber,
 
-    //생년월일
-    String birth,
+        // 생년월일
+        String birth,
 
-    //이름
-    String name,
+        // 이름
+        String name,
 
-    //닉네임
-    String nickName,
-    //생성일
-    @Indexed
-    LocalDateTime createdAt,
+        // 닉네임
+        String nickName,
 
-    //수정일
-    LocalDateTime updatedAt,
+        // 유저권한 (Admin, User 등)
+        MemberRole memberRole,
 
-    //삭제일
-    LocalDateTime deletedAt,
+        // 멘토로 참여한 멘토링 pk (Array<ObjectId>)
+        List<ObjectId> mentoList,
 
-    //생성자
-    ObjectId createdMemberId,
+        // 멘티로 참여한 멘토링 pk (Array<ObjectId>)
+        List<ObjectId> menteeList,
 
-    //수정자
-    ObjectId updatedMemberId,
+        // 생성일
+        @Indexed
+        LocalDateTime createdAt,
 
-    //삭제자
-    ObjectId deletedMemberId,
+        // 수정일
+        LocalDateTime updatedAt,
 
-    //유저권한
-    MemberRole memberRole
+        // 삭제일
+        LocalDateTime deletedAt,
+
+        // 생성자
+        ObjectId createdMemberId,
+
+        // 수정자
+        ObjectId updatedMemberId,
+
+        // 삭제자
+        ObjectId deletedMemberId,
+
+        // 학력정보
+        String academicInfo,
+
+        // 자격증정보
+        String certificateInfo,
+
+        // 직업정보
+        String jobInfo,
+
+        // 경력정보
+        String careerInfo
 ) {
 }
