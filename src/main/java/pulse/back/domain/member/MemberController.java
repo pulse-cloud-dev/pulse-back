@@ -12,8 +12,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenResponseDto;
+import pulse.back.common.enums.ResultCodes;
+import pulse.back.common.enums.SocialRule;
 import pulse.back.common.response.ResultData;
+import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.MemberLoginRequestDto;
+import pulse.back.domain.member.dto.MemberTokenResponseDto;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Flux;
@@ -31,18 +35,39 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
 
+    /**
+     * 소셜 로그인 인증
+     */
+    @GetMapping("/{social}")
+    @Operation(operationId = "SVO-17", summary = "소셜_로그인_인증", description = "소셜 로그인 인증을 진행합니다. ")
+    public Mono<ResultData<String>> socialLoginPath(
+            @PathVariable SocialRule social,
+            ServerWebExchange exchange
+    ) {
+        log.info("social : {}", social);
+        return memberProcessor.socialLoginPath(social, exchange);
+    }
 
     /**
      * 로그인
      */
     @PostMapping("/login")
     @Operation(operationId = "SVO-17", summary = "로그인", description = "로그인을 진행합니다. ")
-    public Mono<ResultData<TokenResponseDto>> login(
-    @RequestBody @Valid MemberLoginRequestDto requestDto,
-    ServerWebExchange exchange
+    public Mono<ResultData<MemberTokenResponseDto>> login(
+            @RequestBody @Valid MemberLoginRequestDto requestDto,
+            ServerWebExchange exchange
     ) {
         log.info("requestDto : {}", requestDto);
         return memberProcessor.login(requestDto, exchange);
+    }
+
+    /**
+     * access_token 재발급
+     */
+    @PostMapping("/reissue")
+    @Operation(operationId = "SVO-17", summary = "access_token 재발급", description = "refresh_token을 이용하여 access_token을 재발급합니다.")
+    public Mono<ResultData<TokenResponseDto>> reissueAccessToken(ServerWebExchange exchange) {
+        return memberProcessor.reissueAccessToken(exchange);
     }
 
     /**
@@ -50,16 +75,16 @@ public class MemberController {
      */
     @PostMapping("/join")
     @Operation(operationId = "SVO-17", summary = "회원가입", description = "회원가입 진행합니다. ")
-    public Mono<ResultData<String>> join(
-
-    ){
-        return null;
+    public Mono<ResultData<ResultCodes>> join(
+            @RequestBody @Valid MemberJoinRequestDto requestDto,
+            ServerWebExchange exchange
+    ) {
+        return memberProcessor.join(requestDto, exchange);
     }
 
     /**
      * 카카오 redirect
-     * */
-
+     */
     @GetMapping("/join/kakao-redirect")
     public Mono<ServerResponse> handleKakaoLogin(ServerWebExchange exchange) {
         log.info("진입 test 진행");
@@ -98,6 +123,7 @@ public class MemberController {
     }
 
 
+    @Deprecated
     @GetMapping("/test")
     public Flux<Member> test() {
         return memberRepository.findAll();
