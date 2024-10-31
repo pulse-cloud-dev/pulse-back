@@ -42,6 +42,7 @@ public class MemberBusinessService {
 
     //회원가입
     public Mono<ResultCodes> join(MemberJoinRequestDto requestDto, ServerWebExchange exchange) {
+        log.debug("멤버비즈니스 requestDto : {}", requestDto);
         return memberRepository.insert(MemberJoinRequestDto.of(requestDto))
                 .map(member -> ResultCodes.SUCCESS) // 삽입이 성공하면 SUCCESS 반환
                 .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.BAD_REQUEST))); // 삽입 실패 시 에러 반환

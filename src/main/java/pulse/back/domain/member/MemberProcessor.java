@@ -53,6 +53,7 @@ public class MemberProcessor {
             MemberJoinRequestDto requestDto,
             ServerWebExchange exchange
     ) {
+        log.debug("[validation] request : {}" , requestDto);
         return memberValidationService.validateToJoin(requestDto)
                 .filter(valid -> valid) // true일 경우에만 다음 단계로 진행
                 .flatMap(valid -> memberBusinessService.join(requestDto, exchange) // 기존의 member를 requestDto로 변경
