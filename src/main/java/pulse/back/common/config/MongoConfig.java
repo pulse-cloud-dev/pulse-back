@@ -1,6 +1,7 @@
 package pulse.back.common.config;
 
 import com.mongodb.reactivestreams.client.MongoClient;
+import com.mongodb.reactivestreams.client.MongoClients;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,11 @@ public class MongoConfig {
         return new SimpleReactiveMongoDatabaseFactory(mongoClient, "pulse");
     }
 
+//    @Bean
+//    public MongoClient mongoClient() {
+//        return MongoClients.create("mongodb+srv://ssddo:ssddo@cluster.0mtmr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster");
+//    }
+
     @Bean
     public MappingMongoConverter reactiveMappingMongoConverter() {
         MappingMongoConverter converter = new MappingMongoConverter(ReactiveMongoTemplate.NO_OP_REF_RESOLVER,
@@ -39,6 +45,4 @@ public class MongoConfig {
     public ReactiveMongoTemplate simpleReactiveMongoTemplate(ReactiveMongoDatabaseFactory reactiveMongoDatabaseFactory,
                                                              MappingMongoConverter reactiveMappingMongoConverter) {
         return new ReactiveMongoTemplate(reactiveMongoDatabaseFactory, reactiveMappingMongoConverter);
-    }
-
-}
+    }}
