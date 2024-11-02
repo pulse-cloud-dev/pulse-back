@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21) // JDK 22로 설정
+		languageVersion = JavaLanguageVersion.of(22) // JDK 22로 설정
 	}
 }
 
