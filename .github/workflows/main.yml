@@ -33,22 +33,20 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # MongoDB 연결 문자열 설정
-      - name: Set MongoDB connection string
-        run: echo "spring.data.mongodb.uri=mongodb+srv://ssddo:0524@cluster.0mtmr.mongodb.net/pulse?retryWrites=true&w=majority" >> $GITHUB_ENV
+      # Gradle 캐시 클리어
+      - name: Clear Gradle cache
+        run: ./gradlew clean
 
-      # Gradle 빌드 엑션을 이용해서 프로젝트 빌드
+      # Gradle 빌드 시 디버깅 정보 출력
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2.6.0
-        with:
-          arguments: build
+        run: ./gradlew build --info
 
       # 빌드해서 생긴 JAR 파일을 깃허브 아티팩트로 업로드
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3  # v3로 업데이트
         with:
           name: trelloServer
-          path: build/libs/back-0.0.1-SNAPSHOT.jar
+          path: build/libs/back-0.0.1-SNAPSHOT.jar  # JAR 파일 경로를 올바르게 설정
 
   # 배포
   deploy:
@@ -58,7 +56,7 @@ jobs:
     # 위의 빌드작업한 JAR 파일 = 아티팩트를 다운로드
     steps:
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3  # v3로 업데이트
         with:
           name: trelloServer
           path: build/libs/
@@ -68,7 +66,8 @@ jobs:
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          ls -l build/libs/
+          # JAR 파일이 존재하는지 확인
+          ls -l build/libs/  # 여기서 JAR 파일이 있는지 확인
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/back-0.0.1-SNAPSHOT.jar ec2-user@13.209.104.215:/home/ec2-user/back-0.0.1-SNAPSHOT.jar
           ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "pgrep java | xargs kill -9; nohup java -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &"
           rm -f private_key.pem
