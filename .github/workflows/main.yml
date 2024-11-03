@@ -23,11 +23,11 @@ jobs:
       - uses: actions/checkout@v3
 
 
-      # JDK 21 설정
-      - name: Set up JDK 21
+      # JDK 22 설정
+      - name: Set up JDK 22
         uses: actions/setup-java@v3
         with:
-          java-version: '21'
+          java-version: '22'
           distribution: 'temurin'
 
       # gradle wrapper 파일에 실행 권한을 부여
