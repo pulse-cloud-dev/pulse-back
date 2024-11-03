@@ -22,21 +22,19 @@ public class MongoConfig {
     private final MongoMappingContext mongoMappingContext;
 
     @Bean
+    public MongoClient mongoClient() {
+        return MongoClients.create("mongodb+srv://ssddo:0524@cluster.0mtmr.mongodb.net/pulse?retryWrites=true&w=majority");
+    }
+
+    @Bean
     public ReactiveMongoDatabaseFactory reactiveMongoDatabaseFactory(MongoClient mongoClient) {
         return new SimpleReactiveMongoDatabaseFactory(mongoClient, "pulse");
     }
-
-//    @Bean
-//    public MongoClient mongoClient() {
-//        return MongoClients.create("mongodb+srv://ssddo:ssddo@cluster.0mtmr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster");
-//    }
 
     @Bean
     public MappingMongoConverter reactiveMappingMongoConverter() {
         MappingMongoConverter converter = new MappingMongoConverter(ReactiveMongoTemplate.NO_OP_REF_RESOLVER,
                 mongoMappingContext);
-
-        // '_class' 필드를 제거
         converter.setTypeMapper(new DefaultMongoTypeMapper(null));
         return converter;
     }
@@ -45,4 +43,5 @@ public class MongoConfig {
     public ReactiveMongoTemplate simpleReactiveMongoTemplate(ReactiveMongoDatabaseFactory reactiveMongoDatabaseFactory,
                                                              MappingMongoConverter reactiveMappingMongoConverter) {
         return new ReactiveMongoTemplate(reactiveMongoDatabaseFactory, reactiveMappingMongoConverter);
-    }}
+    }
+}
