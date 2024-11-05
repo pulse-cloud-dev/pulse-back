@@ -32,6 +32,15 @@ public class MemberValidationService {
                 .doOnNext(member -> log.debug("member: {}", member));
     }
 
+    //이메일 중복체크
+    public Mono<Boolean> validateToEmailDuplicateCheck(
+            String email
+    ) {
+        return memberRepository.findByEmail(email)
+                .map(existingMember -> false) // 이메일이 존재할 경우 false 반환
+                .defaultIfEmpty(true); // 이메일이 존재하지 않을 경우 true 반환
+    }
+
     //회원가입
     public Mono<Boolean> validateToJoin(MemberJoinRequestDto requestDto) {
 //        return memberRepository.findByEmail(requestDto.email())

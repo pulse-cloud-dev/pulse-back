@@ -82,6 +82,18 @@ public class MemberController {
         return memberProcessor.join(requestDto, exchange);
     }
 
+    /*
+    * 이메일 중복체크
+    * */
+    @PostMapping("/email-duplicate")
+    @Operation(operationId = "SVO-17", summary = "이메일 중복체크", description = "이메일 중복체크를 진행합니다. ")
+    public Mono<ResultData<ResultCodes>> emailDuplicateCheck(
+            @RequestBody String email,
+            ServerWebExchange exchange
+    ) {
+        return memberProcessor.emailDuplicateCheck(email, exchange);
+    }
+
     /**
      * 카카오 redirect
      */
