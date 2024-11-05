@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpCookie;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenProvider;
 import pulse.back.common.config.auth.TokenResponseDto;
@@ -44,6 +45,23 @@ public class MemberProcessor {
                                 )
                 )
                 .defaultIfEmpty(new ResultData<>(null, "로그인에 실패하였습니다.")); // member가 없는 경우 처리
+    }
+
+    /*
+    * 이메일 중복 체크
+    * */
+    public Mono<ResultData<ResultCodes>> emailDuplicateCheck(
+            String email,
+            ServerWebExchange exchange
+    ) {
+        return memberValidationService.validateToEmailDuplicateCheck(email)
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return Mono.just(new ResultData<>(ResultCodes.SUCCESS, "사용 가능한 이메일입니다."));
+                    } else {
+                        throw new CustomException(ErrorCodes.BAD_REQUEST, "이미 사용중인 이메일입니다.");
+                    }
+                });
     }
 
     /*
