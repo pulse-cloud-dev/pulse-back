@@ -12,6 +12,7 @@ import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.entity.member.Member;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pulse.back.common.enums.ErrorCodes;
 import reactor.core.publisher.Mono;
 
@@ -24,13 +25,19 @@ public class MemberValidationService {
     private final TokenProvider tokenProvider;
 
     // 로그인 검증
-    public Mono<Member> validateToLogin(
-            MemberLoginRequestDto requestDto
-    ) {
+    public Mono<Member> validateToLogin(MemberLoginRequestDto requestDto) {
         return memberRepository.findByEmail(requestDto.email())
                 .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
-                .doOnNext(member -> log.debug("member: {}", member));
+                .doOnNext(member -> log.debug("member: {}", member))
+                .flatMap(member -> {
+                    if (passwordEncoder.matches(requestDto.password(), member.password())) {
+                        return Mono.just(member);
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.INVALID_MEMBER_LOGIN_INFO));
+                    }
+                });
     }
+
 
     //이메일 중복체크
     public Mono<Boolean> validateToEmailDuplicateCheck(
