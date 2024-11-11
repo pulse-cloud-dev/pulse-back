@@ -54,12 +54,12 @@ public record MemberJoinRequestDto(
         String careerInfo
 ) {
     public static Member of(
-            MemberJoinRequestDto requestDto
+            MemberJoinRequestDto requestDto, String password
     ) {
         return new Member(
                 new ObjectId(),
                 requestDto.email(),
-                requestDto.password(),
+                password,
                 requestDto.phoneNumber(),
                 requestDto.birth(),
                 requestDto.name(),
