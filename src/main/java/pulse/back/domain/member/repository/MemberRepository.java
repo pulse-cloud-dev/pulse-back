@@ -7,6 +7,6 @@ import pulse.back.entity.member.Member;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface MemberRepository extends ReactiveMongoRepository<Member, ObjectId> {
+public interface MemberRepository extends ReactiveMongoRepository<Member, ObjectId>, MemberRepositoryCustom {
     Mono<Member> findByEmail(String email);
 }

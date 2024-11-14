@@ -18,6 +18,7 @@ import pulse.back.common.response.ResultData;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.dto.MemberTokenResponseDto;
+import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Flux;
@@ -92,6 +93,18 @@ public class MemberController {
             ServerWebExchange exchange
     ) {
         return memberProcessor.emailDuplicateCheck(email, exchange);
+    }
+
+    /*
+    * 비밀번호 재설정
+    * */
+    @PostMapping("/password-reset")
+    @Operation(operationId = "SVO-17", summary = "비밀번호 재설정", description = "비밀번호 재설정을 진행합니다. ")
+    public Mono<ResultData<ResultCodes>> resetPassword(
+            @RequestBody PasswordResetRequestDto requestDto,
+            ServerWebExchange exchange
+    ) {
+        return memberProcessor.resetPassword(requestDto, exchange);
     }
 
     /**

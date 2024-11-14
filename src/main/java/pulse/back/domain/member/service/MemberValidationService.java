@@ -10,6 +10,7 @@ import pulse.back.common.enums.SocialRule;
 import pulse.back.common.exception.CustomException;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.MemberLoginRequestDto;
+import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.entity.member.Member;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -70,5 +71,15 @@ public class MemberValidationService {
             ServerWebExchange exchange
     ) {
         return Mono.just(true);
+    }
+
+    //비밀번호 재설정
+    public Mono<Boolean> validateToResetPassword(
+            PasswordResetRequestDto requestDto,
+            ServerWebExchange exchange
+    ) {
+        return memberRepository.findByEmail(requestDto.memberId())
+                .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
+                .flatMap(member -> {return Mono.just(true);});
     }
 }
