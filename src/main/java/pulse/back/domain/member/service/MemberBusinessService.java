@@ -15,6 +15,7 @@ import pulse.back.common.enums.SocialRule;
 import pulse.back.common.exception.CustomException;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
+import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Mono;
 import org.springframework.http.ResponseCookie;
@@ -60,7 +61,7 @@ public class MemberBusinessService {
             case GOOGLE -> GlobalVariables.GOOGLE_LOGIN_PATH;
             default -> throw new CustomException(ErrorCodes.SOCIAL_NOT_FOUND);
         };
-        return Mono.just(new ResultData<>(path, "소셜 로그인 인증을 진행합니다."));
+        return Mono.just(new ResultData<>(path, "소셜 로그인 경로입니다."));
     }
 
     //리프레쉬 토큰 발급
@@ -89,5 +90,38 @@ public class MemberBusinessService {
                 .build();
 
         exchange.getResponse().addCookie(responseCookie);
+    }
+
+    private String maskEmail(String email) {
+        //이메일을 로컬 파트와 도메인 파트로 분리
+        String[] emailParts = email.split("@");
+        String localPart = emailParts[0];
+        String domainPart = emailParts[1];
+
+        //로컬 파트 마스킹: 첫 3글자만 남기고 나머지를 *로 변경
+        String maskedLocalPart = localPart.substring(0, Math.min(3, localPart.length()))
+                + "*".repeat(Math.max(0, localPart.length() - 3));
+
+        //도메인 파트를 도메인 이름과 확장자로 분리
+        String[] domainParts = domainPart.split("\\.");
+        String domainName = domainParts[0];
+        String domainExtension = domainParts[1];
+
+        //도메인 이름 마스킹: 첫 2글자만 남기고 나머지를 *로 변경
+        String maskedDomainName = domainName.substring(0, Math.min(2, domainName.length()))
+                + "*".repeat(Math.max(0, domainName.length() - 2));
+
+        //마스킹된 이메일 주소 반환
+        return maskedLocalPart + "@" + maskedDomainName + "." + domainExtension;
+    }
+
+    //비밀번호 재설정
+    public Mono<ResultData<ResultCodes>> resetPassword(
+            PasswordResetRequestDto requestDto,
+            ServerWebExchange exchange
+    ) {
+        return memberRepository.updateMemberPassword(requestDto.memberId(), bCryptPasswordEncoder.encode(requestDto.newPassword()), exchange)
+                .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
+                .map(result -> new ResultData<>(ResultCodes.SUCCESS, "비밀번호가 재설정되었습니다."));
     }
 }

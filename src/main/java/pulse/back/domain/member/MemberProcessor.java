@@ -16,6 +16,7 @@ import pulse.back.common.response.ResultData;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.dto.MemberTokenResponseDto;
+import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.domain.member.service.MemberBusinessService;
 import pulse.back.domain.member.service.MemberValidationService;
 import reactor.core.publisher.Mono;
@@ -115,6 +116,24 @@ public class MemberProcessor {
                         return memberBusinessService.socialLoginPath(social, exchange);
                     } else {
                         return Mono.error(new CustomException(ErrorCodes.SOCIAL_NOT_FOUND));
+                    }
+                });
+    }
+
+    /*
+    * 비밀번호 재설정
+    * */
+    public Mono<ResultData<ResultCodes>> resetPassword(
+            @RequestBody PasswordResetRequestDto requestDto,
+            ServerWebExchange exchange
+    ) {
+        log.debug("[validation] request : {}" , requestDto);
+        return memberValidationService.validateToResetPassword(requestDto, exchange)
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return memberBusinessService.resetPassword(requestDto, exchange);
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND));
                     }
                 });
     }
