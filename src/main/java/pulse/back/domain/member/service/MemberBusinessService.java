@@ -16,6 +16,7 @@ import pulse.back.common.exception.CustomException;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.PasswordResetRequestDto;
+import pulse.back.domain.social.NaverLoginUrlGenerator;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Mono;
 import org.springframework.http.ResponseCookie;
@@ -28,6 +29,7 @@ public class MemberBusinessService {
     private final TokenProvider tokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberRepository memberRepository;
+    private final NaverLoginUrlGenerator naverLoginUrlGenerator;
 
     //로그인
     public Mono<TokenResponseDto> login(Member member, ServerWebExchange exchange) {
@@ -57,7 +59,7 @@ public class MemberBusinessService {
     ) {
         String path = switch (social) {
             case KAKAO -> GlobalVariables.KAKAO_LOGIN_PATH;
-            case NAVER -> GlobalVariables.NAVER_LOGIN_PATH;
+            case NAVER -> naverLoginUrlGenerator.generateLoginUrl();
             case GOOGLE -> GlobalVariables.GOOGLE_LOGIN_PATH;
             default -> throw new CustomException(ErrorCodes.SOCIAL_NOT_FOUND);
         };
