@@ -20,6 +20,7 @@ import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.dto.MemberTokenResponseDto;
 import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.domain.member.repository.MemberRepository;
+import pulse.back.domain.social.NaverLoginUrlGenerator;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -35,6 +36,7 @@ public class MemberController {
     private final MemberProcessor memberProcessor;
     private final MemberRepository memberRepository;
     private final ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
+    private final NaverLoginUrlGenerator naverLoginUrlGenerator;
 
     /**
      * 소셜 로그인 인증
@@ -42,7 +44,7 @@ public class MemberController {
     @GetMapping("/{social}")
     @Operation(operationId = "SVO-17", summary = "소셜_로그인_인증", description = "소셜 로그인 인증을 진행합니다. ")
     public Mono<ResultData<String>> socialLoginPath(
-            @PathVariable SocialRule social,
+            @PathVariable("social") SocialRule social,
             ServerWebExchange exchange
     ) {
         log.info("social : {}", social);

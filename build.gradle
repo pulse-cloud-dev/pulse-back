@@ -52,6 +52,10 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.json:json:20230227'
 }
+// 컴파일 시 -parameters 플래그 추가
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-parameters"
+}
 //
 //tasks.named('test') {
 //	useJUnitPlatform()
