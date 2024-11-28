@@ -56,7 +56,6 @@ public class MemberBusinessService {
     public Mono<ResultData<String>> socialLoginPath(
             SocialRule social,
             ServerWebExchange exchange
-    ) {
         String path = switch (social) {
             case KAKAO -> GlobalVariables.KAKAO_LOGIN_PATH;
             case NAVER -> naverLoginUrlGenerator.generateLoginUrl();

@@ -16,6 +16,7 @@ public class NaverCallbackController {
     private final NaverAuthService naverAuthService;
     private final NaverUserProfileService userProfileService;
 
+    @Deprecated
     @GetMapping("/login/naver/callback")
     public Mono<String> handleNaverCallback(@RequestParam("code") String code, @RequestParam("state") String state) {
         return naverAuthService.getAccessToken(code, state)
@@ -23,7 +24,7 @@ public class NaverCallbackController {
     }
 
     // 사용자 프로필 조회 API
-    @GetMapping("/user/profile")
+    @GetMapping("/user-info")
     public Mono<String> getUserProfile(@RequestParam("accessToken") String accessToken) {
         log.debug("accessToken : {}", accessToken);
         return userProfileService.getUserProfile(accessToken)

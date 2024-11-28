@@ -17,7 +17,7 @@ public class NaverUserProfileService {
 
     public Mono<String> getUserProfile(String accessToken) {
         return webClient.get()
-                .uri("/v1/nid/me")
+                .uri("https://openapi.naver.com/v1/nid/me")
                 .header("Authorization", "Bearer " + accessToken)
                 .retrieve()
                 .bodyToMono(String.class)

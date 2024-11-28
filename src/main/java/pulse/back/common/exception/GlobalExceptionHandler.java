@@ -20,8 +20,6 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
-//    private final ErrorLogAdminApiRepository errorLogAdminApiRepository;
-
     @ExceptionHandler(CustomException.class)
     protected ResponseEntity<ResultData<String>> handleCustomException(CustomException e){
         return ResponseEntity.status(e.httpStatusCode())
