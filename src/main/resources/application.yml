@@ -51,7 +51,7 @@ spring:
             client-secret: x1Zug7Y0gLu2mDhPuE7HT5GbAQKAgLxg
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            redirect-uri: "http://13.209.104.215:8080/login/oauth2/code/kakao"
             scope: profile_nickname, account_email
             provider: kakao
           naver:
@@ -59,9 +59,9 @@ spring:
             client-secret: oXH2BRBtGg
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8080/login/naver/callback"
+            redirect-uri: "http://13.209.104.215:8080/login/naver/callback"
             scope: profile, email
-            provider: naver  # 반드시 이 값을 추가하세요.
+            provider: naver
         provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
