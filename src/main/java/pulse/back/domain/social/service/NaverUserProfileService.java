@@ -2,6 +2,7 @@ package pulse.back.domain.social.service;
 
 import com.nimbusds.jose.shaded.gson.JsonObject;
 import com.nimbusds.jose.shaded.gson.JsonParser;
+import com.nimbusds.jose.shaded.gson.JsonSyntaxException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,23 @@ public class NaverUserProfileService {
                 .header("Authorization", "Bearer " + accessToken)
                 .retrieve()
                 .bodyToMono(String.class)
-                .map(response -> {
-                    // 필요한 사용자 정보 파싱 (예: JSON에서 닉네임이나 이메일 추출)
-                    JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-                    log.debug("User Profile: {}", json);
-                    return json.get("response").getAsJsonObject().get("email").getAsString();
+                .flatMap(response -> {
+                    try {
+                        // JSON 형식 확인 및 파싱
+                        JsonObject json = JsonParser.parseString(response).getAsJsonObject();
+                        log.debug("User Profile: {}", json);
+
+                        JsonObject responseObject = json.getAsJsonObject("response");
+                        if (responseObject != null && responseObject.has("email")) {
+                            return Mono.just(responseObject.get("email").getAsString());
+                        } else {
+                            log.warn("Email not found in user profile: {}", response);
+                            return Mono.error(new IllegalArgumentException("Email not found in user profile"));
+                        }
+                    } catch (JsonSyntaxException | IllegalStateException e) {
+                        log.error("Failed to parse JSON response: {}", response, e);
+                        return Mono.error(new IllegalArgumentException("Invalid JSON response"));
+                    }
                 });
     }
 }
