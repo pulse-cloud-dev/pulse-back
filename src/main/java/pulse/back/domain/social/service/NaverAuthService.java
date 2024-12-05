@@ -46,6 +46,7 @@ public class NaverAuthService {
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(response -> {
+                    log.info("네이버 응답값 확인 response : {}", response);
                     // JSON 파싱 후 access_token 값 추출
                     JsonObject json = JsonParser.parseString(response).getAsJsonObject();
                     return json.get("access_token").getAsString();
