@@ -2,10 +2,27 @@ server:
   port: 8080
   tomcat:
     max-swallow-size: 10MB
+
+
 logging:
   level:
-    root: DEBUG
-    org.springframework: DEBUG
+    root: info
+    org.springframework.data.mongodb: debug
+    com.bubaum.bupay.admin.api: debug
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%5p]) [%thread] %cyan(%logger) - %msg%n"
+    #    for dev
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%5p] [%thread] %logger - %msg%n"
+  file:
+    name: ./logs/logback.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: ./logs/logback_%d{yyyy-MM-dd}_%i.log
+      max-history: 30
+      max-file-size: 20MB
+
+
 data:
   mongodb:
     #    database: pulse
