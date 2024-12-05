@@ -6,13 +6,10 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;
-import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebSession;
-import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 
@@ -22,7 +19,7 @@ public class SecurityConfig {
 
     private static final String[] PERMIT_API_URLs = {
             "/api/v1/**",
-            "/",
+            "/**",
             "/login/**",
             "/user/profile",
             "/configuration/ui",

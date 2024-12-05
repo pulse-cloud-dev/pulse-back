@@ -3,6 +3,7 @@ package pulse.back.domain.social;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pulse.back.domain.social.service.NaverAuthService;
@@ -24,8 +25,8 @@ public class NaverCallbackController {
     }
 
     // 사용자 프로필 조회 API
-    @GetMapping("/user-info")
-    public Mono<String> getUserProfile(@RequestParam("accessToken") String accessToken) {
+    @GetMapping("/user-info/{accessToken}")
+    public Mono<String> getUserProfile(@PathVariable("accessToken") String accessToken) {
         log.debug("accessToken : {}", accessToken);
         return userProfileService.getUserProfile(accessToken)
                 .map(profile -> "User Profile: " + profile);
