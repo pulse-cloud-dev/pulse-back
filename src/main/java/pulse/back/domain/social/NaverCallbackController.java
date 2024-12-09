@@ -10,6 +10,8 @@ import pulse.back.domain.social.service.NaverAuthService;
 import pulse.back.domain.social.service.NaverUserProfileService;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +28,13 @@ public class NaverCallbackController {
 
     // 사용자 프로필 조회 API
     @GetMapping("/user-info/{accessToken}")
-    public Mono<String> getUserProfile(@PathVariable("accessToken") String accessToken) {
+    public Mono<Map<String, String>> getUserProfile(@PathVariable("accessToken") String accessToken) {
         log.debug("accessToken : {}", accessToken);
         return userProfileService.getUserProfile(accessToken)
-                .map(profile -> "User Profile: " + profile);
+                .map(profile -> {
+                    log.debug("User Profile: {}", profile);
+                    return profile;
+                });
     }
+
 }
