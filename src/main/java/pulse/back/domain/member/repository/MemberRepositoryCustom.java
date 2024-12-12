@@ -8,4 +8,5 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface MemberRepositoryCustom {
     Mono<Boolean> updateMemberPassword(String email, String newPassword, ServerWebExchange exchange);
+//    Mono<Boolean> updateMemberPasswordrPassword(String email, String newPassword, ServerWebExchange exchange);
 }
