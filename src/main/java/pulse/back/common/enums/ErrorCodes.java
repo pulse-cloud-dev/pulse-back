@@ -14,10 +14,15 @@ public enum ErrorCodes {
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED.value(), "토큰이 잘못되었습니다."),
     //403
     FORBIDDEN(HttpStatus.FORBIDDEN.value(), "접근할 수 없습니다."),
+
     //404
     NOT_FOUND(HttpStatus.NOT_FOUND.value(), " 존재하지 않습니다."),
     //419
-    TOKEN_EXPIRED(HttpStatus.EXPECTATION_FAILED.value(), "토큰이 만료되었습니다.");
+    TOKEN_EXPIRED(HttpStatus.EXPECTATION_FAILED.value(), "토큰이 만료되었습니다."),
+
+    //500
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버 내부 오류입니다.");
+
 
     private final int httpStatusCode;
     private final String message;
