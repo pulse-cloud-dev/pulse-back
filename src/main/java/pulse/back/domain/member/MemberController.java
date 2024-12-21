@@ -39,7 +39,7 @@ public class MemberController {
     private final NaverLoginUrlGenerator naverLoginUrlGenerator;
 
     /**
-     * 소셜 로그인 인증
+     * 소셜 로그인 인증 -> 카카오 주석처리필요함
      */
     @GetMapping("/{social}")
     @Operation(operationId = "SVO-17", summary = "소셜_로그인_인증", description = "소셜 로그인 인증을 진행합니다. ")
