@@ -47,7 +47,6 @@ public class MemberController {
             @PathVariable("social") SocialRule social,
             ServerWebExchange exchange
     ) {
-        log.info("social : {}", social);
         return memberProcessor.socialLoginPath(social, exchange);
     }
 
@@ -112,6 +111,7 @@ public class MemberController {
     /**
      * 카카오 redirect
      */
+    @Deprecated
     @GetMapping("/join/kakao-redirect")
     public Mono<ServerResponse> handleKakaoLogin(ServerWebExchange exchange) {
         log.info("진입 test 진행");
