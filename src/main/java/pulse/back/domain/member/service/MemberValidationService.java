@@ -13,7 +13,6 @@ import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.entity.member.Member;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pulse.back.common.enums.ErrorCodes;
 import reactor.core.publisher.Mono;
 
