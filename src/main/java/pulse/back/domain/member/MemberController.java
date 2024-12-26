@@ -42,7 +42,19 @@ public class MemberController {
      * 소셜 로그인 인증 -> 카카오 주석처리필요함
      */
     @GetMapping("/{social}")
-    @Operation(operationId = "SVO-17", summary = "소셜_로그인_인증", description = "소셜 로그인 인증을 진행합니다. ")
+    @Operation(operationId = "SVO-17", summary = "소셜_로그인_인증", description = """
+            ### [ 설명 ]
+            - 소셜 로그인 인증을 진행합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 현재 가능한 로그인은 네이버 로그인입니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [SocialRule]
+            - Response : [ResultCodes<TokenResponseDto>]
+            ```
+            """)
     public Mono<ResultData<String>> socialLoginPath(
             @PathVariable("social") SocialRule social,
             ServerWebExchange exchange
@@ -54,7 +66,20 @@ public class MemberController {
      * 로그인
      */
     @PostMapping("/login")
-    @Operation(operationId = "SVO-17", summary = "로그인", description = "로그인을 진행합니다. ")
+    @Operation(operationId = "SVO-17", summary = "로그인", description = """
+            ### [ 설명 ]
+            - 로그인을 진행합니다.
+            <br>
+            ### [ 주의사항 ]
+            - access_token 의 유효기간은 1시간입니다.
+            - refresh_token 의 유효기간은 1주일입니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [                             ]
+            - Response : [ResultCodes<TokenResponseDto>]
+            ```
+            """)
     public Mono<ResultData<MemberTokenResponseDto>> login(
             @RequestBody @Valid MemberLoginRequestDto requestDto,
             ServerWebExchange exchange
@@ -67,7 +92,20 @@ public class MemberController {
      * access_token 재발급
      */
     @PostMapping("/reissue")
-    @Operation(operationId = "SVO-17", summary = "access_token 재발급", description = "refresh_token을 이용하여 access_token을 재발급합니다.")
+    @Operation(operationId = "SVO-17", summary = "access_token 재발급", description = """
+            ### [ 설명 ]
+            - refresh_token 을 이용하여 access_token 을 재발급합니다.
+            <br>
+            ### [ 주의사항 ]
+            - access_token 의 유효기간은 1시간입니다.
+            - refresh_token 의 유효기간은 1주일입니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [                             ]
+            - Response : [ResultCodes<TokenResponseDto>]
+            ```
+            """)
     public Mono<ResultData<TokenResponseDto>> reissueAccessToken(ServerWebExchange exchange) {
         return memberProcessor.reissueAccessToken(exchange);
     }
@@ -76,7 +114,19 @@ public class MemberController {
      * 회원가입
      */
     @PostMapping("/join")
-    @Operation(operationId = "SVO-17", summary = "회원가입", description = "회원가입 진행합니다. ")
+    @Operation(operationId = "SVO-17", summary = "회원가입", description = """
+            ### [ 설명 ]
+            - 회원가입 진행합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 비밀번호는 영문 대문자, 소문자, 숫자, 특수문자 중 3종류 이상 조합, 8~30자리이어야 합니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [PasswordResetRequestDto]
+            - Response : [ResultCodes]
+            ```
+            """)
     public Mono<ResultData<ResultCodes>> join(
             @RequestBody @Valid MemberJoinRequestDto requestDto,
             ServerWebExchange exchange
@@ -88,9 +138,21 @@ public class MemberController {
     * 이메일 중복체크
     * */
     @PostMapping("/email-duplicate")
-    @Operation(operationId = "SVO-17", summary = "이메일 중복체크", description = "이메일 중복체크를 진행합니다. ")
+    @Operation(operationId = "SVO-17", summary = "이메일 중복체크", description = """
+            ### [ 설명 ]
+            - 이메일 중복체크를 진행합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 네이버 소셜로그인을 이용하여 회원가입을 진행하므로, 해당 API 는 필요할 경우에 사용합니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [PasswordResetRequestDto]
+            - Response : [ResultCodes]
+            ```
+            """)
     public Mono<ResultData<ResultCodes>> emailDuplicateCheck(
-            @RequestBody String email,
+            @RequestParam String email,
             ServerWebExchange exchange
     ) {
         return memberProcessor.emailDuplicateCheck(email, exchange);
@@ -100,7 +162,19 @@ public class MemberController {
     * 비밀번호 재설정
     * */
     @PostMapping("/password-reset")
-    @Operation(operationId = "SVO-17", summary = "비밀번호 재설정", description = "비밀번호 재설정을 진행합니다. ")
+    @Operation(operationId = "SVO-17", summary = "비밀번호 재설정", description = """
+            ### [ 설명 ]
+            - 비밀번호 재설정을 진행합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 비밀번호는 영문 대문자, 소문자, 숫자, 특수문자 중 3종류 이상 조합, 8~30자리이어야 합니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [PasswordResetRequestDto]
+            - Response : [ResultCodes]
+            ```
+            """)
     public Mono<ResultData<ResultCodes>> resetPassword(
             @RequestBody PasswordResetRequestDto requestDto,
             ServerWebExchange exchange
@@ -147,12 +221,5 @@ public class MemberController {
                             .contentType(MediaType.TEXT_PLAIN)
                             .bodyValue("인증 정보 처리 중 오류 발생");
                 });
-    }
-
-
-    @Deprecated
-    @GetMapping("/test")
-    public Flux<Member> test() {
-        return memberRepository.findAll();
     }
 }

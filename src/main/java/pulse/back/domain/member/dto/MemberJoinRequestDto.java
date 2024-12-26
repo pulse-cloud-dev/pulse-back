@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record MemberJoinRequestDto(
         @NotNull
-        @Pattern(regexp = GlobalPatterns.EMAIL, message = "Invalid email format.")
+        @Pattern(regexp = GlobalPatterns.EMAIL, message = "이메일 형식에 맞지 않습니다.")
         @Schema(description = "회원 이메일", example = "test@test.com")
         String email,
 
@@ -24,12 +24,12 @@ public record MemberJoinRequestDto(
         String password,
 
         @NotNull
-        @Pattern(regexp = GlobalPatterns.PHONE_NUMBER, message = "Invalid phone number format.")
-        @Schema(description = "회원 휴대폰번호", example = "010-1234-5678")
+        @Pattern(regexp = GlobalPatterns.PHONE_NUMBER, message = "전화번호 형식에 맞지 않습니다.")
+        @Schema(description = "회원 휴대폰번호", example = "01012345678")
         String phoneNumber,
 
         @NotNull
-        @Pattern(regexp = GlobalPatterns.YYYYMMDD, message = "Invalid birth date format. Expected format: YYYYMMDD.")
+        @Pattern(regexp = GlobalPatterns.YYYYMMDD, message = "생년월일 형식에 맞지 않습니다.")
         @Schema(description = "회원 생년월일", example = "19900101")
         String birth,
 
