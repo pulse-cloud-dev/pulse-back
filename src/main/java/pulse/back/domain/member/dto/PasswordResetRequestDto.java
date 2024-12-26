@@ -10,12 +10,13 @@ import pulse.back.common.config.GlobalPatterns;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record PasswordResetRequestDto(
         @NotNull
-        @Pattern(regexp = GlobalPatterns.EMAIL, message = "Invalid email format.")
+        @Pattern(regexp = GlobalPatterns.EMAIL, message = "이메일 형식에 맞지 않습니다.")
         @Schema(description = "회원 이메일(아이디)", example = "test@test.com")
         String memberId,
 
         @NotNull
-        @Schema(description = "새로운 비밀번호", example = "1234")
+        @Pattern(regexp = GlobalPatterns.MEMBER_PASSWORD, message = "비밀번호 형식에 맞지 않습니다.")
+        @Schema(description = "새로운 비밀번호", example = "Password123!")
         String newPassword
 ) {
 }
