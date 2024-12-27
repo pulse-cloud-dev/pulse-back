@@ -74,7 +74,7 @@ public class MemberProcessor {
     ) {
         log.debug("[validation] request : {}" , requestDto);
         return memberValidationService.validateToJoin(requestDto)
-                .filter(valid -> valid) // true일 경우에만 다음 단계로 진행
+                .filter(valid -> valid)
                 .flatMap(valid -> memberBusinessService.join(requestDto, exchange) // 기존의 member를 requestDto로 변경
                         .map(resultCode -> new ResultData<>(resultCode, "회원가입에 성공하였습니다."))
                 )

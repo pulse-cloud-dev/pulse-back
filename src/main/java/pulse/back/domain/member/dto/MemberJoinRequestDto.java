@@ -8,9 +8,10 @@ import jakarta.validation.constraints.Pattern;
 import org.bson.types.ObjectId;
 import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.enums.MemberRole;
-import pulse.back.entity.member.Member;
+import pulse.back.entity.member.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record MemberJoinRequestDto(
@@ -41,17 +42,17 @@ public record MemberJoinRequestDto(
         @Schema(description = "회원 닉네임", example = "홍당무")
         String nickName,
 
-        @Schema(description = "회원 학력사항", example = "대학교 졸업")
-        String academicInfo,
+        @Schema(description = "회원 학력사항", type = "array", example = "대학교 졸업")
+        List<AcademicInfoRequestDto> academicInfoList,
 
-        @Schema(description = "회원 자격증사항", example = "정보처리기사")
-        String certificateInfo,
+        @Schema(description = "회원 자격증사항", type = "array", example = "정보처리기사")
+        List<CertificateInfoRequestDto> certificateInfoList,
 
-        @Schema(description = "회원 직업정보", example = "개발자")
-        String jobInfo,
+        @Schema(description = "회원 직업정보", type = "array", example = "개발자")
+        List<JobInfoRequestDto> jobInfoList,
 
-        @Schema(description = "회원 경력사항", example = "네이버백엔드2년")
-        String careerInfo
+        @Schema(description = "회원 경력사항", type = "array", example = "네이버백엔드2년")
+        List<CareerInfoRequestDto> careerInfoList
 ) {
     public static Member of(
             MemberJoinRequestDto requestDto, String password
@@ -73,10 +74,10 @@ public record MemberJoinRequestDto(
                 null,
                 null,
                 null,
-                requestDto.academicInfo(),
-                requestDto.certificateInfo(),
-                requestDto.jobInfo(),
-                requestDto.careerInfo()
+                requestDto.academicInfoList() != null ? AcademicInfoRequestDto.of(requestDto.academicInfoList()) : null,
+                requestDto.certificateInfoList() != null ? CertificateInfoRequestDto.of(requestDto.certificateInfoList()) : null,
+                requestDto.jobInfoList() != null ? JobInfoRequestDto.of(requestDto.jobInfoList()) : null,
+                requestDto.careerInfoList() != null ? CareerInfoRequestDto.of(requestDto.careerInfoList()) : null
         );
     }
 }
