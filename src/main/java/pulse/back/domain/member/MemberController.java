@@ -123,7 +123,7 @@ public class MemberController {
             <br>
             ### [ 요청응답 ]
             ```
-            - Request  : [PasswordResetRequestDto]
+            - Request  : [MemberJoinRequestDto]
             - Response : [ResultCodes]
             ```
             """)

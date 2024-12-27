@@ -62,15 +62,15 @@ public record Member(
         ObjectId deletedMemberId,
 
         // 학력정보
-        String academicInfo,
+        List<AcademicInfo> academicInfo,
 
         // 자격증정보
-        String certificateInfo,
+        List<CertificateInfo> certificateInfo,
 
         // 직업정보
-        String jobInfo,
+        List<JobInfo> jobInfo,
 
         // 경력정보
-        String careerInfo
+        List<CareerInfo> careerInfo
 ) {
 }

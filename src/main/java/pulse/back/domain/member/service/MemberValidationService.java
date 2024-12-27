@@ -51,10 +51,9 @@ public class MemberValidationService {
     //회원가입
     //스웨거 추가
     public Mono<Boolean> validateToJoin(MemberJoinRequestDto requestDto) {
-//        return memberRepository.findByEmail(requestDto.email())
-//                .map(existingMember -> false) // 이메일이 존재할 경우 false 반환
-//                .defaultIfEmpty(true); // 이메일이 존재하지 않을 경우 true 반환
-        return Mono.just(true);
+        return memberRepository.findByEmail(requestDto.email())
+                .map(existingMember -> false) // 이메일이 존재할 경우 false 반환
+                .defaultIfEmpty(true); // 이메일이 존재하지 않을 경우 true 반환
     }
 
 
