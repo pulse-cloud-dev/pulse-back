@@ -42,16 +42,16 @@ public record MemberJoinRequestDto(
         @Schema(description = "회원 닉네임", example = "홍당무")
         String nickName,
 
-        @Schema(description = "회원 학력사항", type = "array", example = "대학교 졸업")
+        @Schema(description = "회원 학력사항")
         List<AcademicInfoRequestDto> academicInfoList,
 
-        @Schema(description = "회원 자격증사항", type = "array", example = "정보처리기사")
+        @Schema(description = "회원 자격증사항")
         List<CertificateInfoRequestDto> certificateInfoList,
 
-        @Schema(description = "회원 직업정보", type = "array", example = "개발자")
+        @Schema(description = "회원 직업정보")
         List<JobInfoRequestDto> jobInfoList,
 
-        @Schema(description = "회원 경력사항", type = "array", example = "네이버백엔드2년")
+        @Schema(description = "회원 경력사항")
         List<CareerInfoRequestDto> careerInfoList
 ) {
     public static Member of(

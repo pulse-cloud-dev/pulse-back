@@ -121,6 +121,35 @@ public class MemberController {
             ### [ 주의사항 ]
             - 비밀번호는 영문 대문자, 소문자, 숫자, 특수문자 중 3종류 이상 조합, 8~30자리이어야 합니다.
             <br>
+            ### [ 추가정보 ]
+            - 회원가입 시, Enum 을 사용하여 Request 를 받는 필드들이 있습니다.
+            - 아래의 Enum 을 참고하여 RequestDto 를 작성해주세요.
+            #### RoleLevel
+            - TEAM_MEMBER("팀원")
+            - PART_LEADER("파트장")
+            - TEAM_LEADER("팀장")
+            - DIRECTOR("실장")
+            - GROUP_LEADER("그룹장")
+            - CENTER_HEAD("센터장")
+            - MANAGER("매니저")
+            - HEAD_OF_DIVISION("본부장")
+            - BUSINESS_UNIT_HEAD("사업부장")
+            - DIRECTOR_GENERAL("국장")
+            #### EducationStatus
+            - GRADUATED("졸업")
+            - EXPECTED_GRADUATION("졸업예정")
+            - ENROLLED("재학중")
+            - DROPPED_OUT("중퇴")
+            - ON_LEAVE("휴학")
+            #### EducationLevel
+            - UNDERGRADUATE_2("대학교(2,3학년)")
+            - UNDERGRADUATE_4("대학교(4학년)")
+            - MASTER("대학원(석사)")
+            - DOCTORATE("대학원(박사)")
+            #### PassStatus
+            - WRITTEN_PASS("필기합격")
+            - FINAL_PASS("최종합격")
+            <br>
             ### [ 요청응답 ]
             ```
             - Request  : [MemberJoinRequestDto]
