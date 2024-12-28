@@ -19,7 +19,7 @@ public record CareerInfoRequestDto(
         String department,
 
         //직급
-        @Schema(description = "직급", example = "TEAM_MEMBER, TEAM_LEADER, MANAGER, EXECUTIVE,,,,")
+        @Schema(description = "직급", example = "RoleLevel 으로 입력 : TEAM_MEMBER, TEAM_LEADER, MANAGER, EXECUTIVE,,,,")
         RoleLevel position,
 
         //입사년월

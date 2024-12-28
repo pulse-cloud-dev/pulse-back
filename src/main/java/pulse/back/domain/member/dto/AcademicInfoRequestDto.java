@@ -12,7 +12,7 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record AcademicInfoRequestDto(
-        @Schema(description = "학력구분", example = "UNDERGRADUATE_2, UNDERGRADUATE_4, MASTER, DOCTORATE")
+        @Schema(description = "학력구분", example = "EducationLevel 으로 입력 : UNDERGRADUATE_2, UNDERGRADUATE_4, MASTER, DOCTORATE,,,")
         EducationLevel educationLevel,
 
         @Schema(description = "학교명", example = "서울대학교")
@@ -21,7 +21,7 @@ public record AcademicInfoRequestDto(
         @Schema(description = "전공", example = "컴퓨터공학")
         String major,
 
-        @Schema(description = "졸업여부", example = "GRADUATED, GRADUATING, GRADUATED")
+        @Schema(description = "졸업여부", example = "EducationStatus 으로 입력 : GRADUATED, GRADUATING,,,")
         EducationStatus educationStatus,
 
         @Schema(description = "입학년월")

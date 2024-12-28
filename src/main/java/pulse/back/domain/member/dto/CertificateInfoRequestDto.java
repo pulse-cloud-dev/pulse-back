@@ -20,7 +20,7 @@ public record CertificateInfoRequestDto(
         String issuer,
 
         //합격구분
-        @Schema(description = "합격구분", example = "WRITTEN_PASS, FINAL_PASS")
+        @Schema(description = "합격구분", example = "PassStatus 으로 입력 : WRITTEN_PASS, FINAL_PASS")
         PassStatus passStatus,
 
         //합격년월
