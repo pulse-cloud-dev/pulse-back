@@ -41,7 +41,7 @@ public class MemberController {
     /**
      * 소셜 로그인 인증 -> 카카오 주석처리필요함
      */
-    @GetMapping("/{social}")
+    @GetMapping("/join/{social}")
     @Operation(operationId = "SVO-17", summary = "소셜_로그인_인증", description = """
             ### [ 설명 ]
             - 소셜 로그인 인증을 진행합니다.
@@ -60,6 +60,30 @@ public class MemberController {
             ServerWebExchange exchange
     ) {
         return memberProcessor.socialLoginPath(social, exchange);
+    }
+
+    /*
+    * 아이디 찾기 (이메일)
+    * */
+    @GetMapping("/find-id/{social}")
+    @Operation(operationId = "SVO-17", summary = "아이디 찾기 (이메일)", description = """
+            ### [ 설명 ]
+            - 소셜 로그인을 통한 아이디 찾기를 진행합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 현재 가능한 로그인은 네이버 로그인입니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [SocialRule]
+            - Response : [ResultCodes<String>]
+            ```
+            """)
+    public Mono<ResultData<String>> getMemberId(
+            @PathVariable("social") SocialRule social,
+            ServerWebExchange exchange
+    ) {
+        return memberProcessor.getMemberId(social, exchange);
     }
 
     /**

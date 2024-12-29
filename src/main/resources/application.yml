@@ -78,6 +78,7 @@ spring:
             client-name: Naver
             authorization-grant-type: authorization_code
             redirect-uri: "http://13.209.104.215:8080/login/naver/callback"
+            email-redirection-uri: "http://13.209.104.215:8080/login/naver/callEmail"
             scope: profile, email
             provider: naver
         provider:

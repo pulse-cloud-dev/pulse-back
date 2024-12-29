@@ -52,4 +52,5 @@ public class NaverAuthService {
                     return json.get("access_token").getAsString();
                 });
     }
+
 }

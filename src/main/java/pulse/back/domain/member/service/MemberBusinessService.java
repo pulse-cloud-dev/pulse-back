@@ -53,16 +53,25 @@ public class MemberBusinessService {
 
 
     //소셜 로그인
-    public Mono<ResultData<String>> socialLoginPath(
-            SocialRule social,
-            ServerWebExchange exchange){
+    public Mono<ResultData<String>> socialLoginPath(SocialRule social, ServerWebExchange exchange){
         String path = switch (social) {
             case KAKAO -> GlobalVariables.KAKAO_LOGIN_PATH;
             case NAVER -> naverLoginUrlGenerator.generateLoginUrl();
             case GOOGLE -> GlobalVariables.GOOGLE_LOGIN_PATH;
             default -> throw new CustomException(ErrorCodes.SOCIAL_NOT_FOUND);
         };
-        return Mono.just(new ResultData<>(path, "소셜 로그인 경로입니다."));
+        return Mono.just(new ResultData<>(path, "회원가입을 위한 소셜 로그인 경로입니다."));
+    }
+
+    //아이디 찾기
+    public Mono<ResultData<String>> getMemberId(SocialRule social, ServerWebExchange exchange) {
+        String path = switch (social) {
+            case KAKAO -> GlobalVariables.KAKAO_LOGIN_PATH;
+            case NAVER -> naverLoginUrlGenerator.generateFindEmailUrl();
+            case GOOGLE -> GlobalVariables.GOOGLE_LOGIN_PATH;
+            default -> throw new CustomException(ErrorCodes.SOCIAL_NOT_FOUND);
+        };
+        return Mono.just(new ResultData<>(path, "아이디 찾기를 위한 소셜 로그인 경로입니다."));
     }
 
     //리프레쉬 토큰 발급
