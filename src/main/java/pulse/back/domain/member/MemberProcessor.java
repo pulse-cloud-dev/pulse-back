@@ -121,6 +121,24 @@ public class MemberProcessor {
     }
 
     /*
+    * 아이디 찾기
+    * */
+    public Mono<ResultData<String>> getMemberId(
+            SocialRule social,
+            ServerWebExchange exchange
+    ) {
+        log.info("social : {}", social);
+        return memberValidationService.validateToSocialLoginPath(social, exchange)
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return memberBusinessService.getMemberId(social, exchange);
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.SOCIAL_NOT_FOUND));
+                    }
+                });
+    }
+
+    /*
     * 비밀번호 재설정
     * */
     public Mono<ResultData<ResultCodes>> resetPassword(
