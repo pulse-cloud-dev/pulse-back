@@ -1,7 +1,7 @@
 package pulse.back.common.enums;
 
 public enum MemberRole {
+    SUPER_ADMIN, //최고관리자
     ADMIN, //관리자
-    MANAGER, //회원
-    USER; //비회원
+    USER; //회원
 }
