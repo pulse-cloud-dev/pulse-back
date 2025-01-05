@@ -1,9 +1,11 @@
 package pulse.back.domain.member;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
@@ -15,17 +17,23 @@ import pulse.back.common.config.auth.TokenResponseDto;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SocialRule;
 import pulse.back.common.response.ResultData;
+import pulse.back.domain.admin.category.CategoryRepository;
+import pulse.back.domain.admin.item.ItemRepository;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.dto.MemberTokenResponseDto;
 import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.domain.social.NaverLoginUrlGenerator;
+import pulse.back.entity.common.Category;
+import pulse.back.entity.common.Item;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -37,6 +45,9 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
     private final NaverLoginUrlGenerator naverLoginUrlGenerator;
+
+    private final CategoryRepository categoryRepository;
+    private final ItemRepository itemRepository;
 
     /**
      * 소셜 로그인 인증 -> 카카오 주석처리필요함
@@ -63,8 +74,8 @@ public class MemberController {
     }
 
     /*
-    * 아이디 찾기 (이메일)
-    * */
+     * 아이디 찾기 (이메일)
+     * */
     @GetMapping("/find-id/{social}")
     @Operation(operationId = "SVO-17", summary = "아이디 찾기 (이메일)", description = """
             ### [ 설명 ]
@@ -188,8 +199,8 @@ public class MemberController {
     }
 
     /*
-    * 이메일 중복체크
-    * */
+     * 이메일 중복체크
+     * */
     @PostMapping("/email-duplicate")
     @Operation(operationId = "SVO-17", summary = "이메일 중복체크", description = """
             ### [ 설명 ]
@@ -212,8 +223,8 @@ public class MemberController {
     }
 
     /*
-    * 비밀번호 재설정
-    * */
+     * 비밀번호 재설정
+     * */
     @PostMapping("/password-reset")
     @Operation(operationId = "SVO-17", summary = "비밀번호 재설정", description = """
             ### [ 설명 ]
@@ -274,5 +285,55 @@ public class MemberController {
                             .contentType(MediaType.TEXT_PLAIN)
                             .bodyValue("인증 정보 처리 중 오류 발생");
                 });
+    }
+
+    @Deprecated
+    @PostMapping("/category-insert")
+    public Mono<String> insertCategory(
+            @RequestParam(value = "name", required = false) @Schema(description = "카테고리 이름") String name,
+            @RequestParam(value = "description", required = false) @Schema(description = "카테고리 설명") String description,
+            @RequestParam(value = "code", required = false) @Schema(description = "카테고리 코드") String code,
+            ServerWebExchange exchange
+    ) {
+        Category category = new Category(
+                new ObjectId(),
+                name,
+                description,
+                code,
+                LocalDateTime.now(),
+                null,
+                null,
+                new ObjectId(),
+                null,
+                null
+        );
+        return categoryRepository.insert(category)
+                .then(Mono.just("추가 완료"));
+    }
+
+    @Deprecated
+    @PostMapping("/item-insert")
+    public Mono<String> insertItem(
+            @RequestParam(value = "category_code", required = false) @Schema(description = "카테고리 코드") String categoryCode,
+            @RequestParam(value = "name", required = false) @Schema(description = "이름") String name,
+            @RequestParam(value = "description", required = false) @Schema(description = "설명") String description,
+            @RequestParam(value = "code", required = false) @Schema(description = "코드") String code,
+            ServerWebExchange exchange
+    ) {
+        Item item = new Item(
+                new ObjectId(),
+                categoryCode,
+                name,
+                description,
+                code,
+                LocalDateTime.now(),
+                null,
+                null,
+                new ObjectId(),
+                null,
+                null
+        );
+        return itemRepository.insert(item)
+                .then(Mono.just("추가 완료"));
     }
 }
