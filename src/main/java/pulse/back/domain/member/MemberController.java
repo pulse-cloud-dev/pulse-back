@@ -19,10 +19,7 @@ import pulse.back.common.enums.SocialRule;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.admin.category.CategoryRepository;
 import pulse.back.domain.admin.item.ItemRepository;
-import pulse.back.domain.member.dto.MemberJoinRequestDto;
-import pulse.back.domain.member.dto.MemberLoginRequestDto;
-import pulse.back.domain.member.dto.MemberTokenResponseDto;
-import pulse.back.domain.member.dto.PasswordResetRequestDto;
+import pulse.back.domain.member.dto.*;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.domain.social.NaverLoginUrlGenerator;
 import pulse.back.entity.common.Category;
@@ -34,6 +31,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -196,6 +194,29 @@ public class MemberController {
             ServerWebExchange exchange
     ) {
         return memberProcessor.join(requestDto, exchange);
+    }
+
+    /*
+    * 직무직업 제공 API
+    * */
+    @GetMapping("/job")
+    @Operation(operationId = "SVO-17", summary = "직무직업 제공 API", description = """
+            ### [ 설명 ]
+            - 직무직업을 제공합니다.
+            <br>
+            ### [ 주의사항 ]
+            - JobInfoRequestDto 의 jobCode 를 입력할 때 이 API 를 사용하여 조회 후 사용해주세요.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : []
+            - Response : [ResultCodes<List<JobInfoResponseDto>>]
+            ```
+            """)
+    public Mono<ResultData<List<JobInfoResponseDto>>> getJobList(
+            ServerWebExchange exchange
+    ) {
+        return memberProcessor.getJobCode(exchange);
     }
 
     /*

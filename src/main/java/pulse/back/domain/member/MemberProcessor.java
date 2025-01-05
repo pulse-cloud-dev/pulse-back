@@ -13,13 +13,12 @@ import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SocialRule;
 import pulse.back.common.exception.CustomException;
 import pulse.back.common.response.ResultData;
-import pulse.back.domain.member.dto.MemberJoinRequestDto;
-import pulse.back.domain.member.dto.MemberLoginRequestDto;
-import pulse.back.domain.member.dto.MemberTokenResponseDto;
-import pulse.back.domain.member.dto.PasswordResetRequestDto;
+import pulse.back.domain.member.dto.*;
 import pulse.back.domain.member.service.MemberBusinessService;
 import pulse.back.domain.member.service.MemberValidationService;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -154,6 +153,15 @@ public class MemberProcessor {
                         return Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND));
                     }
                 });
+    }
+
+    /*
+    * 직무직업 코드 제공
+    * */
+    public Mono<ResultData<List<JobInfoResponseDto>>> getJobCode(
+            ServerWebExchange exchange
+    ) {
+        return memberBusinessService.getJobCode(exchange);
     }
 }
 

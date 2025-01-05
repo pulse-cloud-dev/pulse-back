@@ -14,6 +14,9 @@ import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SocialRule;
 import pulse.back.common.exception.CustomException;
 import pulse.back.common.response.ResultData;
+import pulse.back.domain.admin.category.CategoryRepository;
+import pulse.back.domain.admin.item.ItemRepository;
+import pulse.back.domain.member.dto.JobInfoResponseDto;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import pulse.back.domain.social.NaverLoginUrlGenerator;
@@ -21,6 +24,8 @@ import pulse.back.entity.member.Member;
 import reactor.core.publisher.Mono;
 import org.springframework.http.ResponseCookie;
 import pulse.back.domain.member.repository.MemberRepository;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -30,6 +35,8 @@ public class MemberBusinessService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberRepository memberRepository;
     private final NaverLoginUrlGenerator naverLoginUrlGenerator;
+    private final CategoryRepository categoryRepository;
+    private final ItemRepository itemRepository;
 
     //로그인
     public Mono<TokenResponseDto> login(Member member, ServerWebExchange exchange) {
@@ -134,4 +141,11 @@ public class MemberBusinessService {
                 .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
                 .map(result -> new ResultData<>(ResultCodes.SUCCESS, "비밀번호가 재설정되었습니다."));
     }
+
+    //직무직업 코드 제공
+    public Mono<ResultData<List<JobInfoResponseDto>>> getJobCode(ServerWebExchange exchange) {
+        return itemRepository.findJobInfo()
+                .map(jobInfoList -> new ResultData<>(jobInfoList, "직무직업 코드를 제공합니다."));
+    }
+
 }

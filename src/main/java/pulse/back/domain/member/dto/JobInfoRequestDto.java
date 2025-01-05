@@ -9,12 +9,12 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record JobInfoRequestDto(
-        @Schema(description = "직업명", example = "백엔드개발자")
-        String jobName
+        @Schema(description = "직업코드 (api 조회 후 사용할 것)", example = "JOB_DEV_PM")
+        String jobCode
 ) {
     public static JobInfo of(JobInfoRequestDto requestDto) {
         return new JobInfo(
-                requestDto.jobName()
+                requestDto.jobCode()
         );
     }
 
