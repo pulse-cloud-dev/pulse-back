@@ -19,6 +19,7 @@ import pulse.back.common.enums.SocialRule;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.admin.category.CategoryRepository;
 import pulse.back.domain.admin.item.ItemRepository;
+import pulse.back.domain.admin.terms.TermsRepository;
 import pulse.back.domain.member.dto.*;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.domain.social.NaverLoginUrlGenerator;
@@ -46,6 +47,7 @@ public class MemberController {
 
     private final CategoryRepository categoryRepository;
     private final ItemRepository itemRepository;
+    private final TermsRepository termsRepository;
 
     /**
      * 소셜 로그인 인증 -> 카카오 주석처리필요함
@@ -355,6 +357,36 @@ public class MemberController {
                 null
         );
         return itemRepository.insert(item)
+                .then(Mono.just("추가 완료"));
+    }
+
+    @Deprecated
+    @PostMapping("/terms-insert")
+    public Mono<String> insertTerms(
+            @RequestParam(value = "used", required = false) @Schema(description = "사용 여부 (0: 미사용, 1: 사용)") int used,
+            @RequestParam(value = "required", required = false) @Schema(description = "필수 약관 여부 (0: 선택, 1: 필수)") int required,
+            @RequestParam(value = "title", required = false) @Schema(description = "제목") String title,
+            @RequestParam(value = "content", required = false) @Schema(description = "내용") String content,
+            @RequestParam(value = "category_list", required = false) @Schema(description = "약관이 사용되는 카테고리 리스트 (예: TERMS_PAYMENT, TERMS_MEMBER)") List<String> categoryList,
+            @RequestParam(value = "expired_at", required = false) @Schema(description = "약관 만기일 (null: 무기한)") LocalDateTime expiredAt,
+            ServerWebExchange exchange
+    ) {
+        pulse.back.entity.terms.Terms terms = new pulse.back.entity.terms.Terms(
+                new ObjectId(),
+                used,
+                required,
+                title,
+                content,
+                categoryList,
+                expiredAt,
+                LocalDateTime.now(),
+                null,
+                null,
+                new ObjectId(),
+                null,
+                null
+        );
+        return termsRepository.insert(terms)
                 .then(Mono.just("추가 완료"));
     }
 }
