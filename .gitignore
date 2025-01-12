@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-application-private.yml
+# Ignore .env file
+.env
