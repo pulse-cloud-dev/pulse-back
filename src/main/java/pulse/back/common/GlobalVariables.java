@@ -29,14 +29,14 @@ public class GlobalVariables {
                 = calculateTokenExpiredTime(refreshTokenTimeout,refreshTokenTimeUnit);
     }
 
-//    @Autowired
-//    public void setAmazonConfig(
-//            @Value("${aws.access-key}") String accessKey,
-//            @Value("${aws.secret-key}") String secretKey
-//    ){
-//        AMAZON.ACCESS_KEY = accessKey;
-//        AMAZON.SECRET_KEY = secretKey;
-//    }
+    @Autowired
+    public void setAmazonConfig(
+            @Value("${aws.access-key}") String accessKey,
+            @Value("${aws.secret-key}") String secretKey
+    ){
+        AMAZON.ACCESS_KEY = accessKey;
+        AMAZON.SECRET_KEY = secretKey;
+    }
 
 
     // 토큰 만료시간 계산
@@ -68,8 +68,8 @@ public class GlobalVariables {
         public static String ACCESS_KEY;
         public static String SECRET_KEY;
 
-        public static class CLOUD_WATCH_LOGS {
-            public static final String GROUP_REQUEST = "REQUEST";
-        }
+//        public static class CLOUD_WATCH_LOGS {
+//            public static final String GROUP_REQUEST = "REQUEST";
+//        }
     }
 }
