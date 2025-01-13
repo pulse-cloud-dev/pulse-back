@@ -7,9 +7,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class GlobalVariables {
 
-    private static long accessTokenExpiredTime;   // ACCESS TOKEN 만료시간
-    private static long refreshTokenExpiredTime;  // REFRESH TOKEN 만료시간
-
+    private static long accessTokenExpiredTime;
+    private static long refreshTokenExpiredTime;
     private static String amazonAccessKey;
     private static String amazonSecretKey;
 
@@ -17,10 +16,10 @@ public class GlobalVariables {
     public static final String GOOGLE_LOGIN_PATH = "";
 
     public GlobalVariables(
-            @Value("${jwt.access-token.timeout:1}") long accessTokenTimeout,
-            @Value("${jwt.access-token.timeunit:HOURS}") TimeUnit accessTokenTimeUnit,
-            @Value("${jwt.refresh-token.timeout:7}") long refreshTokenTimeout,
-            @Value("${jwt.refresh-token.timeunit:DAYS}") TimeUnit refreshTokenTimeUnit,
+            @Value("${jwt.access-token.timeout}") long accessTokenTimeout,
+            @Value("${jwt.access-token.timeunit}") TimeUnit accessTokenTimeUnit,
+            @Value("${jwt.refresh-token.timeout}") long refreshTokenTimeout,
+            @Value("${jwt.refresh-token.timeunit}") TimeUnit refreshTokenTimeUnit,
             @Value("${aws.access-key}") String accessKey,
             @Value("${aws.secret-key}") String secretKey
     ) {
@@ -46,9 +45,7 @@ public class GlobalVariables {
         return amazonSecretKey;
     }
 
-    // 토큰 만료시간 계산
     private static long calculateTokenExpiredTime(long timeout, TimeUnit timeUnit) {
-        long myExpiredTime = 0L;
         try {
             switch (timeUnit) {
                 case DAYS:
@@ -60,10 +57,10 @@ public class GlobalVariables {
                 case SECONDS:
                     return 1000L * timeout;
                 default:
-                    return myExpiredTime;
+                    return 0L;
             }
         } catch (Exception ignore) {
-            return myExpiredTime;
+            return 0L;
         }
     }
 }
