@@ -104,7 +104,7 @@ public class TokenProvider implements InitializingBean {
      * */
     private String createAccessToken(String id, MemberRole role) {
         long now = System.currentTimeMillis();
-        Date accessTokenValidity = new Date(now + GlobalVariables.ACCESS_TOKEN_EXPIRED_TIME);
+        Date accessTokenValidity = new Date(now + GlobalVariables.getAccessTokenExpiredTime());
 
         // 최신 JJWT API 사용
         return Jwts.builder()
@@ -121,7 +121,7 @@ public class TokenProvider implements InitializingBean {
      * */
     private String createRefreshToken(String id) {
         long now = System.currentTimeMillis();
-        Date refreshTokenValidity = new Date(now + GlobalVariables.REFRESH_TOKEN_EXPIRED_TIME);
+        Date refreshTokenValidity = new Date(now + GlobalVariables.getRefreshTokenExpiredTime());
 
         // 최신 JJWT API 사용
         return Jwts.builder()
