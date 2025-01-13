@@ -104,11 +104,6 @@ aws:
     region-name: ap-northeast-2
     bucket-name: pulse-api-dev
 
-cloud:
-  aws:
-    credentials:
-      instance-profile: true
-
 #spring:
 #  security:
 #    oauth2:
