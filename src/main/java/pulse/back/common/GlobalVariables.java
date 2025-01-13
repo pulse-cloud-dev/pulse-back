@@ -20,10 +20,10 @@ public class GlobalVariables {
     @Value("${jwt.refresh-token.timeunit:DAYS}")
     private TimeUnit refreshTokenTimeUnit;
 
-    @Value("${aws.access-key}")
+    @Value("${AWS_ACCESS_KEY}")
     private String awsAccessKey;
 
-    @Value("${aws.secret-key}")
+    @Value("${AWS_SECRET_KEY}")
     private String awsSecretKey;
 
     private static long ACCESS_TOKEN_EXPIRED_TIME;
