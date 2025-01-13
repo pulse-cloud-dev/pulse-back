@@ -22,7 +22,7 @@ public class AWS_S3Config {
     @Bean
     public S3AsyncClient s3AsyncClient() {
         AwsBasicCredentials credentials = AwsBasicCredentials.create(
-                GlobalVariables.amazonAccessKey(), GlobalVariables.amazonSecretKey()
+                GlobalVariables.AMAZON.ACCESS_KEY, GlobalVariables.AMAZON.SECRET_KEY
         );
 
         return S3AsyncClient.builder()
@@ -34,7 +34,7 @@ public class AWS_S3Config {
     @Bean
     public S3Client s3Client() {
         AwsBasicCredentials credentials = AwsBasicCredentials.create(
-                GlobalVariables.amazonAccessKey(), GlobalVariables.amazonSecretKey()
+                GlobalVariables.AMAZON.ACCESS_KEY, GlobalVariables.AMAZON.SECRET_KEY
         );
 
         return S3Client.builder()

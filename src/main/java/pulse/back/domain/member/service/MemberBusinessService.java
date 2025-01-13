@@ -99,7 +99,7 @@ public class MemberBusinessService {
     //refreshToken 토큰 쿠키에 저장
     private void setRefreshTokenAtCookie(ServerWebExchange exchange, TokenResponseDto tokenResponseDto) {
         ResponseCookie responseCookie = ResponseCookie.from("refreshToken", tokenResponseDto.refreshToken())
-                .maxAge((long) (GlobalVariables.refreshTokenExpiredTime() * 0.001))
+                .maxAge((long) (GlobalVariables.REFRESH_TOKEN_EXPIRED_TIME * 0.001))
                 .path("/")
                 .secure(true)
                 .httpOnly(true)
