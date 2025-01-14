@@ -55,9 +55,19 @@ jobs:
           chmod 600 private_key.pem
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/back-0.0.1-SNAPSHOT.jar ec2-user@13.209.104.215:/home/ec2-user/back-0.0.1-SNAPSHOT.jar
           ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "
-            pgrep java | xargs kill -9 || true;
-            source /home/ec2-user/app.env;
-            java -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar \
-              --aws.access-key=\"\${AWS_ACCESS_KEY}\" \
-              --aws.secret-key=\"\${AWS_SECRET_KEY}\" > app.log 2>&1 &"
+            # 기존 프로세스 종료
+            pgrep java | xargs kill -9 || true
+
+            # 환경 변수 로드
+            source /home/ec2-user/app.env
+
+            # 애플리케이션 실행 (nohup 사용)
+            cd /home/ec2-user
+            nohup java -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+
+            # 실행 확인
+            sleep 10
+            ps -ef | grep java
+            tail -n 20 app.log
+          "
           rm -f private_key.pem
