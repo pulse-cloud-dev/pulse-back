@@ -2,9 +2,11 @@ package pulse.back.common;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
+@DependsOn
 @Component
 public class GlobalVariables {
 
@@ -20,10 +22,10 @@ public class GlobalVariables {
     @Value("${jwt.refresh-token.timeunit:DAYS}")
     private TimeUnit refreshTokenTimeUnit;
 
-    @Value("${AWS_ACCESS_KEY}")
+    @Value("${aws.access-key}")
     private String awsAccessKey;
 
-    @Value("${AWS_SECRET_KEY}")
+    @Value("${aws.secret-key}")
     private String awsSecretKey;
 
     private static long ACCESS_TOKEN_EXPIRED_TIME;
