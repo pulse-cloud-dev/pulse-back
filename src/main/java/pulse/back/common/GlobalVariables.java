@@ -3,12 +3,14 @@ package pulse.back.common;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
 @DependsOn
 @Component
 public class GlobalVariables {
+    private final Environment environment;
 
     @Value("${jwt.access-token.timeout:1}")
     private long accessTokenTimeout;
@@ -36,12 +38,29 @@ public class GlobalVariables {
     public static final String KAKAO_LOGIN_PATH = "https://kauth.kakao.com/oauth/authorize?client_id=0ff15f2cbe3c3db523d374e4be7595dd&redirect_uri=http://localhost:8080/api/v1/members/join/kakao-redirect&response_type=code";
     public static final String GOOGLE_LOGIN_PATH = "";
 
+    public GlobalVariables(Environment environment) {
+        this.environment = environment;
+    }
+
     @PostConstruct
     private void init() {
         ACCESS_TOKEN_EXPIRED_TIME = calculateTokenExpiredTime(accessTokenTimeout, accessTokenTimeUnit);
         REFRESH_TOKEN_EXPIRED_TIME = calculateTokenExpiredTime(refreshTokenTimeout, refreshTokenTimeUnit);
-        AWS_ACCESS_KEY = awsAccessKey;
-        AWS_SECRET_KEY = awsSecretKey;
+
+        // Environment에서 직접 값을 읽어옴
+        AWS_ACCESS_KEY = environment.getProperty("aws.access-key");
+        if (AWS_ACCESS_KEY == null) {
+            AWS_ACCESS_KEY = environment.getProperty("AWS_ACCESS_KEY");
+        }
+
+        AWS_SECRET_KEY = environment.getProperty("aws.secret-key");
+        if (AWS_SECRET_KEY == null) {
+            AWS_SECRET_KEY = environment.getProperty("AWS_SECRET_KEY");
+        }
+
+        if (AWS_ACCESS_KEY == null || AWS_SECRET_KEY == null) {
+            throw new IllegalStateException("AWS credentials not found");
+        }
     }
 
     public static long getAccessTokenExpiredTime() {
