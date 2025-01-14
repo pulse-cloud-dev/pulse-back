@@ -54,6 +54,7 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/back-0.0.1-SNAPSHOT.jar ec2-user@13.209.104.215:/home/ec2-user/back-0.0.1-SNAPSHOT.jar
-          # 환경 변수를 포함한 실행 명령어로 변경
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "pgrep java | xargs kill -9; AWS_ACCESS_KEY='${{ secrets.AWS_ACCESS_KEY }}' AWS_SECRET_KEY='${{ secrets.AWS_SECRET_KEY }}' nohup java -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "
+            pgrep java | xargs kill -9 || true;
+            source /home/ec2-user/app.env && nohup java -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &"
           rm -f private_key.pem
