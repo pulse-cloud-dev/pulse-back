@@ -8,9 +8,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class BackApplication {
 
 	public static void main(String[] args) {
-		Dotenv dotenv = Dotenv.load();
-        System.setProperty("AWS_ACCESS_KEY", dotenv.get("AWS_ACCESS_KEY"));
-        System.setProperty("AWS_SECRET_KEY", dotenv.get("AWS_SECRET_KEY"));
 		SpringApplication.run(BackApplication.class, args);
 	}
 
