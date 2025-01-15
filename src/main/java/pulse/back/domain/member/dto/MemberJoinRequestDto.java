@@ -40,19 +40,7 @@ public record MemberJoinRequestDto(
 
         @NotNull
         @Schema(description = "회원 닉네임", example = "홍당무")
-        String nickName,
-
-        @Schema(description = "회원 학력사항")
-        List<AcademicInfoRequestDto> academicInfoList,
-
-        @Schema(description = "회원 자격증사항")
-        List<CertificateInfoRequestDto> certificateInfoList,
-
-        @Schema(description = "회원 직업정보")
-        List<JobInfoRequestDto> jobInfoList,
-
-        @Schema(description = "회원 경력사항")
-        List<CareerInfoRequestDto> careerInfoList
+        String nickName
 ) {
     public static Member of(
             MemberJoinRequestDto requestDto, String password
@@ -74,10 +62,10 @@ public record MemberJoinRequestDto(
                 null,
                 null,
                 null,
-                requestDto.academicInfoList() != null ? AcademicInfoRequestDto.of(requestDto.academicInfoList()) : null,
-                requestDto.certificateInfoList() != null ? CertificateInfoRequestDto.of(requestDto.certificateInfoList()) : null,
-                requestDto.jobInfoList() != null ? JobInfoRequestDto.of(requestDto.jobInfoList()) : null,
-                requestDto.careerInfoList() != null ? CareerInfoRequestDto.of(requestDto.careerInfoList()) : null
+                null,
+                null,
+                null,
+                null
         );
     }
 }
