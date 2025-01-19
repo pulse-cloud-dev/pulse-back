@@ -5,10 +5,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pulse.back.common.enums.LectureType;
+import pulse.back.common.util.MyDateUtils;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Document
@@ -24,19 +27,22 @@ public record Mentoring(
         String content,
 
         // 멘토링 모집마감 기한
-        LocalDateTime deadlineDate,
+        LocalDate deadlineDate,
 
         // 멘토링 모집마감 시간
-        LocalDateTime deadlineTime,
+        LocalTime deadlineTime,
 
         // 멘토링 시작일
-        LocalDateTime startDate,
+        LocalDate startDate,
 
         // 멘토링 마감일
-        LocalDateTime endDate,
+        LocalDate endDate,
 
         // 강의형식
         LectureType lectureType,
+
+        // 온라인 플랫폼
+        String onlinePlatform,
 
         // 주소
         String address,
@@ -72,7 +78,28 @@ public record Mentoring(
         // 삭제자
         ObjectId deletedMemberId
 ) {
-    public static Mentoring from (MentoringPostRequestDto requestDto){
-        return null;
+    public static Mentoring from (MentoringPostRequestDto requestDto, ObjectId mentorId){
+        return new Mentoring(
+                new ObjectId(),
+                requestDto.title(),
+                requestDto.content(),
+                MyDateUtils.fromString(requestDto.deadlineDate()),
+                MyDateUtils.timeFromString(requestDto.deadlineTime()),
+                MyDateUtils.fromString(requestDto.startDate()),
+                MyDateUtils.fromString(requestDto.endDate()),
+                requestDto.lectureType(),
+                requestDto.onlinePlatform(),
+                requestDto.address(),
+                requestDto.detailAddress(),
+                requestDto.recruitNumber(),
+                requestDto.cost(),
+                null,
+                LocalDateTime.now(),
+                null,
+                null,
+                mentorId,
+                null,
+                null
+        );
     }
 }

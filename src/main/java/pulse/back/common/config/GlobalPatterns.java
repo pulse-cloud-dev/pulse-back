@@ -9,6 +9,15 @@ public class GlobalPatterns {
     // ID 패턴: 알파벳 및 숫자를 포함하고, 6~20자의 길이를 가짐
     public static final String ID = "^(?=.*[a-zA-Z])[a-zA-Z0-9_-]{6,20}$";
 
+    //제목 100자
+    public static final String TITLE_100 = "^.{1,100}$";
+
+    //내용 3000자
+    public static final String CONTENT_3000 = "^.{1,3000}$";
+
+    // 주소 255자
+    public static final String ADDRESS_DETAIL_255 = "^.{1,255}$";
+
     // 비밀번호 패턴: 영문 대문자, 소문자, 숫자, 특수문자 중 3종류 이상 조합, 8~30자
     public static final String MEMBER_PASSWORD = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~.!@#$%^&*()_\\-+=\\[\\]{}|\\\\;:\"'<>,.?/])" +
             "(?:[A-Za-z0-9~.!@#$%^&*()_\\-+=\\[\\]{}|\\\\;:\"'<>,.?/]{8,30})$";
@@ -31,11 +40,17 @@ public class GlobalPatterns {
     // 카드 번호 패턴: 16자리 숫자
     public static final String CARD_NUMBER = "^[0-9]{16}$";
 
+    //HHMM 패턴: 시:분 형식 (24시간)
+    public static final String HHMM = "^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9]$";
+
     // HHMMSS 패턴: 시:분:초 형식 (24시간)
     public static final String HHMMSS = "^(0[0-9]|1[0-9]|2[0-3])[0-5][0-9][0-5][0-9]$";
 
     // 2자리 숫자 패턴
     public static final String DIGITS_2 = "^\\d{2}$";
+
+    // 9자리 숫자 패턴
+    public static final String DIGITS_9 = "^\\d{9}$";
 
     // YYYYMMDDHHMMSS 패턴: 날짜 및 시간 형식
     public static final String YYYYMMDDHHMMSS = "^(19|20)\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])([01][0-9]|2[0-3])([0-5][0-9]){2}$";
