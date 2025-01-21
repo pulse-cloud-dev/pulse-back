@@ -39,6 +39,7 @@ public record MentoringPostRequestDto(
         @Schema(description = "강의형식", example = "LectureType : ONLINE, OFFLINE")
         LectureType lectureType,
 
+        @Pattern(regexp = GlobalPatterns.TEXT_50, message = "온라인 플랫폼은 50자 이내로 작성 가능합니다.")
         @Schema(description = "온라인 플랫폼", example = "zoom, google_meet (미입력시 '미정'으로 등록됩니다.)")
         String onlinePlatform,
 

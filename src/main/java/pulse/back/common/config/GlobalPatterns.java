@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 
 @Component
 public class GlobalPatterns {
+    // 글자 50자
+    public static final String TEXT_50 = "^.{1,50}$";
+
     // ID 패턴: 알파벳 및 숫자를 포함하고, 6~20자의 길이를 가짐
     public static final String ID = "^(?=.*[a-zA-Z])[a-zA-Z0-9_-]{6,20}$";
 

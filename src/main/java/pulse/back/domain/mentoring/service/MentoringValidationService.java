@@ -13,6 +13,8 @@ import reactor.core.publisher.Mono;
 public class MentoringValidationService {
     //멘토링 등록시 유효성 검사
     public Mono<Boolean> validateMentoringPostRequestDto(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {
+        //TODO : 멘토링 등록시 유효성 검사
+        //온라인, 오프라인 여부 확인
         return Mono.just(true);
     }
 }
