@@ -1,5 +1,6 @@
 package pulse.back.entity.member;
 
+import com.querydsl.core.annotations.QueryEntity;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -9,6 +10,7 @@ import pulse.back.common.enums.MemberRole;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@QueryEntity
 @Document
 public record Member(
         // pk

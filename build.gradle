@@ -10,7 +10,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(22) // JDK 22로 설정
+		languageVersion = JavaLanguageVersion.of(22)
 	}
 }
 
@@ -29,43 +29,91 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-security' // Security는 유지
-//	implementation 'org.springframework.boot:spring-boot-starter-web'
-	// 다른 종속성들은 유지
+	// Spring Boot와 관련된 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-//	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
-//	implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.7.0' // WebFlux 호환 Swagger UI
+	implementation 'software.amazon.awssdk:s3:2.20.3'
+	implementation 'software.amazon.awssdk:cloudwatchlogs:2.26.29'
+	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.2'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+	// JWT 관련 의존성
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	// QueryDSL 의존성
+	implementation 'com.querydsl:querydsl-mongodb:5.0.0'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:general"
+	annotationProcessor "com.querydsl:querydsl-mongodb:5.0.0"
+	annotationProcessor 'org.springframework.data:spring-data-mongodb'
+
+	// 테스트 관련 의존성
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.json:json:20230227'
-
-	implementation 'software.amazon.awssdk:s3:2.20.3'
-	implementation 'software.amazon.awssdk:cloudwatchlogs:2.26.29'
-	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
-
 }
-// 컴파일 시 -parameters 플래그 추가
+
+configurations.all {
+	resolutionStrategy {
+		force 'org.mongodb:mongodb-driver-reactivestreams:4.11.1'
+		force 'org.mongodb:mongodb-driver-core:4.11.1'
+	}
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+	main {
+		java {
+			srcDirs += [ querydslDir ]
+		}
+	}
+}
+
 tasks.withType(JavaCompile) {
-	options.compilerArgs << "-parameters"
+	options.compilerArgs += [
+			"-parameters"
+	]
 }
-//
-//tasks.named('test') {
-//	useJUnitPlatform()
-//}
-test {
-	useJUnitPlatform()
-	ignoreFailures = true // 실패한 테스트가 있어도 빌드를 실패하지 않도록 설정
+
+// generateQueryDSL Task 수정
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+	source = sourceSets.main.java
+	classpath = configurations.annotationProcessor + configurations.compileClasspath
+	destinationDirectory = file(querydslDir)
+	options.annotationProcessorPath = configurations.annotationProcessor
+	options.compilerArgs = [
+			"-proc:only" // "-processor" 옵션 제거
+	]
+	outputs.dir querydslDir
+}
+
+compileJava {
+	dependsOn generateQueryDSL
+	source generateQueryDSL.outputs.files
+	options.compilerArgs += [
+			"-proc:none"
+	]
+}
+
+clean {
+	delete file(querydslDir)
+}
+
+bootJar {
+	enabled = true
+}
+
+jar {
+	enabled = false
 }

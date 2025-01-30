@@ -9,15 +9,18 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.entity.member.Member;
+import pulse.back.entity.member.QMember;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
-@Primary
 @Slf4j
+@Primary
 @RequiredArgsConstructor
 public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
     private final ReactiveMongoOperations mongoOperations;
+    private static final QMember MEMBER = QMember.member;
+
 
     @Override
     public Mono<Boolean> updateMemberPassword(String email, String newPassword, ServerWebExchange exchange) {
@@ -27,7 +30,8 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
                 .set("updatedAt", LocalDateTime.now());
 
         return mongoOperations.updateFirst(query, update, Member.class)
-                .map(updateResult -> updateResult.getModifiedCount() > 0)  // 수정된 문서가 있는지 확인
-                .defaultIfEmpty(false);  // 아무것도 수정되지 않은 경우 false 반환
+                .map(updateResult -> updateResult.getModifiedCount() > 0)
+                .defaultIfEmpty(false);
     }
 }
+
