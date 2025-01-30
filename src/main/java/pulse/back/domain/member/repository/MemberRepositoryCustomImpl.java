@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.entity.member.Member;
-import pulse.back.entity.member.QMember;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -19,7 +18,6 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
     private final ReactiveMongoOperations mongoOperations;
-    private static final QMember MEMBER = QMember.member;
 
 
     @Override

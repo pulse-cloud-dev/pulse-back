@@ -55,6 +55,12 @@ dependencies {
 	annotationProcessor "com.querydsl:querydsl-mongodb:5.0.0"
 	annotationProcessor 'org.springframework.data:spring-data-mongodb'
 
+	// MongoDB 드라이버 충돌 해결
+	implementation 'org.mongodb:mongodb-driver-reactivestreams:5.0.1'
+	configurations.all {
+		exclude group: 'org.mongodb', module: 'mongo-java-driver'
+	}
+
 	// 테스트 관련 의존성
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
@@ -65,8 +71,8 @@ dependencies {
 
 configurations.all {
 	resolutionStrategy {
-		force 'org.mongodb:mongodb-driver-reactivestreams:4.11.1'
-		force 'org.mongodb:mongodb-driver-core:4.11.1'
+		force 'org.mongodb:mongodb-driver-reactivestreams:5.0.1'
+		force 'org.mongodb:mongodb-driver-core:5.0.1'
 	}
 }
 
@@ -93,7 +99,7 @@ task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates
 	destinationDirectory = file(querydslDir)
 	options.annotationProcessorPath = configurations.annotationProcessor
 	options.compilerArgs = [
-			"-proc:only" // "-processor" 옵션 제거
+			"-proc:only"
 	]
 	outputs.dir querydslDir
 }
