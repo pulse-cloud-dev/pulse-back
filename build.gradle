@@ -67,6 +67,8 @@ dependencies {
 	implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.json:json:20230227'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 configurations.all {
@@ -103,6 +105,11 @@ task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates
 	]
 	outputs.dir querydslDir
 }
+
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs << '-parameters'
+}
+
 
 compileJava {
 	dependsOn generateQueryDSL
