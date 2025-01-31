@@ -34,7 +34,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: trelloServer
-          path: build/libs/back-0.0.1-SNAPSHOT.jar
+          path: build/libs/
+#          path: build/libs/back-0.0.1-SNAPSHOT.jar
 
       - name: Cleanup old artifacts
         run: gh run list --limit 100 --json artifacts | jq -r '.[] | .artifacts[] | select(.expired == true) | .id' | xargs -I{} gh artifact delete {} --confirm
