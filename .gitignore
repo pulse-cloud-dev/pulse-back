@@ -1,6 +1,12 @@
 HELP.md
-.gradle
+.gradle/
+gradle/caches/
+gradle/wrapper/
+!gradle/wrapper/gradle-wrapper.properties
+gradle/dist/
 build/
+
+.gradle
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
