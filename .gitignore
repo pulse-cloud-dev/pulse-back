@@ -44,3 +44,7 @@ out/
 
 # Ignore .env file
 .env
+
+gradle/caches/
+build/
+.gradle/
