@@ -1,0 +1,174 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.springframework.boot",
+    "module": "spring-boot-starter-reactor-netty",
+    "version": "3.2.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.6.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.projectreactor.netty",
+          "module": "reactor-netty-http",
+          "version": {
+            "requires": "1.1.15"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "url": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "size": 4777,
+          "sha512": "17c2bff290e868ec22fd57eba3d16ec7b31a40e1ad8876a45e70b397a6ef3dbb7cb5b1b936389146078f93d61f99b8bee5efbad745f34538bf4df025923c8c39",
+          "sha256": "ea346be6fc653ff7a6bd3d9b62f43050ddcab6b37c13f2809a99a3cb29e34e9c",
+          "sha1": "cf32e5dc15e455a17aa833eeefb9d0f0eb9f6c4e",
+          "md5": "e22ce7f1ab45d65a9e3fba7d1e0fbd72"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.projectreactor.netty",
+          "module": "reactor-netty-http",
+          "version": {
+            "requires": "1.1.15"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "url": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "size": 4777,
+          "sha512": "17c2bff290e868ec22fd57eba3d16ec7b31a40e1ad8876a45e70b397a6ef3dbb7cb5b1b936389146078f93d61f99b8bee5efbad745f34538bf4df025923c8c39",
+          "sha256": "ea346be6fc653ff7a6bd3d9b62f43050ddcab6b37c13f2809a99a3cb29e34e9c",
+          "sha1": "cf32e5dc15e455a17aa833eeefb9d0f0eb9f6c4e",
+          "md5": "e22ce7f1ab45d65a9e3fba7d1e0fbd72"
+        }
+      ]
+    },
+    {
+      "name": "mavenOptionalApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "url": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "size": 4777,
+          "sha512": "17c2bff290e868ec22fd57eba3d16ec7b31a40e1ad8876a45e70b397a6ef3dbb7cb5b1b936389146078f93d61f99b8bee5efbad745f34538bf4df025923c8c39",
+          "sha256": "ea346be6fc653ff7a6bd3d9b62f43050ddcab6b37c13f2809a99a3cb29e34e9c",
+          "sha1": "cf32e5dc15e455a17aa833eeefb9d0f0eb9f6c4e",
+          "md5": "e22ce7f1ab45d65a9e3fba7d1e0fbd72"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "org.springframework.boot",
+          "name": "spring-boot-starter-reactor-netty-maven-optional",
+          "version": "3.2.2"
+        }
+      ]
+    },
+    {
+      "name": "mavenOptionalRuntimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "url": "spring-boot-starter-reactor-netty-3.2.2.jar",
+          "size": 4777,
+          "sha512": "17c2bff290e868ec22fd57eba3d16ec7b31a40e1ad8876a45e70b397a6ef3dbb7cb5b1b936389146078f93d61f99b8bee5efbad745f34538bf4df025923c8c39",
+          "sha256": "ea346be6fc653ff7a6bd3d9b62f43050ddcab6b37c13f2809a99a3cb29e34e9c",
+          "sha1": "cf32e5dc15e455a17aa833eeefb9d0f0eb9f6c4e",
+          "md5": "e22ce7f1ab45d65a9e3fba7d1e0fbd72"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "org.springframework.boot",
+          "name": "spring-boot-starter-reactor-netty-maven-optional",
+          "version": "3.2.2"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-starter-reactor-netty-3.2.2-javadoc.jar",
+          "url": "spring-boot-starter-reactor-netty-3.2.2-javadoc.jar",
+          "size": 4749,
+          "sha512": "675466a64446ca6b1182ae52ac659f8d346967f8146e56f75fb04fc324a65fc0b4d3a1502257b0a56a7c47dbcbf25cab8294208a551f5aaac619ff70454bdb45",
+          "sha256": "d6a37fafb42b17ce0f70740920ebaab62bb1725f19be64688f4f931a5918ae56",
+          "sha1": "2c5b4a5b03919816c6f482755b20846f38cf340c",
+          "md5": "83cdc9d211192e86aac8c257945a005e"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-starter-reactor-netty-3.2.2-sources.jar",
+          "url": "spring-boot-starter-reactor-netty-3.2.2-sources.jar",
+          "size": 4748,
+          "sha512": "abeb403865e603a2bc8e92ab7a03bb0bbaf421d03aeff08cc9070abc3643901aa64cbf2db6e4d599c592fe6ee59b62b527846aa08f7723327217039cdd26a909",
+          "sha256": "caea39a333bb9a13a8d165b89b0be5656291d2cf99114f4c7402b5d5408d6689",
+          "sha1": "f1f93c8363ef7cd633fd6252f0555bbe2a91b21b",
+          "md5": "dbf32239af9a996fc749bf66d25399fe"
+        }
+      ]
+    }
+  ]
+}
