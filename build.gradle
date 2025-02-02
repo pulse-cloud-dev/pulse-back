@@ -65,7 +65,7 @@ dependencies {
 	// QueryDSL
 	implementation "com.querydsl:querydsl-mongodb:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
-	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:general"
 
 	// ✅ **MongoDB 최신 드라이버 적용 (3.x 제거)**
 	implementation 'org.mongodb:mongodb-driver-reactivestreams:4.11.2'
@@ -82,59 +82,13 @@ dependencies {
 	implementation 'org.json:json:20230227'
 }
 
-
-//dependencies {
-//	// Spring Boot 의존성
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
-//	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-//	implementation 'software.amazon.awssdk:s3:2.20.3'
-//	implementation 'software.amazon.awssdk:cloudwatchlogs:2.26.29'
-//	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
-//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-//
-//	// SpringDoc - **오타 수정 및 최신 버전 적용**
-//	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
-//
-//	// JWT 관련 의존성
-//	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-//	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-//	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-//
-//	// Lombok (컴파일 및 테스트 환경에서 정상 동작하도록 정리)
-//	compileOnly 'org.projectlombok:lombok:1.18.30'
-//	annotationProcessor 'org.projectlombok:lombok:1.18.30'
-//	testImplementation 'org.projectlombok:lombok:1.18.30'
-//	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
-//
-//	// QueryDSL
-//	implementation "com.querydsl:querydsl-mongodb:${queryDslVersion}"
-//	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
-//	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
-//	implementation 'org.mongodb:mongodb-driver-sync:4.11.1'
-//
-//	// 테스트 의존성
-//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testImplementation 'io.projectreactor:reactor-test'
-//	implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
-//	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-//	implementation 'org.json:json:20230227'
-//}
-
 def querydslDir = "${buildDir}/generated/querydsl"
 
-sourceSets {
-	main {
-		java {
-			srcDirs += [ querydslDir ]
-		}
-	}
-}
 
 tasks.withType(JavaCompile).configureEach {
 	options.annotationProcessorPath = configurations.annotationProcessor
 }
+
 
 task generateQueryDSL(type: JavaCompile, group: 'build') {
 	source = sourceSets.main.java
@@ -147,9 +101,9 @@ task generateQueryDSL(type: JavaCompile, group: 'build') {
 }
 
 compileJava {
-	dependsOn clean
+	dependsOn generateQueryDSL
 }
 
-clean {
+clean.doFirst {
 	delete file(querydslDir)
 }
