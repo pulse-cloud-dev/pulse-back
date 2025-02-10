@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenProvider;
 import pulse.back.common.enums.ResultCodes;
+import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import pulse.back.domain.mentoring.repository.MentoringRepository;
 import pulse.back.entity.mentoring.Mentoring;
@@ -23,6 +24,13 @@ public class MentoringBusinessService {
     public Mono<ResultCodes> registerMentoring(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {
         ObjectId memberId = tokenProvider.getMemberId(exchange);
         return mentoringRepository.insert(Mentoring.from(requestDto, memberId))
+                .then(Mono.just(ResultCodes.SUCCESS));
+    }
+
+    //멘토 정보 등록
+    public Mono<ResultCodes> postMentorInfo(MentoInfoRequestDto requestDto, ServerWebExchange exchange) {
+        ObjectId memberId = tokenProvider.getMemberId(exchange);
+        return mentoringRepository.insertMentorInfo(memberId, requestDto)
                 .then(Mono.just(ResultCodes.SUCCESS));
     }
 

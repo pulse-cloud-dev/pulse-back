@@ -8,6 +8,7 @@ import pulse.back.common.enums.ErrorCodes;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.exception.CustomException;
 import pulse.back.common.response.ResultData;
+import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import pulse.back.domain.mentoring.service.MentoringBusinessService;
 import pulse.back.domain.mentoring.service.MentoringValidationService;
@@ -30,6 +31,20 @@ public class MentoringProcessor {
                                 .flatMap(resultCodes -> Mono.just(new ResultData<>(resultCodes, "멘토링 등록에 성공하였습니다.")));
                     } else {
                         return Mono.error(new CustomException(ErrorCodes.MENTORING_REGISTER_FAILED));
+                    }
+                });
+    }
+
+    //멘토 정보 등록
+    public Mono<ResultData<ResultCodes>> postMentorInfo(MentoInfoRequestDto requestDto, ServerWebExchange exchange){
+        log.debug("[validation] request : {}" , requestDto);
+        return mentoringValidationService.validateMentorInfoRequestDto(requestDto, exchange)
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return mentoringBusinessService.postMentorInfo(requestDto, exchange)
+                                .flatMap(resultCodes -> Mono.just(new ResultData<>(resultCodes, "멘토 정보 등록에 성공하였습니다.")));
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.MENTO_INFO_REGISTER_FAILED));
                     }
                 });
     }
