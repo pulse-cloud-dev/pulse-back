@@ -57,7 +57,7 @@ public record Mentoring(
         BigDecimal cost,
 
         //멘토링에 참여한 멘티 pk
-        List<ObjectId> menteeList,
+        List<MenteeInfo> menteeInfoList,
 
         // 생성일
         @Indexed

@@ -3,10 +3,7 @@ package pulse.back.domain.mentoring;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.response.ResultData;
@@ -20,6 +17,22 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/v1/mentoring")
 public class MentoringController {
     private final MentoringProcessor mentoringProcessor;
+
+    //멘토링 상세조회
+//    @GetMapping("/{mentoringId}")
+//    @Operation(operationId = "PULSE-114", summary = "멘토링 상세조회", description = """
+//            ### [ 설명 ]
+//            - 멘토링 상세정보를 조회합니다.
+//            <br>
+//            ### [ 주의사항 ]
+//            -
+//            <br>
+//            ### [ 요청응답 ]
+//            ```
+//            - Request  : [String] mentoringId
+//            - Response : [MentoringDetailResponseDto]
+//            ```
+//            """)
 
     //멘토링 등록
     @PostMapping("/post")
@@ -42,6 +55,22 @@ public class MentoringController {
     ) {
         return mentoringProcessor.postMentoring(requestDto, exchange);
     }
+
+    //멘토링 신청
+//    @PostMapping("/apply")
+//    @Operation(operationId = "PULSE-113", summary = "멘토링 신청", description = """
+//            ### [ 설명 ]
+//            - 멘토링을 신청합니다.
+//            <br>
+//            ### [ 주의사항 ]
+//            -
+//            <br>
+//            ### [ 요청응답 ]
+//            ```
+//            - Request  : [MentoringApplyRequestDto]
+//            - Response : [ResultData<ResultCodes>]
+//            ```
+//            """)
 
     //멘토 정보 등록
     @PostMapping("/mento-info")
