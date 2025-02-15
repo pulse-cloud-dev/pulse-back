@@ -12,6 +12,11 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class MentoringValidationService {
+    //멘토링 상세조회
+    public Mono<Boolean> validateMentoringId(String mentoringId, ServerWebExchange exchange) {
+        //TODO : 멘토링 상세조회시 유효성 검사
+        return Mono.just(true);
+    }
     //멘토링 등록시 유효성 검사
     public Mono<Boolean> validateMentoringPostRequestDto(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {
         //TODO : 멘토링 등록시 유효성 검사

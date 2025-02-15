@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.multipart.MultipartFile;
 import pulse.back.common.enums.MemberRole;
 
 import java.time.LocalDateTime;
@@ -70,9 +71,12 @@ public record Member(
         List<CertificateInfo> certificateInfo,
 
         // 직업정보
-        List<JobInfo> jobInfo,
+        String jobInfo,
 
         // 경력정보
-        List<CareerInfo> careerInfo
+        List<CareerInfo> careerInfo,
+
+        // 프로필 이미지
+        MultipartFile profileImage
 ) {
 }

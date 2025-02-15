@@ -8,6 +8,7 @@ import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
+import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import reactor.core.publisher.Mono;
 
@@ -19,20 +20,26 @@ public class MentoringController {
     private final MentoringProcessor mentoringProcessor;
 
     //멘토링 상세조회
-//    @GetMapping("/{mentoringId}")
-//    @Operation(operationId = "PULSE-114", summary = "멘토링 상세조회", description = """
-//            ### [ 설명 ]
-//            - 멘토링 상세정보를 조회합니다.
-//            <br>
-//            ### [ 주의사항 ]
-//            -
-//            <br>
-//            ### [ 요청응답 ]
-//            ```
-//            - Request  : [String] mentoringId
-//            - Response : [MentoringDetailResponseDto]
-//            ```
-//            """)
+    @GetMapping("/{mentoringId}")
+    @Operation(operationId = "PULSE-114", summary = "멘토링 상세조회", description = """
+            ### [ 설명 ]
+            - 멘토링 상세정보를 조회합니다.
+            <br>
+            ### [ 주의사항 ]
+            -
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [String] mentoringId
+            - Response : [MentoringDetailResponseDto]
+            ```
+            """)
+    public Mono<ResultData<MentoringDetailResponseDto>> getMentoringDetail(
+            @PathVariable String mentoringId,
+            ServerWebExchange exchange
+    ){
+        return mentoringProcessor.getMentoringDetail(mentoringId, exchange);
+    }
 
     //멘토링 등록
     @PostMapping("/post")

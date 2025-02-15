@@ -65,6 +65,7 @@ public record MemberJoinRequestDto(
                 null,
                 null,
                 null,
+                null,
                 null
         );
     }

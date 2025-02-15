@@ -9,6 +9,7 @@ import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.exception.CustomException;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
+import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import pulse.back.domain.mentoring.service.MentoringBusinessService;
 import pulse.back.domain.mentoring.service.MentoringValidationService;
@@ -20,6 +21,20 @@ import reactor.core.publisher.Mono;
 public class MentoringProcessor {
     private final MentoringBusinessService mentoringBusinessService;
     private final MentoringValidationService mentoringValidationService;
+
+    //멘토링 상세조회
+    public Mono<ResultData<MentoringDetailResponseDto>> getMentoringDetail(String mentoringId, ServerWebExchange exchange) {
+        log.debug("[validation] mentoringId : {}" , mentoringId);
+        return mentoringValidationService.validateMentoringId(mentoringId, exchange)
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return mentoringBusinessService.getMentoringDetail(mentoringId, exchange)
+                                .flatMap(mentoringDetailResponseDto -> Mono.just(new ResultData<>(mentoringDetailResponseDto, "멘토링 상세조회에 성공하였습니다.")));
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.MENTORING_DETAIL_FAILED));
+                    }
+                });
+   }
 
     //멘토링 등록
     public Mono<ResultData<ResultCodes>> postMentoring(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {

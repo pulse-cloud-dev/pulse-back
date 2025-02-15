@@ -35,8 +35,8 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom{
         }
 
         // 직업 정보가 존재하는 경우에만 업데이트
-        if (requestDto.jobInfoList() != null && !requestDto.jobInfoList().isEmpty()) {
-            update.set("jobInfo", requestDto.jobInfoList());
+        if (requestDto.jobInfo() != null) {
+            update.set("jobInfo", requestDto.jobInfo());
         }
 
         // 경력 정보가 존재하는 경우에만 업데이트

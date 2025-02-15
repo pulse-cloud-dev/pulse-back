@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Pattern;
 import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.enums.LectureType;
+import pulse.back.entity.member.Member;
+import pulse.back.entity.mentoring.Mentoring;
 
 import java.math.BigDecimal;
 

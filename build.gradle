@@ -107,3 +107,7 @@ compileJava {
 clean.doFirst {
 	delete file(querydslDir)
 }
+
+tasks.withType(JavaExec) {
+	jvmArgs += "--add-opens=java.base/java.io=ALL-UNNAMED"
+}
