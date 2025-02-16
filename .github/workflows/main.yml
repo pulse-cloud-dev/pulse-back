@@ -79,7 +79,7 @@ jobs:
 
             # 애플리케이션 실행 (nohup 사용)
             cd /home/ec2-user
-            export JAVA_TOOL_OPTIONS='--add-opens java.base/java.io=ALL-UNNAMED'
+            export JAVA_TOOL_OPTIONS='--add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED'
             nohup java -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
 
             # 실행 확인
