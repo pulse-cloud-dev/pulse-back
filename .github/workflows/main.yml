@@ -28,9 +28,7 @@ jobs:
         run: ./gradlew clean
 
       - name: Build with Gradle
-        run: |
-          export JAVA_TOOL_OPTIONS='--add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED'
-          ./gradlew build
+        run: ./gradlew build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -44,14 +42,6 @@ jobs:
         with:
           name: trelloServer
           path: build/libs/
-
-
-      #      - name: Upload build artifact
-      #        uses: actions/upload-artifact@v3
-      #        with:
-      #          name: trelloServer
-      #          path: build/libs/back-0.0.1-SNAPSHOT.jar
-
 
       - name: Cleanup old artifacts
         run: gh run list --limit 100 --json artifacts | jq -r '.[] | .artifacts[] | select(.expired == true) | .id' | xargs -I{} gh artifact delete {} --confirm
@@ -81,8 +71,7 @@ jobs:
 
             # 애플리케이션 실행 (nohup 사용)
             cd /home/ec2-user
-            export JAVA_TOOL_OPTIONS='--add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED'
-            nohup java -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+            nohup java --add-opens java.base/java.io=ALL-UNNAMED -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
 
             # 실행 확인
             sleep 10
