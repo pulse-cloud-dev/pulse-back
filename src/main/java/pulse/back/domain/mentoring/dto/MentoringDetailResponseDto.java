@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.multipart.MultipartFile;
 import pulse.back.common.enums.LectureType;
+import pulse.back.common.util.MyDateUtils;
 import pulse.back.entity.member.CareerInfo;
 import pulse.back.entity.member.Member;
 import pulse.back.entity.mentoring.Mentoring;
@@ -12,6 +13,8 @@ import pulse.back.entity.mentoring.Mentoring;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record MentoringDetailResponseDto(
@@ -94,23 +97,44 @@ public record MentoringDetailResponseDto(
                 int mentorCareerTotalYear = 0;
                 String mentorLastCompany = "";
 
-                if (member.careerInfo() != null) {
-                        //carrerInfo의 joinDate가 가장 최신 날짜인 것에서 오래된 날짜를 빼서 년도만 구하기
+                if (member.careerInfo() != null && !member.careerInfo().isEmpty()) {
+                        // 가장 최근 입사일자를 가진 회사 찾기
+                        CareerInfo latestCareer = member.careerInfo().stream()
+                                .max(Comparator.comparing(CareerInfo::joinDate))
+                                .orElse(null);
+
+                        if (latestCareer != null) {
+                                mentorLastCompany = latestCareer.companyName();
+                        }
+
+                        // 총 근무 개월 수 계산
+                        long totalMonths = 0;
                         for (CareerInfo careerInfo : member.careerInfo()) {
-                                if(careerInfo.joinDate() != null){
-                                        int joinYear = Integer.parseInt(careerInfo.joinDate().substring(0, 4));
-                                        int retireYear = careerInfo.retireDate() != null ? Integer.parseInt(careerInfo.retireDate().substring(0, 4)) : 2022;
-                                        mentorCareerTotalYear += retireYear - joinYear;
+                                if (careerInfo.joinDate() != null) {
+                                        LocalDate joinDate = MyDateUtils.fromString(careerInfo.joinDate());
+                                        LocalDate retireDate;
+
+                                        if (careerInfo.isWorking()) {
+                                                retireDate = LocalDate.now();
+                                        } else {
+                                                retireDate = MyDateUtils.fromString(careerInfo.retireDate());
+                                        }
+
+                                        if (joinDate != null && retireDate != null) {
+                                                // 각 회사별 근무 개월 수 계산
+                                                totalMonths += ChronoUnit.MONTHS.between(joinDate, retireDate);
+                                        }
                                 }
                         }
 
+                        // 연차 계산: 총 개월 수를 12로 나누고 1을 더함
+                        mentorCareerTotalYear = (int)(totalMonths / 12) + 1;
                 }
 
                 int applyNumber = 0;
                 if(mentoring.menteeInfoList() != null) {
                         applyNumber = mentoring.menteeInfoList().size();
                 }
-
 
                 return new MentoringDetailResponseDto(
                         member.nickName(),

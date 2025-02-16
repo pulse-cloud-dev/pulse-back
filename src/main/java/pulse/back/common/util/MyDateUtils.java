@@ -25,6 +25,7 @@ public class MyDateUtils {
         return localDate==null ? null : localDate.plusDays(1);
     }
 
+
     public static LocalDate fromString(String yyyyMMdd){
         if(StringUtils.isEmpty(yyyyMMdd)) return null;
         if(!Pattern.matches(GlobalPatterns.YYYYMMDD, yyyyMMdd)) return null;

@@ -64,6 +64,7 @@ jobs:
           name: trelloServer
           path: build/libs/
 
+      # Deploy to EC2 부분 수정
       - name: Deploy to EC2
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
@@ -78,6 +79,7 @@ jobs:
 
             # 애플리케이션 실행 (nohup 사용)
             cd /home/ec2-user
+            export JAVA_TOOL_OPTIONS='--add-opens java.base/java.io=ALL-UNNAMED'
             nohup java -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
 
             # 실행 확인

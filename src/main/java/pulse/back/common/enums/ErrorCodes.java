@@ -7,6 +7,7 @@ public enum ErrorCodes {
     MENTORING_DETAIL_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 상세조회에 실패하였습니다."),
     MENTO_INFO_REGISTER_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토 정보 등록에 실패하였습니다."),
     MENTORING_REGISTER_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 등록에 실패하였습니다."),
+    MENTORING_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "존재하지 않는 멘토링입니다."),
     FILE_DELETE_FAILED(HttpStatus.BAD_REQUEST.value(), "파일 삭제에 실패했습니다."),
     FILE_UPLOAD_FAILED(HttpStatus.BAD_REQUEST.value(), "파일 업로드에 실패했습니다."),
     MEMBER_ALREADY_EXIST(HttpStatus.BAD_REQUEST.value(), "이미 존재하는 회원입니다."),
