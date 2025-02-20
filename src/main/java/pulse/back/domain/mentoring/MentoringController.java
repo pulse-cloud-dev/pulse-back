@@ -19,6 +19,23 @@ import reactor.core.publisher.Mono;
 public class MentoringController {
     private final MentoringProcessor mentoringProcessor;
 
+    //멘토링 목록조회
+//    @GetMapping("/list")
+//    @Operation(operationId = "PULSE-111", summary = "멘토링 목록조회", description = """
+//            ### [ 설명 ]
+//            - 멘토링 목록을 조회합니다.
+//            <br>
+//            ### [ 주의사항 ]
+//            -
+//            <br>
+//            ### [ 요청응답 ]
+//            ```
+//            - Request  : []
+//            - Response : [List<MentoringListResponseDto>]
+//            ```
+//            """)
+
+
     //멘토링 상세조회
     @GetMapping("/{mentoringId}")
     @Operation(operationId = "PULSE-114", summary = "멘토링 상세조회", description = """
