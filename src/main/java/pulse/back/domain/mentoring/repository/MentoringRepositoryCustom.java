@@ -3,7 +3,11 @@ package pulse.back.domain.mentoring.repository;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ServerWebExchange;
+import pulse.back.common.enums.LectureType;
+import pulse.back.common.enums.SortType;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
+import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.entity.mentoring.Mentoring;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,22 +19,11 @@ import java.util.List;
 public interface MentoringRepositoryCustom{
     Mono<Void> insertMentorInfo(ObjectId mentorId, MentoInfoRequestDto requestDto);
 
-//    Flux<List<Mentoring>> getMentoringList(
-//            LocalDate startDate,
-//            LocalDate endDate,
-//            ProjectStatus status,
-//            Integer searchType,
-//            String searchText,
-//            int page,
-//            int size,
-//            Sort.Direction sort
-//    );
-//
-//    Mono<Long> getMentoringListTotalCount(
-//            LocalDate startDate,
-//            LocalDate endDate,
-//            ProjectStatus status,
-//            Integer searchType,
-//            String searchText
-//    );
+    Flux<List<MentoringListResponseDto>> getMentoringList(
+            String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange
+    );
+
+    Mono<Long> getMentoringListTotalCount(
+            String field, LectureType lectureType, String region, SortType sortType, String searchText
+    );
 }

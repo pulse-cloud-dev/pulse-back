@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.enums.ErrorCodes;
+import pulse.back.common.enums.LectureType;
+import pulse.back.common.enums.SortType;
 import pulse.back.common.exception.CustomException;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
@@ -18,6 +20,12 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class MentoringValidationService {
     private final MentoringRepository mentoringRepository;
+
+    //멘토링 목록조회
+    public Mono<Boolean> validateMentoringListRequestDto(String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange) {
+        //TODO : 멘토링 목록조회 유효성 검사
+        return Mono.just(true);
+    }
 
     //멘토링 상세조회
     public Mono<Boolean> validateMentoringId(String mentoringId, ServerWebExchange exchange) {

@@ -1,14 +1,21 @@
 package pulse.back.domain.mentoring;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
+import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.ResultCodes;
+import pulse.back.common.enums.SortType;
+import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
+import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import reactor.core.publisher.Mono;
 
@@ -20,20 +27,51 @@ public class MentoringController {
     private final MentoringProcessor mentoringProcessor;
 
     //멘토링 목록조회
-//    @GetMapping("/list")
-//    @Operation(operationId = "PULSE-111", summary = "멘토링 목록조회", description = """
-//            ### [ 설명 ]
-//            - 멘토링 목록을 조회합니다.
-//            <br>
-//            ### [ 주의사항 ]
-//            -
-//            <br>
-//            ### [ 요청응답 ]
-//            ```
-//            - Request  : []
-//            - Response : [List<MentoringListResponseDto>]
-//            ```
-//            """)
+    @GetMapping("/list")
+    @Operation(operationId = "PULSE-111", summary = "멘토링 목록조회", description = """
+            ### [ 설명 ]
+            - 멘토링 목록을 조회합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 온오프라인 입력 필드 lecture_type 는 ONLINE, OFFLINE 만 가능합니다.
+            - 정렬 입력 필드 sort_type 는 DEFAULT, POPULAR, LATEST 만 가능합니다.
+            - 분야는 다음과 같은 값만 가능합니다.
+            - 지역은 다음과 같은 값만 가능합니다. 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [아래 필드 확인]
+            - Response : [ResultData<PaginationDto<MentoringListResponseDto>>]
+            ```
+            """)
+    public Mono<ResultData<PaginationDto<MentoringListResponseDto>>> getMentoringList(
+            @RequestParam(required = false, value = "field")
+            @Schema(description = "분야") String field,
+
+            @RequestParam(required = false, value = "lecture_type")
+            @Schema(description = "온오프라인 : ONLINE, OFFLINE") LectureType lectureType,
+
+            @RequestParam(required = false, value = "region")
+            @Schema(description = "지역") String region,
+
+            @RequestParam(required = false, value = "sort_type")
+            @Schema(description = "정렬 : DEFAULT(기본순), POPULAR(인기순), LATEST(최신순)") SortType sortType,
+
+            @RequestParam(required = false, value = "search_text")
+            @Schema(description = "검색내용") String searchText,
+
+            @RequestParam(required = false, value = "page", defaultValue = "1")
+            @Schema(description = "조회 페이지(default : 1)")
+            @Min(1) int page,
+
+            @RequestParam(required = false, value = "size", defaultValue = "40")
+            @Schema(description = "조회 개수(default : 40)")
+            @Min(1) int size,
+
+            ServerWebExchange exchange
+    ){
+        return mentoringProcessor.getMentoringList(field, lectureType, region, sortType, searchText, page, size, exchange);
+    }
 
 
     //멘토링 상세조회

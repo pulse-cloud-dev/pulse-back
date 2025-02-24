@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCodes {
     //400
+    MENTORING_LIST_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 목록조회에 실패하였습니다."),
     MENTORING_DETAIL_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 상세조회에 실패하였습니다."),
     MENTO_INFO_REGISTER_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토 정보 등록에 실패하였습니다."),
     MENTORING_REGISTER_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 등록에 실패하였습니다."),

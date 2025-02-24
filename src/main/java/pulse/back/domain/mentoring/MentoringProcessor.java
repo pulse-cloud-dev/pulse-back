@@ -5,11 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.enums.ErrorCodes;
+import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.ResultCodes;
+import pulse.back.common.enums.SortType;
 import pulse.back.common.exception.CustomException;
+import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
+import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import pulse.back.domain.mentoring.service.MentoringBusinessService;
 import pulse.back.domain.mentoring.service.MentoringValidationService;
@@ -21,6 +25,22 @@ import reactor.core.publisher.Mono;
 public class MentoringProcessor {
     private final MentoringBusinessService mentoringBusinessService;
     private final MentoringValidationService mentoringValidationService;
+
+    //멘토링 목록조회
+    public Mono<ResultData<PaginationDto<MentoringListResponseDto>>> getMentoringList(
+            String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange
+    ) {
+        log.debug("[validation] field : {}, lectureType : {}, region : {}, sortType : {}, searchText : {}, page : {}, size : {}",
+                field, lectureType, region, sortType, searchText, page, size);
+        return mentoringValidationService.validateMentoringListRequestDto(field, lectureType, region, sortType, searchText, page, size, exchange)
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return mentoringBusinessService.getMentoringList(field, lectureType, region, sortType, searchText, page, size, exchange);
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.MENTORING_LIST_FAILED));
+                    }
+                });
+    }
 
     //멘토링 상세조회
     public Mono<ResultData<MentoringDetailResponseDto>> getMentoringDetail(String mentoringId, ServerWebExchange exchange) {

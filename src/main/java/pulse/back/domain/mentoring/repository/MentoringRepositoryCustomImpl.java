@@ -4,42 +4,47 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.web.server.ServerWebExchange;
+import pulse.back.common.enums.LectureType;
+import pulse.back.common.enums.SortType;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
+import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.entity.member.Member;
+import pulse.back.entity.mentoring.Mentoring;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Primary
 @Slf4j
 @RequiredArgsConstructor
-public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom{
+public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom {
     private final ReactiveMongoOperations mongoOperations;
 
     @Override
     public Mono<Void> insertMentorInfo(ObjectId mentorId, MentoInfoRequestDto requestDto) {
         Update update = new Update();
 
-        // 학력 정보가 존재하는 경우에만 업데이트
         if (requestDto.academicInfoList() != null && !requestDto.academicInfoList().isEmpty()) {
             update.set("academicInfo", requestDto.academicInfoList());
         }
 
-        // 자격증 정보가 존재하는 경우에만 업데이트
         if (requestDto.certificateInfoList() != null && !requestDto.certificateInfoList().isEmpty()) {
             update.set("certificateInfo", requestDto.certificateInfoList());
         }
 
-        // 직업 정보가 존재하는 경우에만 업데이트
         if (requestDto.jobInfo() != null) {
             update.set("jobInfo", requestDto.jobInfo());
         }
 
-        // 경력 정보가 존재하는 경우에만 업데이트
         if (requestDto.careerInfoList() != null && !requestDto.careerInfoList().isEmpty()) {
             update.set("careerInfo", requestDto.careerInfoList());
         }
@@ -49,5 +54,99 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom{
 
         Query query = Query.query(Criteria.where("_id").is(mentorId));
         return mongoOperations.updateFirst(query, update, Member.class).then();
+    }
+
+    @Override
+    public Flux<List<MentoringListResponseDto>> getMentoringList(
+            String field, LectureType lectureType, String region,
+            SortType sortType, String searchText, int page, int size,
+            ServerWebExchange exchange) {
+
+        return getMentoringSearchQuery(field, lectureType, region, sortType, searchText)
+                .flatMapMany(query -> {
+                    query.skip((long) (page - 1) * size);
+                    query.limit(size);
+
+                    return mongoOperations.find(query, Mentoring.class)
+                            .flatMap(mentoring ->
+                                    mongoOperations.findById(mentoring.createdMemberId(), Member.class)
+                                            .map(member -> MentoringListResponseDto.of(mentoring, member))
+                            )
+                            .collectList();
+                });
+    }
+
+    @Override
+    public Mono<Long> getMentoringListTotalCount(String field, LectureType lectureType, String region, SortType sortType, String searchText) {
+        return getMentoringSearchQuery(field, lectureType, region, sortType, searchText)
+                .flatMap(query -> mongoOperations.count(query, Mentoring.class));
+    }
+
+
+    private Mono<Query> getMentoringSearchQuery(
+            String field, LectureType lectureType, String region, SortType sortType, String searchText
+    ) {
+        Query query = new Query();
+
+        if (field != null) {
+            query.addCriteria(Criteria.where("field").is(field));
+        }
+
+        if (lectureType != null) {
+            query.addCriteria(Criteria.where("lectureType").is(lectureType));
+        }
+
+        if (region != null) {
+            query.addCriteria(Criteria.where("region").is(region));
+        }
+
+        // 정렬 조건 추가
+        if (sortType != null) {
+            switch (sortType) {
+                case LATEST:
+                    query.with(Sort.by(Sort.Direction.DESC, "createdAt"));
+                    break;
+                case POPULAR:
+                    // 인기순 정렬 로직은 추후 구현
+                    break;
+            }
+        }
+
+        if (searchText != null) {
+            return getMemberIdsBySearchText(searchText)
+                    .collectList()
+                    .map(memberIds -> {
+                        List<Criteria> searchCriteria = new ArrayList<>();
+
+                        // Mentoring 컬렉션 내 필드 검색
+                        searchCriteria.add(Criteria.where("title").regex(searchText, "i"));
+                        searchCriteria.add(Criteria.where("content").regex(searchText, "i"));
+                        searchCriteria.add(Criteria.where("address").regex(searchText, "i"));
+                        searchCriteria.add(Criteria.where("detailAddress").regex(searchText, "i"));
+
+                        // Member 관련 검색 - 찾은 멤버 ID들로 OR 조건 구성
+                        if (!memberIds.isEmpty()) {
+                            searchCriteria.add(Criteria.where("createdMemberId").in(memberIds));
+                        }
+
+                        query.addCriteria(new Criteria().orOperator(searchCriteria.toArray(new Criteria[0])));
+                        return query;
+                    });
+        }
+
+        return Mono.just(query);
+    }
+
+    private Flux<String> getMemberIdsBySearchText(String searchText) {
+        Query memberQuery = new Query();
+        List<Criteria> memberCriteria = new ArrayList<>();
+
+        memberCriteria.add(Criteria.where("nickName").regex(searchText, "i"));
+        memberCriteria.add(Criteria.where("jobInfo").regex(searchText, "i"));
+
+        memberQuery.addCriteria(new Criteria().orOperator(memberCriteria.toArray(new Criteria[0])));  // Member 검색도 OR 조건으로 변경
+
+        return mongoOperations.find(memberQuery, Member.class)
+                .map(member -> member.id().toString());
     }
 }
