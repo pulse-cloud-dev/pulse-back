@@ -12,8 +12,12 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.SortType;
+import pulse.back.domain.member.dto.JobInfoResponseDto;
+import pulse.back.domain.mentoring.dto.JobInfoList;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
+import pulse.back.entity.common.Item;
+import pulse.back.entity.common.Meta;
 import pulse.back.entity.member.Member;
 import pulse.back.entity.mentoring.Mentoring;
 import reactor.core.publisher.Flux;
@@ -22,12 +26,46 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Primary
 @Slf4j
 @RequiredArgsConstructor
 public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom {
     private final ReactiveMongoOperations mongoOperations;
+
+    @Override
+    public Mono<List<JobInfoList>> findJobInfo() {
+        // 1. 모든 JOB 카테고리 항목 조회
+        return mongoOperations.find(
+                        Query.query(Criteria.where("categoryCode").is("JOB")),
+                        Item.class
+                )
+                .collectList()
+                .flatMap(items -> {
+                    List<Mono<JobInfoList>> jobInfoMonos = items.stream()
+                            .map(item -> {
+                                String jobCategoryCode = item.code();
+                                String jobCategoryName = item.name();
+
+                                // 2. meta 컬렉션에서 관련 데이터 조회
+                                return mongoOperations.find(
+                                                Query.query(Criteria.where("itemCode").is(jobCategoryCode)),
+                                                Meta.class
+                                        )
+                                        .map(meta -> new JobInfoResponseDto(meta.name(), meta.code()))
+                                        .collectList()
+                                        .map(jobInfoList -> new JobInfoList(
+                                                jobCategoryCode,
+                                                jobCategoryName,
+                                                jobInfoList
+                                        ));
+                            })
+                            .collect(Collectors.toList());
+
+                    return Flux.merge(jobInfoMonos).collectList();
+                });
+    }
 
     @Override
     public Mono<Void> insertMentorInfo(ObjectId mentorId, MentoInfoRequestDto requestDto) {

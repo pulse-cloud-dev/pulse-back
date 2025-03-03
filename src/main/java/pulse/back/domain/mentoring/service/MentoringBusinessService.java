@@ -14,13 +14,12 @@ import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.common.util.MyNumberUtils;
 import pulse.back.domain.member.repository.MemberRepository;
-import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
-import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
-import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
-import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
+import pulse.back.domain.mentoring.dto.*;
 import pulse.back.domain.mentoring.repository.MentoringRepository;
 import pulse.back.entity.mentoring.Mentoring;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -29,6 +28,11 @@ public class MentoringBusinessService {
     private final MentoringRepository mentoringRepository;
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
+
+    //멘토링 검색필터 전용] 직업 정보 제공 (분야)
+    public Mono<List<JobInfoList>> getFieldList(ServerWebExchange exchange) {
+        return mentoringRepository.findJobInfo();
+    }
 
     //멘토링 목록조회
     public Mono<ResultData<PaginationDto<MentoringListResponseDto>>> getMentoringList(

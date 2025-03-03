@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.SortType;
+import pulse.back.domain.mentoring.dto.JobInfoList;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.entity.mentoring.Mentoring;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Repository
 public interface MentoringRepositoryCustom{
+    Mono<List<JobInfoList>> findJobInfo();
+
     Mono<Void> insertMentorInfo(ObjectId mentorId, MentoInfoRequestDto requestDto);
 
     Flux<List<MentoringListResponseDto>> getMentoringList(

@@ -13,10 +13,7 @@ import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SortType;
 import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
-import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
-import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
-import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
-import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
+import pulse.back.domain.mentoring.dto.*;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -29,9 +26,32 @@ public class MentoringController {
     private final MentoringProcessor mentoringProcessor;
 
     /*
+    * [멘토링 검색필터 전용] 직업 정보 제공 (분야)
+    * */
+    @GetMapping("/field")
+    @Operation(operationId = "PULSE-152", summary = "[멘토링 검색필터 전용] 직업 정보 제공 (분야)", description = """
+            ### [ 설명 ]
+            - 멘토링 검색필터 전용으로 직업 정보를 제공합니다. (분야)
+            <br>
+            ### [ 주의사항 ]
+            - 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : []
+            - Response : [ResultData<List<JobInfoList>>]
+            ```
+            """)
+    public Mono<ResultData<List<JobInfoList>>> getFieldList(
+            ServerWebExchange exchange
+    ) {
+        return mentoringProcessor.getFieldList(exchange);
+    }
+
+    /*
      * [멘토링 검색필터 전용] 온오프라인 구분
      * */
-    @GetMapping("/mentoring/lecture-type")
+    @GetMapping("/lecture-type")
     @Operation(operationId = "PULSE-151", summary = "[멘토링 검색필터 전용] 강의 형식 (온오프라인) 정보 제공", description = """
             ### [ 설명 ]
             - 멘토링 검색필터 전용으로 온라인, 오프라인 구분을 제공합니다.
@@ -42,7 +62,7 @@ public class MentoringController {
             ### [ 요청응답 ]
             ```
             - Request  : []
-            - Response : [ResultCodes<List<LectureTypeResponseDto>>]
+            - Response : [ResultData<List<LectureTypeResponseDto>>]
             ```
             """)
     public Mono<ResultData<List<LectureType>>> getLectureTypeList(
