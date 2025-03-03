@@ -19,12 +19,37 @@ import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/mentoring")
 public class MentoringController {
     private final MentoringProcessor mentoringProcessor;
+
+    /*
+     * [멘토링 검색필터 전용] 온오프라인 구분
+     * */
+    @GetMapping("/mentoring/lecture-type")
+    @Operation(operationId = "PULSE-151", summary = "[멘토링 검색필터 전용] 강의 형식 (온오프라인) 정보 제공", description = """
+            ### [ 설명 ]
+            - 멘토링 검색필터 전용으로 온라인, 오프라인 구분을 제공합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : []
+            - Response : [ResultCodes<List<LectureTypeResponseDto>>]
+            ```
+            """)
+    public Mono<ResultData<List<LectureType>>> getLectureTypeList(
+            ServerWebExchange exchange
+    ) {
+        return Mono.just(new ResultData<>(List.of(LectureType.values()), "강의 형식 정보를 제공합니다."));
+    }
 
     //멘토링 목록조회
     @GetMapping("/list")

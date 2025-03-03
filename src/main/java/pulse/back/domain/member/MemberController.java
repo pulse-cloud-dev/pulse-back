@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenResponseDto;
+import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SocialRule;
 import pulse.back.common.response.ResultData;
