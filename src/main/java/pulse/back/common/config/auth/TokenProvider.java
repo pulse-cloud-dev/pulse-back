@@ -160,7 +160,12 @@ public class TokenProvider implements InitializingBean {
      * 토큰 만료 시간 확인
      */
     public long getRemainingExpiredTime(String token) {
-        Claims claims = parseClaims(token);
+        Claims claims;
+        try {
+            claims = parseClaims(token);
+        } catch (CustomException e) {
+            return -1;
+        }
         long expiration = claims.getExpiration().getTime();
         long currentTime = System.currentTimeMillis();
         return expiration - currentTime;

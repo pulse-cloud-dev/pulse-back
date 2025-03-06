@@ -24,8 +24,10 @@ public class AuthenticationHandler extends HandshakeWebSocketService {
         final String token = exchange.getRequest().getQueryParams().getFirst("token");
         log.info("token : {}", token);
         if (token == null || !tokenProvider.validateToken(token)) {
+            // GlobalExceptionHandler 에서 처리
             return Mono.error(new CustomException(ErrorCodes.UNAUTHORIZED));
         }
+        // TODO: Authentication 객체를 SecurityContext에 저장
         return super.handleRequest(exchange, handler);
     }
 }
