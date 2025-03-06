@@ -48,3 +48,5 @@ out/
 gradle/caches/
 build/
 .gradle/
+
+logs/
