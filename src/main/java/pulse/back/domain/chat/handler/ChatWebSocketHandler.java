@@ -45,7 +45,7 @@ public class ChatWebSocketHandler implements WebSocketHandler {
     }
 
     private String handleTextMessage(String message) {
-        // TODO: Token 재발급 로직 추가
+        // 
         log.info("MESSAGE : {}", message);
         return message;
     }
