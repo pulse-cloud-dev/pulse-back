@@ -156,6 +156,16 @@ public class TokenProvider implements InitializingBean {
         return false; // 유효하지 않은 토큰
     }
 
+    /**
+     * 토큰 만료 시간 확인
+     */
+    public long getRemainingExpiredTime(String token) {
+        Claims claims = parseClaims(token);
+        long expiration = claims.getExpiration().getTime();
+        long currentTime = System.currentTimeMillis();
+        return expiration - currentTime;
+    }
+
 
     /**
      * access token에서 security 인증 토큰 로드
