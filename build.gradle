@@ -74,6 +74,9 @@ dependencies {
 		exclude group: "org.mongodb", module: "mongo-java-driver"
 	}
 
+	// rabbitmq
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
 	// 테스트 의존성
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
