@@ -4,19 +4,23 @@ import pulse.back.common.config.auth.TokenResponseDto;
 import pulse.back.common.enums.ErrorCodes;
 
 public record Message(
-        Type type,
+        MessageType messageType,
         String roomId,
         Object payload
 ) {
-    public static Message createPong(String roomId, long payload) {
-        return new Message(Type.PONG, roomId, payload);
+    public static Message createPong(long payload) {
+        return new Message(MessageType.PONG, null, payload);
     }
 
-    public static Message createReissue(String roomId, TokenResponseDto payload) {
-        return new Message(Type.REISSUE, roomId, payload);
+    public static Message createReissue(TokenResponseDto payload) {
+        return new Message(MessageType.REISSUE, null, payload);
     }
 
     public static Message createError(ErrorCodes e) {
-        return new Message(Type.ERROR, null, ErrorMessage.fromErrorCodes(e));
+        return new Message(MessageType.ERROR, null, ErrorMessage.fromErrorCodes(e));
+    }
+
+    public static Message createAck(String roomId) {
+        return new Message(MessageType.ACK, roomId, "SUCCESS");
     }
 }

@@ -1,5 +1,5 @@
 @expriedToken = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2N2M5ODBhZWFkNmRmNDI2N2QzNzk0OGUiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTc0MTI2ODM0NX0.YBFS08qWYIVmZ932B1XkyUy2b-q9dR_YFlGF9DqinFg
-@correctToken = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2N2M5ODBhZWFkNmRmNDI2N2QzNzk0OGUiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTc0MTI4MjQ5MX0.a2qJOMLqK1rp3L5yDMbv8_HdYtxtCobfhCW_bW_40qE
+@correctToken = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2N2M5ODBhZWFkNmRmNDI2N2QzNzk0OGUiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTc0MTM3NzEyM30.Isspa6i8d44cxrldgkcF5EKqk0GAox9oM3zHzBYkjRk
 
 ### Normal
 WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
@@ -23,7 +23,7 @@ WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
 Content-Type: application/json
 
 {
-  "type": "PONG"
+  "message_type": "PONG"
 }
 
 
@@ -32,8 +32,8 @@ WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
 Content-Type: application/json
 
 {
-  "type": "PING",
-  "roomId": null,
+  "message_type": "PING",
+  "room_id": null,
   "payload": "{{expriedToken}}"
 }
 
@@ -43,18 +43,19 @@ WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
 Content-Type: application/json
 
 {
-  "type": "PING",
-  "roomId": null,
+  "message_type": "PING",
+  "room_id": null,
   "payload": "{{correctToken}}"
 }
+
 
 ### Correct TEXT
 WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
 Content-Type: application/json
 
 {
-  "type": "TEXT",
-  "roomId": "1",
+  "message_type": "TEXT",
+  "room_id": "1",
   "payload": "Hello, Nice to meet you!"
 }
 

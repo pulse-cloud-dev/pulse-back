@@ -17,7 +17,9 @@ public enum ErrorCodes {
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "존재하지 않는 회원입니다. 회원가입 진행해주세요. "),
     SOCIAL_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "소셜 로그인 정보가 올바르지 않습니다."),
     INVALID_MEMBER_LOGIN_INFO(HttpStatus.BAD_REQUEST.value(), "아이디 또는 비밀번호가 올바르지 않습니다."),
-    INVALID_MESSAGE_TYPE(HttpStatus.BAD_REQUEST.value(), "잘못된 메시지 타입입니다."),
+    INVALID_MESSAGE_TYPE(HttpStatus.BAD_REQUEST.value(), "메세지 타입이 NULL 입니다."),
+    WRONG_MESSAGE_TYPE(HttpStatus.BAD_REQUEST.value(), "잘못된 메시지 타입입니다."),
+    INVALID_ROOM_ID(HttpStatus.BAD_REQUEST.value(), "잘못된 ROOM ID 입니다."),
     //401
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "인증되지 않은 사용자입니다."),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED.value(), "토큰이 잘못되었습니다."),
