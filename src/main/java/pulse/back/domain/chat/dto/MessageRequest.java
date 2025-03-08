@@ -1,26 +1,15 @@
 package pulse.back.domain.chat.dto;
 
-import pulse.back.common.config.auth.TokenResponseDto;
-import pulse.back.common.enums.ErrorCodes;
+import org.bson.types.ObjectId;
 
-public record Message(
+import java.time.LocalDateTime;
+
+public record MessageRequest(
         MessageType messageType,
         String roomId,
         Object payload
-) {
-    public static Message createPong(long payload) {
-        return new Message(MessageType.PONG, null, payload);
-    }
-
-    public static Message createReissue(TokenResponseDto payload) {
-        return new Message(MessageType.REISSUE, null, payload);
-    }
-
-    public static Message createError(ErrorCodes e) {
-        return new Message(MessageType.ERROR, null, ErrorMessage.fromErrorCodes(e));
-    }
-
-    public static Message createAck(String roomId) {
-        return new Message(MessageType.ACK, roomId, "SUCCESS");
+) implements Message{
+    public MessageDto toMessageDto(ObjectId memberId) {
+        return MessageDto.of(new ObjectId(), memberId, roomId, messageType, payload.toString(), LocalDateTime.now(), null, null);
     }
 }
