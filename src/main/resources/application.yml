@@ -31,7 +31,11 @@ data:
     auto-index-creation: true
   redis:
 
-
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
 
 springdoc:
   swagger-ui:
@@ -65,12 +69,6 @@ spring:
     include: private
   jackson:
     property-naming-strategy: SNAKE_CASE
-
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
 
   security:
     oauth2:

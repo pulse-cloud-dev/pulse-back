@@ -1,116 +1,116 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.2'
-	id 'io.spring.dependency-management' version '1.1.4'
-	id 'application'
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'application'
 }
 
 group = 'pulse'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-	querydsl {
-		extendsFrom compileClasspath
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl {
+        extendsFrom compileClasspath
+    }
 }
 
 application {
-	mainClass = 'pulse.back.BackApplication'
+    mainClass = 'pulse.back.BackApplication'
 }
 
 repositories {
-	mavenCentral()
-	gradlePluginPortal()
-	maven { url 'https://jitpack.io' }
+    mavenCentral()
+    gradlePluginPortal()
+    maven { url 'https://jitpack.io' }
 }
 
 ext {
-	queryDslVersion = "5.0.0"
+    queryDslVersion = "5.0.0"
 }
 
 dependencies {
-	// Spring Boot 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'software.amazon.awssdk:s3:2.20.3'
-	implementation 'software.amazon.awssdk:cloudwatchlogs:2.26.29'
-	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    // Spring Boot 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'software.amazon.awssdk:s3:2.20.3'
+    implementation 'software.amazon.awssdk:cloudwatchlogs:2.26.29'
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
-	// SpringDoc - 최신 버전 적용
-	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
+    // SpringDoc - 최신 버전 적용
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
 
-	// JWT 관련 의존성
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    // JWT 관련 의존성
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	// Lombok
-	compileOnly 'org.projectlombok:lombok:1.18.30'
-	annotationProcessor 'org.projectlombok:lombok:1.18.30'
-	testImplementation 'org.projectlombok:lombok:1.18.30'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testImplementation 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
-	// QueryDSL
-	implementation "com.querydsl:querydsl-mongodb:${queryDslVersion}"
-	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
-	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:general"
+    // QueryDSL
+    implementation "com.querydsl:querydsl-mongodb:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:general"
 
-	// ✅ **MongoDB 최신 드라이버 적용 (3.x 제거)**
-	implementation 'org.mongodb:mongodb-driver-reactivestreams:4.11.2'
-	implementation 'org.mongodb:mongodb-driver-core:4.11.2'  // MongoDB Core Driver (필요 시)
-	configurations.all {
-		exclude group: "org.mongodb", module: "mongo-java-driver"
-	}
+    // ✅ **MongoDB 최신 드라이버 적용 (3.x 제거)**
+    implementation 'org.mongodb:mongodb-driver-reactivestreams:4.11.2'
+    implementation 'org.mongodb:mongodb-driver-core:4.11.2'  // MongoDB Core Driver (필요 시)
+    configurations.all {
+        exclude group: "org.mongodb", module: "mongo-java-driver"
+    }
 
-	// rabbitmq
-	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    // Reactor-rabbitmq
+    implementation 'io.projectreactor.rabbitmq:reactor-rabbitmq:1.5.6'
 
-	// 테스트 의존성
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
-	implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	implementation 'org.json:json:20230227'
+    // 테스트 의존성
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.json:json:20230227'
 }
 
 def querydslDir = "${buildDir}/generated/querydsl"
 
 
 tasks.withType(JavaCompile).configureEach {
-	options.annotationProcessorPath = configurations.annotationProcessor
+    options.annotationProcessorPath = configurations.annotationProcessor
 }
 
 
 task generateQueryDSL(type: JavaCompile, group: 'build') {
-	source = sourceSets.main.java
-	classpath = configurations.compileClasspath
-	destinationDirectory = file(querydslDir)
-	options.annotationProcessorPath = configurations.annotationProcessor
-	options.compilerArgs = [
-			"-proc:only"
-	]
+    source = sourceSets.main.java
+    classpath = configurations.compileClasspath
+    destinationDirectory = file(querydslDir)
+    options.annotationProcessorPath = configurations.annotationProcessor
+    options.compilerArgs = [
+            "-proc:only"
+    ]
 }
 
 compileJava {
-	dependsOn generateQueryDSL
+    dependsOn generateQueryDSL
 }
 
 clean.doFirst {
-	delete file(querydslDir)
+    delete file(querydslDir)
 }
 
 tasks.withType(JavaExec) {
-	jvmArgs += "--add-opens=java.base/java.io=ALL-UNNAMED"
+    jvmArgs += "--add-opens=java.base/java.io=ALL-UNNAMED"
 }
