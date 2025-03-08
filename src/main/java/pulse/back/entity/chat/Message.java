@@ -7,9 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import pulse.back.domain.chat.dto.MessageType;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Document
-public record Messages(
+public record Message(
         // pk
         @Id
         ObjectId id,
@@ -23,10 +24,10 @@ public record Messages(
         String content,
 
         @Indexed
-        LocalDateTime sentAt,
+        LocalDateTime sentAt,   // 서버에서 수신한 시간
 
-        LocalDateTime deliveredAt,
+        LocalDateTime deliveredAt,      // 클라이언트로 전송한 시간
 
-        LocalDateTime seenAt
+        Map<ObjectId, LocalDateTime> seenBy    // 클라이언트에서 읽은 시간
 ) {
 }
