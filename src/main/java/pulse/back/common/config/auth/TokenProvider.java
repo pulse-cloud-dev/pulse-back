@@ -109,7 +109,7 @@ public class TokenProvider implements InitializingBean {
         // 최신 JJWT API 사용
         return Jwts.builder()
                 .setSubject(id)
-                .claim("auth", role.name())  // 커스텀 클레임 설정
+                .claim("role", role)  // 커스텀 클레임 설정
                 .setExpiration(accessTokenValidity)
                 .signWith(key, SignatureAlgorithm.HS256) // 서명 키와 알고리즘을 명시적으로 지정
                 .compact();
@@ -197,6 +197,11 @@ public class TokenProvider implements InitializingBean {
 
     public ObjectId getMemberId(ServerWebExchange exchange){
         Claims claims = this.parseClaimsByAuthorization(exchange);
+        return new ObjectId(claims.getSubject());
+    }
+
+    public ObjectId getMemberId(String refreshToken) {
+        Claims claims = this.parseClaims(refreshToken);
         return new ObjectId(claims.getSubject());
     }
 
