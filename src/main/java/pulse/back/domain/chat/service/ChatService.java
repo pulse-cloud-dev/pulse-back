@@ -1,10 +1,8 @@
 package pulse.back.domain.chat.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pulse.back.common.enums.ErrorCodes;
@@ -19,17 +17,20 @@ import pulse.back.entity.chat.Message;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Set;
+
+@Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ChatService {
     private final RoomRepository roomRepository;
     private final ChatRepository chatRepository;
     private final MessageRepository messageRepository;
 
-    @Transactional
     public Mono<String> createRoom(RoomDto roomDto) {
-        return getObjectIdFromContext()
-                .flatMap(memberId -> roomRepository.insert(roomDto.toEntity())
+        return getMemberIdFromContext()
+                .flatMap(memberId -> roomRepository.insert(roomDto.toEntity(memberId))
                         .flatMap(room -> chatRepository.insert(Chat.of(room.roomId(), memberId)))
                         .flatMap(chat -> messageRepository.insert(Message.createInfo(chat.memberId(), chat.roomId())))
                         .map(Message::roomId)
@@ -37,10 +38,9 @@ public class ChatService {
                 );
     }
 
-    // TODO: 결제가 완료되면 채팅방 참가 목록에 memberId 추가 및 info 메세지 등록 (Http)
-    @Transactional
+    @Transactional(readOnly = true)
     public Mono<RoomDto> checkRoom(String roomId) {
-        return getObjectIdFromContext()
+        return getMemberIdFromContext()
                 .flatMap(memberId -> roomRepository.findById(roomId)
                         .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.ROOM_NOT_FOUND)))
                         .flatMap(room -> chatRepository.findByRoomIdAndMemberId(roomId, memberId)
@@ -50,21 +50,61 @@ public class ChatService {
                 );
     }
 
-    @Transactional
     public Flux<MessageDto> updateAndGetAllMessages(String roomId) {
-        return getObjectIdFromContext().flux()
-                .flatMap(memberId -> messageRepository.findAllByRoomId(roomId)
+        return getMemberIdFromContext()
+                .flatMapMany(memberId -> messageRepository.findRecentMessagesByRoomId(roomId)
                         .switchIfEmpty(Flux.error(new CustomException(ErrorCodes.ROOM_NOT_FOUND)))
-                        .flatMap(message -> messageRepository.insert(message.updateSeenBy(memberId, message))
-                                .map(MessageDto::from))
+                        .flatMap(message -> messageRepository.save(message.updateSeenBy(memberId))
+                                .map(MessageDto::from)
+                                .doOnSuccess(messageDto -> log.info("messageDto : {}", messageDto))
+                        )
                 );
     }
 
-    public Mono<ObjectId> getObjectIdFromContext() {
-        return ReactiveSecurityContextHolder.getContext()
-                .map(SecurityContext::getAuthentication)
-                .map(Authentication::getName)
-                .map(ObjectId::new)
-                .cache();
+    public Flux<MessageDto> updateAndSaveAllMessages(MessageDto messageDto, Set<ObjectId> memberIds) {
+        return Flux.fromIterable(memberIds)
+                .map(memberId -> messageDto.toEntity().updateSeenBy(memberId))
+                .flatMap(messageRepository::save)
+                .map(MessageDto::from);
+    }
+
+    public Mono<Void> addMemberToRoom(String roomId) {
+        return getMemberIdFromContext()
+                .flatMap(memberId -> roomRepository.updateMemberCount(roomId)
+                        .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.ROOM_NOT_FOUND)))
+                        .flatMap(ignored -> chatRepository.insert(Chat.of(roomId, memberId)))
+                        .flatMap(chat -> messageRepository.insert(Message.createInfo(chat.memberId(), chat.roomId())))
+                        .then()
+                );
+    }
+
+    @Transactional(readOnly = true)
+    public Flux<RoomDto> getRoomList() {
+        return getMemberIdFromContext()
+                .flatMapMany(memberId -> chatRepository.findByMemberId(memberId)
+                        .switchIfEmpty(Flux.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
+                        .map(Chat::roomId)
+                        .collectList()
+                        .flatMapMany(roomIds -> roomRepository.findByRoomIdIn(roomIds)
+                                .switchIfEmpty(Flux.error(new CustomException(ErrorCodes.ROOM_NOT_FOUND)))
+                                .map(RoomDto::from)
+                        )
+                );
+    }
+
+    public Flux<RoomDto> getAllRoom() {
+        return roomRepository.findAll().map(RoomDto::from);
+    }
+
+    // TODO: JwtFilter 완성되면 다시 수정
+    public Mono<ObjectId> getMemberIdFromContext() {
+        return Mono.just(new ObjectId("67c980aead6df4267d37948e"));
+//        return ReactiveSecurityContextHolder.getContext()
+//                .map(SecurityContext::getAuthentication)
+//                .doOnSuccess(authentication -> log.info("authentication : {}", authentication.getName()))
+//                .map(Authentication::getName)
+//                .map(ObjectId::new)
+//                .cache()
+//                .onErrorMap(e -> new CustomException(ErrorCodes.INTERNAL_SERVER_ERROR));
     }
 }

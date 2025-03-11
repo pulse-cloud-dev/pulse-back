@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import pulse.back.entity.chat.Message;
 import reactor.core.publisher.Flux;
 
-public interface MessageRepository extends ReactiveMongoRepository<Message, ObjectId> {
+public interface MessageRepository extends ReactiveMongoRepository<Message, ObjectId>, MessageRepositoryCustom {
     Flux<Message> findAllByRoomId(String roomId);
 }
