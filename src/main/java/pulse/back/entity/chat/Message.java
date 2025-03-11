@@ -43,8 +43,8 @@ public record Message(
         return new Message(new ObjectId(), memberId, roomId, MessageType.INFO, "입장하셨습니다.", now, now, seenBy);
     }
 
-    public Message updateSeenBy(ObjectId memberId, Message message) {
-        message.seenBy.putIfAbsent(memberId, LocalDateTime.now());
-        return message;
+    public Message updateSeenBy(ObjectId memberId) {
+        this.seenBy.putIfAbsent(memberId, LocalDateTime.now());
+        return this;
     }
 }

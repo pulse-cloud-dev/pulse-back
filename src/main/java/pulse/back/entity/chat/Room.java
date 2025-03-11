@@ -1,5 +1,6 @@
 package pulse.back.entity.chat;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,9 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public record Room(
         @Id
         String roomId,
-        String title
+        String title,
+        int memberCount,
+        ObjectId mentor
 ) {
-    public static Room of(String roomId, String title) {
-        return new Room(roomId, title);
+    public static Room of(String roomId, String title, int memberCount, ObjectId mentor) {
+        return new Room(roomId, title, memberCount, mentor);
     }
 }
