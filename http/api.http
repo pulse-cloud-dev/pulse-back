@@ -11,6 +11,7 @@ Content-Type: application/json
   "nickName": "neo"
 }
 
+
 ### Login
 POST http://localhost:8080/api/v1/members/login
 Content-Type: application/json
@@ -19,3 +20,12 @@ Content-Type: application/json
   "email": "neo@neo.com",
   "password": "1111"
 }
+
+
+### Join Room (Mentee)
+@roomId = b1654280-ed48-4e7c-8c84-e45b030ad1d2
+GET http://localhost:8080/api/v1/chats/join/{{roomId}}
+
+
+### Room List
+GET http://localhost:8080/api/v1/chats/list

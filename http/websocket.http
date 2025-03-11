@@ -1,5 +1,5 @@
-@expriedToken = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2N2M5ODBhZWFkNmRmNDI2N2QzNzk0OGUiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTc0MTI2ODM0NX0.YBFS08qWYIVmZ932B1XkyUy2b-q9dR_YFlGF9DqinFg
-@correctToken = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2N2M5ODBhZWFkNmRmNDI2N2QzNzk0OGUiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTc0MTM3NzEyM30.Isspa6i8d44cxrldgkcF5EKqk0GAox9oM3zHzBYkjRk
+@expriedToken = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2N2M5ODBhZWFkNmRmNDI2N2QzNzk0OGUiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTc0MTY4MzUwMX0.seD426ayYghtnW-M6E0VTzgTnMsjynXZo2l51QaU5ws
+@correctToken = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2N2M5ODBhZWFkNmRmNDI2N2QzNzk0OGUiLCJhdXRoIjoiVVNFUiIsImV4cCI6MTc0MTY5NTUyNH0.8T9KZ-Kz9chfq9EPs3FUmeU-gmkXNt8i-8eylfOD7Gs
 
 ### Normal
 WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 
 
-### Expired token in message
+### Expired token in messageRequest
 WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
 Content-Type: application/json
 
@@ -49,13 +49,48 @@ Content-Type: application/json
 }
 
 
-### Correct TEXT
+### Correct CREATE
+WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
+Content-Type: application/json
+
+{
+  "message_type": "CREATE",
+  "room_id": null,
+  "payload": "자바 스터디"
+}
+
+
+### Correct JOIN (new)
+@roomId = b1654280-ed48-4e7c-8c84-e45b030ad1d2
+WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
+Content-Type: application/json
+
+{
+  "message_type": "JOIN",
+  "room_id": "{{roomId}}",
+  "payload": null
+}
+
+
+### Correct JOIN (change)
+@beforeRoomId =
+WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
+Content-Type: application/json
+
+{
+  "message_type": "JOIN",
+  "room_id": "{{roomId}}",
+  "payload": "{{beforeRoomId}}"
+}
+
+
+### Correct TEXT -> JOIN 세션으로 Rabbitmq 메세지가 전달됨
 WEBSOCKET ws://localhost:8080/ws/v1/chat?token={{correctToken}}
 Content-Type: application/json
 
 {
   "message_type": "TEXT",
-  "room_id": "1",
+  "room_id": "{{roomId}}",
   "payload": "Hello, Nice to meet you!"
 }
 
