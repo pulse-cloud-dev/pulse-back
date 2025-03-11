@@ -23,6 +23,6 @@ public record MessageRequest(
     }
 
     public RoomDto toRoomDto() {
-        return RoomDto.of(UUID.randomUUID().toString(), payload.toString());
+        return RoomDto.of(UUID.randomUUID().toString(), payload.toString(), 1, null);
     }
 }

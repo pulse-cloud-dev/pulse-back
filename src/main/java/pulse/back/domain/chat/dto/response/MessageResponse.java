@@ -1,6 +1,5 @@
 package pulse.back.domain.chat.dto.response;
 
-import pulse.back.common.config.auth.TokenResponseDto;
 import pulse.back.common.enums.ErrorCodes;
 import pulse.back.domain.chat.dto.Message;
 import pulse.back.domain.chat.dto.MessageType;
@@ -19,9 +18,9 @@ public record MessageResponse(
         return MessageResponse.of(MessageType.PONG, null, payload);
     }
 
-    public static MessageResponse createReissue(TokenResponseDto payload) {
-        return MessageResponse.of(MessageType.REISSUE, null, payload);
-    }
+//    public static MessageResponse createReissue(TokenResponseDto payload) {
+//        return MessageResponse.of(MessageType.REISSUE, null, payload);
+//    }
 
     public static MessageResponse createError(ErrorCodes e) {
         return MessageResponse.of(MessageType.ERROR, null, ErrorMessage.fromErrorCodes(e));
@@ -35,7 +34,7 @@ public record MessageResponse(
         return new MessageResponse(MessageType.ACK, null, roomId);
     }
 
-    public static MessageResponse from(MessageDto messageDto, String title) {
-        return MessageResponse.of(messageDto.messageType(), messageDto, title);
+    public static MessageResponse from(MessageDto messageDto) {
+        return MessageResponse.of(messageDto.messageType(), messageDto, null);
     }
 }
