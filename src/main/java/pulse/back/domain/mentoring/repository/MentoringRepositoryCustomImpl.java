@@ -87,6 +87,10 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
             update.set("careerInfo", requestDto.careerInfoList());
         }
 
+        if(requestDto.mentorIntroduction() != null){
+            update.set("mentorIntroduction", requestDto.mentorIntroduction());
+        }
+
         update.set("updatedAt", LocalDateTime.now());
         update.set("updatedMemberId", mentorId);
 

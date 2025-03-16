@@ -39,11 +39,8 @@ public record Member(
         // 유저권한 (Admin, User 등)
         MemberRole memberRole,
 
-        // 멘토로 참여한 멘토링 pk (Array<ObjectId>)
-        List<ObjectId> mentoList,
-
-        // 멘티로 참여한 멘토링 pk (Array<ObjectId>)
-        List<ObjectId> menteeList,
+        // 멘토소개말 (멘토 등록했을 경우)
+        String mentorIntroduction,
 
         // 생성일
         @Indexed

@@ -55,7 +55,6 @@ public record MemberJoinRequestDto(
                 requestDto.nickName(),
                 MemberRole.USER,
                 null,
-                null,
                 LocalDateTime.now(),
                 null,
                 null,
