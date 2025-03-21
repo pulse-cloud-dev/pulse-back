@@ -104,6 +104,10 @@ aws:
     region-name: ap-northeast-2
     bucket-name: pulse-api-dev
 
+geocoding:
+  naver:
+    client-id: ${NAVER_CLIENT_ID}
+    client-secret: ${NAVER_CLIENT_SECRET}
 #spring:
 #  security:
 #    oauth2:
