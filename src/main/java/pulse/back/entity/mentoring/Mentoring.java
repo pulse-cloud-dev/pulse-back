@@ -50,6 +50,9 @@ public record Mentoring(
         // 상세주소
         String detailAddress,
 
+        //좌표
+        MentoringLocation location,
+
         // 모집인원
         int recruitNumber,
 
@@ -78,7 +81,7 @@ public record Mentoring(
         // 삭제자
         ObjectId deletedMemberId
 ) {
-    public static Mentoring from (MentoringPostRequestDto requestDto, ObjectId mentorId){
+    public static Mentoring from (MentoringPostRequestDto requestDto, MentoringLocation location, ObjectId mentorId){
         return new Mentoring(
                 new ObjectId(),
                 requestDto.title(),
@@ -91,6 +94,7 @@ public record Mentoring(
                 requestDto.onlinePlatform(),
                 requestDto.address(),
                 requestDto.detailAddress(),
+                location,
                 requestDto.recruitNumber(),
                 requestDto.cost(),
                 null,

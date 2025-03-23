@@ -13,10 +13,12 @@ import pulse.back.common.enums.SortType;
 import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.common.util.MyNumberUtils;
+import pulse.back.domain.api.geocoding.GeocodingService;
 import pulse.back.domain.member.repository.MemberRepository;
 import pulse.back.domain.mentoring.dto.*;
 import pulse.back.domain.mentoring.repository.MentoringRepository;
 import pulse.back.entity.mentoring.Mentoring;
+import pulse.back.entity.mentoring.MentoringLocation;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class MentoringBusinessService {
     private final MentoringRepository mentoringRepository;
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
+    private final GeocodingService geocodingService;
 
     //멘토링 검색필터 전용] 직업 정보 제공 (분야)
     public Mono<List<JobInfoList>> getFieldList(ServerWebExchange exchange) {
@@ -88,8 +91,13 @@ public class MentoringBusinessService {
     //멘토링 등록
     public Mono<ResultCodes> registerMentoring(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {
         ObjectId memberId = tokenProvider.getMemberId(exchange);
-        return mentoringRepository.insert(Mentoring.from(requestDto, memberId))
-                .then(Mono.just(ResultCodes.SUCCESS));
+
+        return geocodingService.getGeocodingResult(requestDto.address(), requestDto.detailAddress())
+                .flatMap(mentoringLocation ->
+                        mentoringRepository.insert(Mentoring.from(requestDto, mentoringLocation, memberId))
+                                .then(Mono.just(ResultCodes.SUCCESS))
+                )
+                .switchIfEmpty(Mono.error(new RuntimeException("지오코딩 결과를 찾을 수 없습니다.")));
     }
 
     //멘토 정보 등록
