@@ -102,7 +102,6 @@ aws:
     bucket-name: pulse-api-dev
 
 geocoding:
-  naver:
     client-id: ${NAVER_CLIENT_ID}
     client-secret: ${NAVER_CLIENT_SECRET}
 #spring:

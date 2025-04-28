@@ -18,8 +18,8 @@ public class GeocodingService {
 
     @Autowired
     public GeocodingService(WebClient.Builder webClientBuilder,
-                            @Value("${geocoding.naver.client-id}") String clientId,
-                            @Value("${geocoding.naver.client-secret}") String clientSecret) {
+                            @Value("${geocoding.client-id}") String clientId,
+                            @Value("${geocoding.client-secret}") String clientSecret) {
         this.webClient = webClientBuilder.baseUrl(GEOCODING_API_URL).build();
         this.clientId = clientId;
         this.clientSecret = clientSecret;
