@@ -80,7 +80,7 @@ public class MemberController {
     @GetMapping("/find-id/{social}")
     @Operation(operationId = "SVO-17", summary = "아이디 찾기 (이메일)", description = """
             ### [ 설명 ]
-            - 소셜 로그인을 통한 아이디 찾기를 진행합니다.
+            - 소셜 로그인을 통한 아이디 찾기를 진행합니다..
             <br>
             ### [ 주의사항 ]
             - 현재 가능한 로그인은 네이버 로그인입니다.
