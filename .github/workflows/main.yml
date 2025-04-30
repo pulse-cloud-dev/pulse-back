@@ -1,51 +1,40 @@
 name: pulse
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 permissions:
   contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up JDK 22
         uses: actions/setup-java@v3
         with:
           java-version: '22'
           distribution: 'temurin'
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
       - name: Clear Gradle cache
         run: ./gradlew clean
-
       - name: Build with Gradle
         run: ./gradlew build
-
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: trelloServer
           path: build/libs/back-0.0.1-SNAPSHOT.jar
           if-no-files-found: error  # 파일이 없으면 실패하도록 설정
-
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: trelloServer
           path: build/libs/
-
       - name: Cleanup old artifacts
         run: gh run list --limit 100 --json artifacts | jq -r '.[] | .artifacts[] | select(.expired == true) | .id' | xargs -I{} gh artifact delete {} --confirm
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -55,27 +44,45 @@ jobs:
         with:
           name: trelloServer
           path: build/libs/
-
       # Deploy to EC2 부분 수정
       - name: Deploy to EC2
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
+          
+          # 환경 변수 파일 생성
+          cat > app.env << EOF
+          AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}
+          EC2_IP=${{ secrets.EC2_IP }}
+          EC2_SSH_KEY=${{ secrets.EC2_SSH_KEY }}
+          NAVER_CLIENT_ID=${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }}
+          # 기타 필요한 환경 변수들을 여기에 추가
+          EOF
+          
+          # 환경 변수 파일과 JAR 파일을 EC2로 전송
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/back-0.0.1-SNAPSHOT.jar ec2-user@13.209.104.215:/home/ec2-user/back-0.0.1-SNAPSHOT.jar
+          scp -i private_key.pem -o StrictHostKeyChecking=no app.env ec2-user@13.209.104.215:/home/ec2-user/app.env
+          
+          # 애플리케이션 실행
           ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "
             # 기존 프로세스 종료
             pgrep java | xargs kill -9 || true
-
-            # 환경 변수 로드
-            source /home/ec2-user/app.env
-
-            # 애플리케이션 실행 (nohup 사용)
+            
+            # 권한 설정
+            chmod 600 /home/ec2-user/app.env
+            
+            # 애플리케이션 실행 (환경 변수 적용)
             cd /home/ec2-user
-            nohup java --add-opens java.base/java.io=ALL-UNNAMED -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
-
+            nohup bash -c 'source app.env && java --add-opens java.base/java.io=ALL-UNNAMED -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1' &
+            
             # 실행 확인
             sleep 10
             ps -ef | grep java
             tail -n 20 app.log
           "
+          
+          # 임시 파일 정리
           rm -f private_key.pem
+          rm -f app.env
