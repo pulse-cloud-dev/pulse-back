@@ -75,7 +75,7 @@ jobs:
             
             # 애플리케이션 실행 (환경 변수 적용)
             cd /home/ec2-user
-            nohup bash -c 'source app.env && java --add-opens java.base/java.io=ALL-UNNAMED -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1' &
+            nohup bash -c 'source app.env && java --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1' &
             
             # 실행 확인
             sleep 10
