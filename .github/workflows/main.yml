@@ -50,39 +50,45 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           
-          # 환경 변수 파일 생성
-          cat > app.env << EOF
-          AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}
-          EC2_IP=${{ secrets.EC2_IP }}
-          EC2_SSH_KEY=${{ secrets.EC2_SSH_KEY }}
-          NAVER_CLIENT_ID=${{ secrets.NAVER_CLIENT_ID }}
-          NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }}
-          # 기타 필요한 환경 변수들을 여기에 추가
-          EOF
-          
-          # 환경 변수 파일과 JAR 파일을 EC2로 전송
+          # JAR 파일 전송
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/back-0.0.1-SNAPSHOT.jar ec2-user@13.209.104.215:/home/ec2-user/back-0.0.1-SNAPSHOT.jar
-          scp -i private_key.pem -o StrictHostKeyChecking=no app.env ec2-user@13.209.104.215:/home/ec2-user/app.env
+          
+          # 시작 스크립트 생성 및 전송
+          cat > start-application.sh << EOF
+          #!/bin/bash
+          
+          # 기존 프로세스 종료
+          pgrep java | xargs kill -9 || true
           
           # 애플리케이션 실행
+          nohup java --add-opens java.base/java.io=ALL-UNNAMED \
+            --add-opens java.base/java.lang=ALL-UNNAMED \
+            --add-opens java.base/java.util=ALL-UNNAMED \
+            --add-opens java.base/java.lang.reflect=ALL-UNNAMED \
+            -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar \
+            --geocoding.client-id=${{ secrets.NAVER_CLIENT_ID }} \
+            --geocoding.client-secret=${{ secrets.NAVER_CLIENT_SECRET }} \
+            --aws.access-key=${{ secrets.AWS_ACCESS_KEY }} \
+            --aws.secret-key=${{ secrets.AWS_SECRET_KEY }} \
+            > /home/ec2-user/app.log 2>&1 &
+          
+          # PID 파일에 저장
+          echo \$! > /home/ec2-user/application.pid
+          
+          # 로그 확인
+          sleep 10
+          ps -ef | grep java
+          tail -n 20 /home/ec2-user/app.log
+          EOF
+          
+          scp -i private_key.pem -o StrictHostKeyChecking=no start-application.sh ec2-user@13.209.104.215:/home/ec2-user/start-application.sh
+          
+          # 스크립트 실행 권한 부여 및 실행
           ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "
-            # 기존 프로세스 종료
-            pgrep java | xargs kill -9 || true
-            
-            # 권한 설정
-            chmod 600 /home/ec2-user/app.env
-            
-            # 애플리케이션 실행 (환경 변수 적용)
-            cd /home/ec2-user
-            nohup bash -c 'source app.env && java --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar back-0.0.1-SNAPSHOT.jar > app.log 2>&1' &
-            
-            # 실행 확인
-            sleep 10
-            ps -ef | grep java
-            tail -n 20 app.log
+            chmod +x /home/ec2-user/start-application.sh
+            /home/ec2-user/start-application.sh
           "
           
           # 임시 파일 정리
           rm -f private_key.pem
-          rm -f app.env
+          rm -f start-application.sh
