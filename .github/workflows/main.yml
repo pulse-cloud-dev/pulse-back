@@ -53,42 +53,45 @@ jobs:
           # JAR 파일 전송
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/back-0.0.1-SNAPSHOT.jar ec2-user@13.209.104.215:/home/ec2-user/back-0.0.1-SNAPSHOT.jar
           
-          # 시작 스크립트 생성 및 전송
-          cat > start-application.sh << EOF
-          #!/bin/bash
+          # systemd 서비스 파일 생성
+          cat > pulse-app.service << EOF
+          [Unit]
+          Description=Pulse Spring Boot Application
+          After=network.target
           
-          # 기존 프로세스 종료
-          pgrep java | xargs kill -9 || true
+          [Service]
+          User=ec2-user
+          WorkingDirectory=/home/ec2-user
+          ExecStart=/usr/bin/java --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar --geocoding.client-id=${{ secrets.NAVER_CLIENT_ID }} --geocoding.client-secret=${{ secrets.NAVER_CLIENT_SECRET }} --aws.access-key=${{ secrets.AWS_ACCESS_KEY }} --aws.secret-key=${{ secrets.AWS_SECRET_KEY }}
+          SuccessExitStatus=143
+          Restart=always
+          RestartSec=10
           
-          # 애플리케이션 실행
-          nohup java --add-opens java.base/java.io=ALL-UNNAMED \
-            --add-opens java.base/java.lang=ALL-UNNAMED \
-            --add-opens java.base/java.util=ALL-UNNAMED \
-            --add-opens java.base/java.lang.reflect=ALL-UNNAMED \
-            -jar /home/ec2-user/back-0.0.1-SNAPSHOT.jar \
-            --geocoding.client-id=${{ secrets.NAVER_CLIENT_ID }} \
-            --geocoding.client-secret=${{ secrets.NAVER_CLIENT_SECRET }} \
-            --aws.access-key=${{ secrets.AWS_ACCESS_KEY }} \
-            --aws.secret-key=${{ secrets.AWS_SECRET_KEY }} \
-            > /home/ec2-user/app.log 2>&1 &
-          
-          # PID 파일에 저장
-          echo \$! > /home/ec2-user/application.pid
-          
-          # 로그 확인
-          sleep 10
-          ps -ef | grep java
-          tail -n 20 /home/ec2-user/app.log
+          [Install]
+          WantedBy=multi-user.target
           EOF
           
-          scp -i private_key.pem -o StrictHostKeyChecking=no start-application.sh ec2-user@13.209.104.215:/home/ec2-user/start-application.sh
+          # 서비스 파일 전송 및 설치
+          scp -i private_key.pem -o StrictHostKeyChecking=no pulse-app.service ec2-user@13.209.104.215:/home/ec2-user/pulse-app.service
           
-          # 스크립트 실행 권한 부여 및 실행
+          # systemd 서비스 설치 및 시작
           ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.209.104.215 "
-            chmod +x /home/ec2-user/start-application.sh
-            /home/ec2-user/start-application.sh
+            # 기존 프로세스 종료
+            pgrep java | xargs kill -9 || true
+            
+            # 서비스 파일 설치
+            sudo mv /home/ec2-user/pulse-app.service /etc/systemd/system/
+            
+            # systemd 재로드 및 서비스 시작
+            sudo systemctl daemon-reload
+            sudo systemctl enable pulse-app
+            sudo systemctl restart pulse-app
+            
+            # 상태 확인
+            sleep 5
+            sudo systemctl status pulse-app
+            journalctl -u pulse-app -n 20
           "
           
           # 임시 파일 정리
           rm -f private_key.pem
-          rm -f start-application.sh
