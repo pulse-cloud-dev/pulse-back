@@ -1,0 +1,10 @@
+server:
+  port: 80
+  ssl:
+    port: 443
+    cert: /app/cert.pem
+    key: /app/key.pem
+
+routes:
+  - path: /
+    target: http://13.209.104.215:8080

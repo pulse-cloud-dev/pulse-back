@@ -1,0 +1,11 @@
+services:
+  goproxy:
+    image: maiload/go-proxy:latest
+    platform: linux/amd64
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./config.yml:/app/config.yml
+      - ../openSSL/cert.pem:/app/cert.pem
+      - ../openSSL/key.pem:/app/key.pem
