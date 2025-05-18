@@ -57,6 +57,7 @@ public class MemberController {
     @Operation(operationId = "SVO-17", summary = "소셜_로그인_인증", description = """
             ### [ 설명 ]
             - 소셜 로그인 인증을 진행합니다.
+            - 소셜 로그인 인증 후, /api/v1/social/naver/join-info API 를 호출하여 사용자 정보를 가져옵니다.
             <br>
             ### [ 주의사항 ]
             - 현재 가능한 로그인은 네이버 로그인입니다.
@@ -64,7 +65,7 @@ public class MemberController {
             ### [ 요청응답 ]
             ```
             - Request  : [SocialRule]
-            - Response : [ResultCodes<TokenResponseDto>]
+            - Response : [ResultCodes<String>]
             ```
             """)
     public Mono<ResultData<String>> socialLoginPath(
@@ -78,9 +79,10 @@ public class MemberController {
      * 아이디 찾기 (이메일)
      * */
     @GetMapping("/find-id/{social}")
-    @Operation(operationId = "SVO-17", summary = "아이디 찾기 (이메일)", description = """
+    @Operation(operationId = "", summary = "아이디 찾기 (이메일)", description = """
             ### [ 설명 ]
-            - 소셜 로그인을 통한 아이디 찾기를 진행합니다..
+            - 소셜 로그인을 통한 아이디 찾기를 진행합니다.
+            - 소셜 로그인 인증 후, /api/v1/social/naver/find-email API 를 호출하여 사용자 정보를 가져옵니다.
             <br>
             ### [ 주의사항 ]
             - 현재 가능한 로그인은 네이버 로그인입니다.

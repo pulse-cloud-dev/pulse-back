@@ -61,7 +61,7 @@ public class NaverUserProfileService {
                 });
     }
 
-    public Mono<ResultData<String>> getMemberEmail(String accessToken) {
+    public Mono<ResultData<String>> getMemberEmail(String accessToken, String state) {
         return webClient.get()
                 .uri("https://openapi.naver.com/v1/nid/me")
                 .header("Authorization", "Bearer " + accessToken)

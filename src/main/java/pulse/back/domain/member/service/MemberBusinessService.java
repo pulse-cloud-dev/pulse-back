@@ -63,7 +63,8 @@ public class MemberBusinessService {
     public Mono<ResultData<String>> socialLoginPath(SocialRule social, ServerWebExchange exchange){
         String path = switch (social) {
             case KAKAO -> GlobalVariables.KAKAO_LOGIN_PATH;
-            case NAVER -> naverLoginUrlGenerator.generateLoginUrl();
+//            case NAVER -> naverLoginUrlGenerator.generateLoginUrl();
+            case NAVER -> "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=NkW5Hoa0URcbkYWx_oIz&redirect_uri=http://pulse-dev.shop/mentor-find&state=RANDOM_STATE_STRING";
             case GOOGLE -> GlobalVariables.GOOGLE_LOGIN_PATH;
             default -> throw new CustomException(ErrorCodes.SOCIAL_NOT_FOUND);
         };
@@ -74,7 +75,8 @@ public class MemberBusinessService {
     public Mono<ResultData<String>> getMemberId(SocialRule social, ServerWebExchange exchange) {
         String path = switch (social) {
             case KAKAO -> GlobalVariables.KAKAO_LOGIN_PATH;
-            case NAVER -> naverLoginUrlGenerator.generateFindEmailUrl();
+//            case NAVER -> naverLoginUrlGenerator.generateFindEmailUrl();
+            case NAVER -> "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=NkW5Hoa0URcbkYWx_oIz&redirect_uri=http://pulse-dev.shop/mentor-find&state=RANDOM_STATE_STRING";
             case GOOGLE -> GlobalVariables.GOOGLE_LOGIN_PATH;
             default -> throw new CustomException(ErrorCodes.SOCIAL_NOT_FOUND);
         };
