@@ -79,7 +79,7 @@ spring:
             client-name: Naver
             authorization-grant-type: authorization_code
 #            redirect-uri: "http://13.209.104.215:8080/login/naver/callback"
-            redirect-uri: "http://pulse-dev.shop/mentor-find"
+            redirect-uri: "http://pulse-dev.shop/auth/signUp"
 #            email-redirection-uri: "http://13.209.104.215:8080/login/naver/callEmail"
             email-redirection-uri: "http://pulse-dev.shop/auth/find-password"
             scope: profile, email
