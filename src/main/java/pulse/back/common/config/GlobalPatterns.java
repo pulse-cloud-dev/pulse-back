@@ -9,6 +9,9 @@ public class GlobalPatterns {
     // 글자 50자
     public static final String TEXT_50 = "^.{1,50}$";
 
+    //닉네임 특수문자 불가 (영문, 한글만)
+    public static final String NICKNAME = "^[a-zA-Z가-힣]+$";
+
     // ID 패턴: 알파벳 및 숫자를 포함하고, 6~20자의 길이를 가짐
     public static final String ID = "^(?=.*[a-zA-Z])[a-zA-Z0-9_-]{6,20}$";
 

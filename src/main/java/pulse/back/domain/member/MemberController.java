@@ -201,7 +201,7 @@ public class MemberController {
     /*
      * 이메일 중복체크
      * */
-    @PostMapping("/email-duplicate")
+    @PostMapping("/duplicate/email")
     @Operation(operationId = "SVO-17", summary = "이메일 중복체크", description = """
             ### [ 설명 ]
             - 이메일 중복체크를 진행합니다.
@@ -220,6 +220,30 @@ public class MemberController {
             ServerWebExchange exchange
     ) {
         return memberProcessor.emailDuplicateCheck(email, exchange);
+    }
+
+    //닉네임 중복체크
+    @GetMapping("/duplicate/{nick-name}")
+    @Operation(operationId = "", summary = "닉네임 중복체크", description = """
+            ### [ 설명 ]
+            - 닉네임 중복체크를 진행합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 닉네임은 2~10자 이내로 설정할 수 있습니다.
+            - 영문, 한글 혼합 사용 가능합니다.
+            - 특수문자는 사용할 수 없습니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [PasswordResetRequestDto]
+            - Response : [ResultCodes]
+            ```
+            """)
+    public Mono<ResultData<ResultCodes>> nickNameDuplicateCheck(
+            @PathVariable(name = "nick-name") String nickName,
+            ServerWebExchange exchange
+    ) {
+        return memberProcessor.nickNameDuplicateCheck(nickName, exchange);
     }
 
     /*

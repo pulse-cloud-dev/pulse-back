@@ -27,9 +27,6 @@ public record Member(
         // 휴대폰번호
         String phoneNumber,
 
-        // 생년월일
-        String birth,
-
         // 이름
         String name,
 

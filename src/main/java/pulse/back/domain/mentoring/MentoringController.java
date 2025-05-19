@@ -130,12 +130,12 @@ public class MentoringController {
             <br>
             ### [ 요청응답 ]
             ```
-            - Request  : [String] mentoringId
+            - Request  : [String] mentoring_id
             - Response : [MentoringDetailResponseDto]
             ```
             """)
     public Mono<ResultData<MentoringDetailResponseDto>> getMentoringDetail(
-            @PathVariable String mentoringId,
+            @PathVariable(name = "mentoring_id") String mentoringId,
             ServerWebExchange exchange
     ){
         return mentoringProcessor.getMentoringDetail(mentoringId, exchange);

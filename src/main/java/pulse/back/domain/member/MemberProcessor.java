@@ -65,6 +65,22 @@ public class MemberProcessor {
     }
 
     /*
+    * 닉네임 중복 체크
+    * */
+    public Mono<ResultData<ResultCodes>> nickNameDuplicateCheck(
+            String nickname, ServerWebExchange exchange
+    ) {
+        return memberValidationService.validateToNicknameDuplicateCheck(nickname, exchange)
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return Mono.just(new ResultData<>(ResultCodes.SUCCESS, "사용가능한 닉네임입니다."));
+                    } else {
+                        throw new CustomException(ErrorCodes.BAD_REQUEST, "이미 사용중인 닉네임입니다.");
+                    }
+                });
+    }
+
+    /*
     * 회원가입
     * */
     public Mono<ResultData<ResultCodes>> join(

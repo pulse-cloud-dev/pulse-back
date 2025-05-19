@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerWebExchange;
+import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.config.auth.TokenProvider;
 import pulse.back.common.enums.SocialRule;
 import pulse.back.common.exception.CustomException;
@@ -80,5 +81,19 @@ public class MemberValidationService {
         return memberRepository.findByEmail(requestDto.memberId())
                 .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
                 .flatMap(member -> {return Mono.just(true);});
+    }
+
+    //닉네임 중복체크
+    public Mono<Boolean> validateToNicknameDuplicateCheck(
+            String nickName,
+            ServerWebExchange exchange
+    ) {
+        if (nickName == null || !nickName.matches(GlobalPatterns.NICKNAME)) {
+            throw new CustomException(ErrorCodes.INVALID_MEMBER_NAME);
+        }
+
+        return memberRepository.findByNickName(nickName)
+                .map(existingMember -> false)
+                .defaultIfEmpty(true); // 닉네임이 존재하지 않을 경우 true 반환
     }
 }

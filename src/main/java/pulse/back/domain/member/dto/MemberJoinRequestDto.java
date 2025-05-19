@@ -11,7 +11,7 @@ import pulse.back.common.enums.MemberRole;
 import pulse.back.entity.member.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record MemberJoinRequestDto(
@@ -21,6 +21,7 @@ public record MemberJoinRequestDto(
         String email,
 
         @NotNull
+        @Pattern(regexp = GlobalPatterns.MEMBER_PASSWORD, message = "비밀번호 형식에 맞지 않습니다.")
         @Schema(description = "회원 비밀번호", example = "1111")
         String password,
 
@@ -29,10 +30,10 @@ public record MemberJoinRequestDto(
         @Schema(description = "회원 휴대폰번호", example = "01012345678")
         String phoneNumber,
 
-        @NotNull
-        @Pattern(regexp = GlobalPatterns.YYYYMMDD, message = "생년월일 형식에 맞지 않습니다.")
-        @Schema(description = "회원 생년월일", example = "19900101")
-        String birth,
+//        @NotNull
+//        @Pattern(regexp = GlobalPatterns.YYYYMMDD, message = "생년월일 형식에 맞지 않습니다.")
+//        @Schema(description = "회원 생년월일", example = "19900101")
+//        String birth,
 
         @NotNull
         @Schema(description = "회원 이름", example = "홍길동")
@@ -50,7 +51,6 @@ public record MemberJoinRequestDto(
                 requestDto.email(),
                 password,
                 requestDto.phoneNumber(),
-                requestDto.birth(),
                 requestDto.name(),
                 requestDto.nickName(),
                 MemberRole.USER,
