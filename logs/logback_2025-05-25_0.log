@@ -1,0 +1,1102 @@
+2025-05-25 00:59:17.447 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 01:15:36.508 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=78119459, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 01:15:36 KST 2025, lastUpdateTimeNanos=526561534962083}
+2025-05-25 01:15:39.500 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 01:15:39.682 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=40026250, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 01:15:39 KST 2025, lastUpdateTimeNanos=526564712332416}
+2025-05-25 01:15:39.683 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 01:15:40.106 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 01:15:40.282 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=39873000, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 01:15:39 KST 2025, lastUpdateTimeNanos=526565312441875}
+2025-05-25 02:08:49.482 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 02:08:49.651 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=121558375, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 02:08:49 KST 2025, lastUpdateTimeNanos=526581713933750}
+2025-05-25 02:08:52.656 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 02:08:52.760 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=82683208, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 02:08:52 KST 2025, lastUpdateTimeNanos=526584823909458}
+2025-05-25 02:08:52.762 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 02:08:53.251 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 02:08:53.317 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=42427458, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 02:08:53 KST 2025, lastUpdateTimeNanos=526585383208041}
+2025-05-25 03:01:11.934 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 03:01:12.448 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=118581167, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 03:01:12 KST 2025, lastUpdateTimeNanos=526602243183458}
+2025-05-25 03:01:15.041 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 03:01:15.263 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=101341584, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 03:01:15 KST 2025, lastUpdateTimeNanos=526605059464166}
+2025-05-25 03:01:15.264 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 03:01:15.596 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 03:01:15.781 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=40196125, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 03:01:15 KST 2025, lastUpdateTimeNanos=526605577843250}
+2025-05-25 06:37:14.759 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 06:37:15.084 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=213453959, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 06:37:15 KST 2025, lastUpdateTimeNanos=526622587525709}
+2025-05-25 06:37:17.546 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 06:37:17.669 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=90427375, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 06:37:17 KST 2025, lastUpdateTimeNanos=526625192159667}
+2025-05-25 06:37:17.680 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 06:37:18.059 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 06:37:18.118 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=41755000, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 06:37:17 KST 2025, lastUpdateTimeNanos=526625642123000}
+2025-05-25 06:58:10.310 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 06:58:10.499 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=52209083, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 06:58:10 KST 2025, lastUpdateTimeNanos=526642818911209}
+2025-05-25 08:27:16.711 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 08:27:16.673 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=45448458, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 08:27:16 KST 2025, lastUpdateTimeNanos=526645449148166}
+2025-05-25 08:27:16.690 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 08:27:16.871 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 08:27:16.954 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=39012917, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 08:27:16 KST 2025, lastUpdateTimeNanos=526645730428958}
+2025-05-25 08:59:10.978 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 08:59:11.064 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=59802000, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 08:59:11 KST 2025, lastUpdateTimeNanos=526662912976542}
+2025-05-25 08:59:13.628 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 08:59:13.704 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=60465500, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 08:59:13 KST 2025, lastUpdateTimeNanos=526665554302459}
+2025-05-25 08:59:13.709 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 08:59:13.900 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 08:59:13.970 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=42045666, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 08:59:13 KST 2025, lastUpdateTimeNanos=526665816245042}
+2025-05-25 10:54:02.449 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 10:54:02.683 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=101352167, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 10:54:02 KST 2025, lastUpdateTimeNanos=526683151937209}
+2025-05-25 10:54:05.094 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 10:54:05.318 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=80708666, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 10:54:05 KST 2025, lastUpdateTimeNanos=526685788825334}
+2025-05-25 10:54:05.321 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 10:54:05.354 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 10:54:05.592 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=95301875, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 10:54:05 KST 2025, lastUpdateTimeNanos=526686062446792}
+2025-05-25 11:12:40.786 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 11:12:40.901 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=89777875, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 11:12:40 KST 2025, lastUpdateTimeNanos=526703274172667}
+2025-05-25 11:12:43.418 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 11:12:43.542 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=98374000, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 11:12:43 KST 2025, lastUpdateTimeNanos=526705920567375}
+2025-05-25 11:12:43.543 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 11:12:43.690 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 11:12:43.752 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=39810583, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 11:12:43 KST 2025, lastUpdateTimeNanos=526706131057542}
+2025-05-25 12:02:07.392 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 12:02:07.598 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=58909959, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 12:02:07 KST 2025, lastUpdateTimeNanos=526723488571959}
+2025-05-25 12:02:10.031 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 12:02:10.211 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=50683125, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 12:02:10 KST 2025, lastUpdateTimeNanos=526726108036042}
+2025-05-25 12:02:10.212 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 12:02:10.240 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 12:02:10.418 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=39570083, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 12:02:10 KST 2025, lastUpdateTimeNanos=526726315106750}
+2025-05-25 13:03:09.092 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 13:03:09.196 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=65167542, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 13:03:09 KST 2025, lastUpdateTimeNanos=526743602906500}
+2025-05-25 13:03:11.716 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 13:03:11.787 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=54514584, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 13:03:11 KST 2025, lastUpdateTimeNanos=526746194771584}
+2025-05-25 13:03:11.788 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 13:03:11.913 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 13:03:11.974 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=43108375, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 13:03:11 KST 2025, lastUpdateTimeNanos=526746382474334}
+2025-05-25 13:44:56.615 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 13:44:56.833 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=61653583, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 13:44:56 KST 2025, lastUpdateTimeNanos=526763831878417}
+2025-05-25 13:44:59.202 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 13:44:59.387 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=41022916, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 13:44:59 KST 2025, lastUpdateTimeNanos=526766387859584}
+2025-05-25 13:44:59.388 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 13:44:59.392 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 13:44:59.579 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=53023625, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 13:44:59 KST 2025, lastUpdateTimeNanos=526766580279750}
+2025-05-25 15:05:10.613 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 15:05:10.697 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=50131041, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 15:05:10 KST 2025, lastUpdateTimeNanos=526783930596917}
+2025-05-25 16:06:04.690 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 16:06:04.745 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=40128292, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 16:06:04 KST 2025, lastUpdateTimeNanos=526786453467958}
+2025-05-25 16:06:04.746 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 16:06:04.878 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 16:06:04.946 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=49686084, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 16:06:04 KST 2025, lastUpdateTimeNanos=526786653671250}
+2025-05-25 17:00:28.766 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:00:29.032 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=121177833, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 17:00:29 KST 2025, lastUpdateTimeNanos=526804207747792}
+2025-05-25 17:01:44.156 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:01:44.356 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:01:44.401 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=82471875, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 17:01:44 KST 2025, lastUpdateTimeNanos=526806704715208}
+2025-05-25 17:01:44.402 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 17:01:45.450 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=158008625, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 17:01:45 KST 2025, lastUpdateTimeNanos=526807753520833}
+2025-05-25 17:07:04.514 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:07:04.574 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=40961041, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 17:07:04 KST 2025, lastUpdateTimeNanos=526824275696792}
+2025-05-25 17:27:56.637 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:27:56.846 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=55725417, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 17:27:56 KST 2025, lastUpdateTimeNanos=526836960881458}
+2025-05-25 17:27:56.851 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 17:27:57.758 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:27:57.940 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=39232584, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 17:27:57 KST 2025, lastUpdateTimeNanos=526838052007458}
+2025-05-25 17:41:51.823 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:41:51.902 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=44499958, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 17:41:51 KST 2025, lastUpdateTimeNanos=526844362272208}
+2025-05-25 17:42:04.517 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:42:04.581 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=35204500, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 17:42:04 KST 2025, lastUpdateTimeNanos=526857041558542}
+2025-05-25 17:42:04.582 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 17:42:05.602 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 17:42:05.683 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=57307291, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 17:42:05 KST 2025, lastUpdateTimeNanos=526858141664417}
+2025-05-25 18:20:27.092 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 18:20:27.394 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=114497875, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 18:20:27 KST 2025, lastUpdateTimeNanos=526874700300041}
+2025-05-25 18:20:29.739 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 18:20:30.952 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=115125250, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 18:20:29 KST 2025, lastUpdateTimeNanos=526877300178416}
+2025-05-25 18:20:33.864 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 18:20:33.866 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 18:20:34.707 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=474230000, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 18:20:34 KST 2025, lastUpdateTimeNanos=526882012069166}
+2025-05-25 23:39:29.008 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:39:29.142 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:39:30.437 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=914687542, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 23:39:30 KST 2025, lastUpdateTimeNanos=545716854546958}
+2025-05-25 23:39:30.437 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=923818375, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 23:39:30 KST 2025, lastUpdateTimeNanos=545716854601333}
+2025-05-25 23:39:30.447 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 23:39:31.640 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:39:31.745 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=70940542, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 23:39:32 KST 2025, lastUpdateTimeNanos=545718275782791}
+2025-05-25 23:45:19.201 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:45:19.201 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:45:19.268 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=44870625, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 23:45:19 KST 2025, lastUpdateTimeNanos=545767119122833}
+2025-05-25 23:45:19.271 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 23:45:19.354 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=103038291, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 23:45:19 KST 2025, lastUpdateTimeNanos=545767206715666}
+2025-05-25 23:45:20.511 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:45:20.578 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=44735916, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 23:45:20 KST 2025, lastUpdateTimeNanos=545768430030291}
+2025-05-25 23:48:34.305 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-01.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:48:34.387 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-00.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:48:34.429 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-01.0mtmr.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=67203709, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-01.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az3'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=7fffffff0000000000000086, setVersion=6, topologyVersion=TopologyVersion{processId=682b5d7d81d87f53ee3c8eac, counter=6}, lastWriteDate=Sun May 25 23:48:34 KST 2025, lastUpdateTimeNanos=545807289808250}
+2025-05-25 23:48:34.430 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-01.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Discovered replica set primary cluster-shard-00-01.0mtmr.mongodb.net:27017 with max election id 7fffffff0000000000000086 and max set version 6
+2025-05-25 23:48:34.471 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-00.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-00.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=42709209, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-00.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az1'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b5b3dc0808f0befc68f90, counter=4}, lastWriteDate=Sun May 25 23:48:34 KST 2025, lastUpdateTimeNanos=545807331754750}
+2025-05-25 23:48:35.618 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Exception in monitor thread while connecting to server cluster-shard-00-02.0mtmr.mongodb.net:27017
+com.mongodb.MongoSocketReadTimeoutException: Timeout while receiving message
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:265)
+	at com.mongodb.internal.connection.AsynchronousChannelStream$BasicCompletionHandler.failed(AsynchronousChannelStream.java:235)
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannel.lambda$read$6(AsynchronousTlsChannel.java:123)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.nio.channels.InterruptedByTimeoutException: null
+	at com.mongodb.internal.connection.tlschannel.async.AsynchronousTlsChannelGroup.lambda$startRead$2(AsynchronousTlsChannelGroup.java:310)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	... 3 common frames omitted
+2025-05-25 23:48:35.710 [ INFO] [cluster-ClusterId{value='68312c6564c74020dfa0e56a', description='null'}-cluster-shard-00-02.0mtmr.mongodb.net:27017] org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=cluster-shard-00-02.0mtmr.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=68064375, setName='atlas-2baa9v-shard-0', canonicalAddress=cluster-shard-00-02.0mtmr.mongodb.net:27017, hosts=[cluster-shard-00-00.0mtmr.mongodb.net:27017, cluster-shard-00-01.0mtmr.mongodb.net:27017, cluster-shard-00-02.0mtmr.mongodb.net:27017], passives=[], arbiters=[], primary='cluster-shard-00-01.0mtmr.mongodb.net:27017', tagSet=TagSet{[Tag{name='availabilityZone', value='apne2-az2'}, Tag{name='diskState', value='READY'}, Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='AWS'}, Tag{name='region', value='AP_NORTHEAST_2'}, Tag{name='workloadType', value='OPERATIONAL'}]}, electionId=null, setVersion=6, topologyVersion=TopologyVersion{processId=682b607e5b0a651cd84c20c1, counter=3}, lastWriteDate=Sun May 25 23:48:35 KST 2025, lastUpdateTimeNanos=545808571284250}
