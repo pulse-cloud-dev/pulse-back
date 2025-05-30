@@ -87,13 +87,13 @@ public class MemberProcessor {
             MemberJoinRequestDto requestDto,
             ServerWebExchange exchange
     ) {
-        log.debug("[validation] request : {}" , requestDto);
+        log.debug("[validation] request : {}", requestDto);
         return memberValidationService.validateToJoin(requestDto)
                 .filter(valid -> valid)
-                .flatMap(valid -> memberBusinessService.join(requestDto, exchange) // 기존의 member를 requestDto로 변경
+                .flatMap(valid -> memberBusinessService.join(requestDto, exchange)
                         .map(resultCode -> new ResultData<>(resultCode, "회원가입에 성공하였습니다."))
                 )
-                .switchIfEmpty(Mono.just(new ResultData<>(ResultCodes.FAIL, "회원가입에 실패하였습니다."))); // 검증 실패 처리
+                .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.BAD_REQUEST)));
     }
 
 
