@@ -1,4 +1,4 @@
-package pulse.back.domain.admin.category;
+package pulse.back.common.repository;
 
 import org.springframework.stereotype.Repository;
 

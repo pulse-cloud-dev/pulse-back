@@ -1,4 +1,4 @@
-package pulse.back.domain.admin.item;
+package pulse.back.common.repository;
 
 import org.springframework.stereotype.Repository;
 import pulse.back.domain.member.dto.JobInfoResponseDto;
