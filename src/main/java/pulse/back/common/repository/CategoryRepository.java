@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import pulse.back.entity.common.Category;
 
 @Repository
-public interface CategoryRepository extends ReactiveMongoRepository<Category, ObjectId> {
+public interface CategoryRepository extends ReactiveMongoRepository<Category, ObjectId>, CategoryRepositoryCustom {
 }

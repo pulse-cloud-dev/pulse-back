@@ -3,9 +3,39 @@ package pulse.back.domain.category.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pulse.back.common.repository.CategoryRepository;
+import pulse.back.common.repository.ItemRepository;
+import pulse.back.common.repository.MetaRepository;
+import pulse.back.common.response.ResultData;
+import pulse.back.domain.category.dto.GetCategoryCodeListResponseDto;
+import pulse.back.domain.category.dto.GetItemCodeListResponseDto;
+import pulse.back.domain.category.dto.GetMetaCodeListResponseDto;
+import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryBusinessService {
+    private final CategoryRepository categoryRepository;
+    private final ItemRepository itemRepository;
+    private final MetaRepository metaRepository;
+
+    public Mono<ResultData<List<GetCategoryCodeListResponseDto>>> getCategoryCodeList() {
+        return categoryRepository.findAll()
+                .map(GetCategoryCodeListResponseDto::of)
+                .collectList()
+                .map(categoryList -> new ResultData<>(categoryList, "카테고리 코드 목록을 조회했습니다."));
+    }
+
+    public Mono<ResultData<List<GetItemCodeListResponseDto>>> getItemCodeList(String categoryCode) {
+        return itemRepository.findByItemCode(categoryCode)
+                .map(itemList -> new ResultData<>(itemList, "아이템 코드 목록을 조회했습니다."));
+    }
+
+    public Mono<ResultData<List<GetMetaCodeListResponseDto>>> getMetaCodeList(String itemCode) {
+        return metaRepository.findByMetaCode(itemCode)
+                .map(metaList -> new ResultData<>(metaList, "메타 코드 목록을 조회했습니다."));
+    }
 }
