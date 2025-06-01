@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.enums.LectureType;
@@ -28,6 +27,7 @@ public class MentoringController {
     /*
     * [멘토링 검색필터 전용] 직업 정보 제공 (분야)
     * */
+    @Deprecated
     @GetMapping("/field")
     @Operation(operationId = "PULSE-152", summary = "[멘토링 검색필터 전용] 직업 정보 제공 (분야)", description = """
             ### [ 설명 ]
@@ -228,4 +228,79 @@ public class MentoringController {
     ) {
         return mentoringProcessor.postMentorInfo(requestDto, exchange);
     }
+
+    @GetMapping("/mento-create/role-level")
+    @Operation(summary = "멘토등록-직책조회", description = """
+            ### [ 설명 ]
+            - 멘토등록에 필요한 직책을 조회합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : []
+            - Response : [List<GetRoleLevelListResponseDto>]
+            ```
+            """)
+    public Mono<ResultData<List<GetMentoInfoCodeListResponseDto>>> getRoleLevelList() {
+        return mentoringProcessor.getRoleLevelList();
+    }
+
+    @GetMapping("/mento-create/education-status")
+    @Operation(summary = "멘토등록-졸업여부조회", description = """
+            ### [ 설명 ]
+            - 멘토등록에 필요한 졸업여부를 조회합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : []
+            - Response : [List<GetMentoInfoCodeListResponseDto>]
+            ```
+            """)
+    public Mono<ResultData<List<GetMentoInfoCodeListResponseDto>>> getEducationStatusList() {
+        return mentoringProcessor.getEducationStatusList();
+    }
+
+    @GetMapping("/mento-create/education-level")
+    @Operation(summary = "멘토등록-학력정보조회", description = """
+            ### [ 설명 ]
+            - 멘토등록에 필요한 학력 정보를 조회합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : []
+            - Response : [List<GetMentoInfoCodeListResponseDto>]
+            ```
+            """)
+    public Mono<ResultData<List<GetMentoInfoCodeListResponseDto>>> getEducationLevelList() {
+        return mentoringProcessor.getEducationLevelList();
+    }
+
+    @GetMapping("/mento-info/pass-status")
+    @Operation(summary = "멘토등록-합격구분코드조회", description = """
+            ### [ 설명 ]
+            - 멘토등록에 필요한 합격구분코드를 조회합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : []
+            - Response : [List<GetMentoInfoCodeListResponseDto>]
+            ```
+            """)
+    public Mono<ResultData<List<GetMentoInfoCodeListResponseDto>>> getPassStatusList() {
+        return mentoringProcessor.getPassStatusList();
+    }
+
+
+
 }
