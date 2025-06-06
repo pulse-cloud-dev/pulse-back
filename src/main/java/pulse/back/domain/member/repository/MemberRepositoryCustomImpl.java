@@ -2,6 +2,7 @@ package pulse.back.domain.member.repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -31,6 +32,14 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
         return mongoOperations.updateFirst(query, update, Member.class)
                 .map(updateResult -> updateResult.getModifiedCount() > 0)
                 .defaultIfEmpty(false);
+    }
+
+    @Override
+    public Mono<Boolean> checkMentorInfoExists(ObjectId memberId) {
+        Query query = new Query(Criteria.where("id").is(memberId)
+                .and("careerInfo").exists(true));
+
+        return mongoOperations.exists(query, Member.class);
     }
 }
 

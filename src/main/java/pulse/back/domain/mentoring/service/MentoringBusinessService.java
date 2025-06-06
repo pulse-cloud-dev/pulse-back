@@ -7,9 +7,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenProvider;
+import pulse.back.common.enums.ErrorCodes;
 import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SortType;
+import pulse.back.common.exception.CustomException;
 import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.common.util.MyNumberUtils;
@@ -92,12 +94,19 @@ public class MentoringBusinessService {
     public Mono<ResultCodes> registerMentoring(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {
         ObjectId memberId = tokenProvider.getMemberId(exchange);
 
-        return geocodingService.getGeocodingResult(requestDto.address(), requestDto.detailAddress())
-                .flatMap(mentoringLocation ->
-                        mentoringRepository.insert(Mentoring.from(requestDto, mentoringLocation, memberId))
-                                .then(Mono.just(ResultCodes.SUCCESS))
-                )
-                .switchIfEmpty(Mono.error(new RuntimeException("지오코딩 결과를 찾을 수 없습니다.")));
+        if (requestDto.lectureType() == LectureType.ONLINE) {
+            // 온라인 강의인 경우 geocoding 없이 바로 insert
+            return mentoringRepository.insert(Mentoring.from(requestDto, null, memberId))
+                    .then(Mono.just(ResultCodes.SUCCESS));
+        } else {
+            // 오프라인 강의인 경우 geocoding 후 insert
+            return geocodingService.getGeocodingResult(requestDto.address(), requestDto.detailAddress())
+                    .flatMap(mentoringLocation ->
+                            mentoringRepository.insert(Mentoring.from(requestDto, mentoringLocation, memberId))
+                                    .then(Mono.just(ResultCodes.SUCCESS))
+                    )
+                    .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.INVALID_ADDRESS)));
+        }
     }
 
     //멘토 정보 등록

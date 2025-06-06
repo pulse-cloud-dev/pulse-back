@@ -38,7 +38,7 @@ public class MentoringProcessor {
                 field, lectureType, region, sortType, searchText, page, size);
         return mentoringValidationService.validateMentoringListRequestDto(field, lectureType, region, sortType, searchText, page, size, exchange)
                 .flatMap(isValid -> {
-                    if (isValid) {
+                    if (Boolean.TRUE.equals(isValid)) {
                         return mentoringBusinessService.getMentoringList(field, lectureType, region, sortType, searchText, page, size, exchange);
                     } else {
                         return Mono.error(new CustomException(ErrorCodes.MENTORING_LIST_FAILED));
@@ -51,7 +51,7 @@ public class MentoringProcessor {
         log.debug("[validation] mentoringId : {}" , mentoringId);
         return mentoringValidationService.validateMentoringId(mentoringId, exchange)
                 .flatMap(isValid -> {
-                    if (isValid) {
+                    if (Boolean.TRUE.equals(isValid)) {
                         return mentoringBusinessService.getMentoringDetail(mentoringId, exchange)
                                 .flatMap(mentoringDetailResponseDto -> Mono.just(new ResultData<>(mentoringDetailResponseDto, "멘토링 상세조회에 성공하였습니다.")));
                     } else {
@@ -65,7 +65,7 @@ public class MentoringProcessor {
         log.debug("[validation] request : {}" , requestDto);
         return mentoringValidationService.validateMentoringPostRequestDto(requestDto, exchange)
                 .flatMap(isValid -> {
-                    if (isValid) {
+                    if (Boolean.TRUE.equals(isValid)) {
                         return mentoringBusinessService.registerMentoring(requestDto, exchange)
                                 .flatMap(resultCodes -> Mono.just(new ResultData<>(resultCodes, "멘토링 등록에 성공하였습니다.")));
                     } else {
@@ -79,7 +79,7 @@ public class MentoringProcessor {
         log.debug("[validation] request : {}" , requestDto);
         return mentoringValidationService.validateMentorInfoRequestDto(requestDto, exchange)
                 .flatMap(isValid -> {
-                    if (isValid) {
+                    if (Boolean.TRUE.equals(isValid)) {
                         return mentoringBusinessService.postMentorInfo(requestDto, exchange)
                                 .flatMap(resultCodes -> Mono.just(new ResultData<>(resultCodes, "멘토 정보 등록에 성공하였습니다.")));
                     } else {

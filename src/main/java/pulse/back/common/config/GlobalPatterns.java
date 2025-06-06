@@ -70,6 +70,9 @@ public class GlobalPatterns {
     // YYMM 패턴: 2자리 연도, 월 형식
     public static final String YYMM = "^\\d{2}(0[1-9]|1[0-2])$";
 
+    //YYYYMM 패턴: 4자리 연도, 월 형식
+    public static final String YYYYMM = "^(19|20)\\d{2}(0[1-9]|1[0-2])$";
+
     // UUID 패턴: UUID 형식
     public static final String UUID = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
 

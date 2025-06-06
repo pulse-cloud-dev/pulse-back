@@ -48,10 +48,10 @@ jwt:
   secret: E1d4FPF9cL13/CnL5ko+ZUsQHazNLpwleboEmV/EeLeH68SXQPWF8k5wmGiihT+q4uVxuser75ftfuHgmWrXBfU6UhgXZrkV3mY=
   ## $ openssl rand -base64 74
   access-token:
-    timeout: 1
+    timeout: 24 # 1
     timeunit: HOURS
   refresh-token:
-    timeout: 7
+    timeout: 30 # 7
     timeunit: DAYS
     ## jwt.*.timeunit : MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS
 spring:
