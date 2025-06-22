@@ -7,6 +7,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.multipart.MultipartFile;
 import pulse.back.common.enums.MemberRole;
+import pulse.back.entity.mento.AcademicInfo;
+import pulse.back.entity.mento.CareerInfo;
+import pulse.back.entity.mento.CertificateInfo;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import pulse.back.common.enums.EducationLevel;
 import pulse.back.common.enums.EducationStatus;
-import pulse.back.entity.member.AcademicInfo;
+import pulse.back.entity.mento.AcademicInfo;
 
 import java.time.LocalDateTime;
 import java.util.List;

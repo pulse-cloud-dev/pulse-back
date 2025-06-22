@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.enums.RoleLevel;
-import pulse.back.entity.member.CareerInfo;
+import pulse.back.entity.mento.CareerInfo;
 
 import java.util.List;
 

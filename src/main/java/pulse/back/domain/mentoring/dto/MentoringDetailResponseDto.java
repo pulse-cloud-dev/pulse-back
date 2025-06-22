@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.multipart.MultipartFile;
 import pulse.back.common.enums.LectureType;
 import pulse.back.common.util.MyDateUtils;
-import pulse.back.entity.member.CareerInfo;
+import pulse.back.entity.mento.CareerInfo;
 import pulse.back.entity.member.Member;
 import pulse.back.entity.mentoring.Mentoring;
 

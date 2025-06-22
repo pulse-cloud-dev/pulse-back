@@ -3,7 +3,7 @@ package pulse.back.domain.member.dto;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
-import pulse.back.entity.member.JobInfo;
+import pulse.back.entity.mento.JobInfo;
 
 import java.util.List;
 

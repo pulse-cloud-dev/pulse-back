@@ -1,4 +1,4 @@
-package pulse.back.entity.member;
+package pulse.back.entity.mento;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import pulse.back.common.enums.EducationLevel;
