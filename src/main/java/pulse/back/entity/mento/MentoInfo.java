@@ -7,10 +7,13 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record Mento(
+public record MentoInfo(
         // pk
         @Id
         ObjectId id,
+
+        // 회원 아이디
+        ObjectId memberId,
 
         // 멘토소개말 (멘토 등록했을 경우)
         String mentorIntroduction,

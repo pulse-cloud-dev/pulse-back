@@ -12,15 +12,17 @@ import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SortType;
 import pulse.back.common.exception.CustomException;
+import pulse.back.common.repository.MentoInfoRepository;
 import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.common.util.MyNumberUtils;
 import pulse.back.domain.api.geocoding.GeocodingService;
-import pulse.back.domain.member.repository.MemberRepository;
+import pulse.back.common.repository.MemberRepository;
 import pulse.back.domain.mentoring.dto.*;
-import pulse.back.domain.mentoring.repository.MentoringRepository;
+import pulse.back.common.repository.MentoringRepository;
+import pulse.back.entity.member.Member;
+import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
-import pulse.back.entity.mentoring.MentoringLocation;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -31,6 +33,7 @@ import java.util.List;
 public class MentoringBusinessService {
     private final MentoringRepository mentoringRepository;
     private final MemberRepository memberRepository;
+    private final MentoInfoRepository mentoInfoRepository;
     private final TokenProvider tokenProvider;
     private final GeocodingService geocodingService;
 
@@ -86,8 +89,17 @@ public class MentoringBusinessService {
     //멘토링 상세조회
     public Mono<MentoringDetailResponseDto> getMentoringDetail(String mentoringId, ServerWebExchange exchange) {
         return mentoringRepository.findById(new ObjectId(mentoringId))
-                .flatMap(mentoring -> memberRepository.findById(mentoring.createdMemberId())
-                        .map(member -> MentoringDetailResponseDto.of(mentoring, member)));
+                .flatMap(mentoring -> {
+                    Mono<Member> memberMono = memberRepository.findById(mentoring.createdMemberId());
+                    Mono<MentoInfo> mentoMono = mentoInfoRepository.findByMemberId(mentoring.createdMemberId());
+
+                    return Mono.zip(memberMono, mentoMono)
+                            .map(tuple -> {
+                                Member member = tuple.getT1();
+                                MentoInfo mentoInfo = tuple.getT2();
+                                return MentoringDetailResponseDto.of(mentoring, member, mentoInfo);
+                            });
+                });
     }
 
     //멘토링 등록
@@ -107,13 +119,6 @@ public class MentoringBusinessService {
                     )
                     .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.INVALID_ADDRESS)));
         }
-    }
-
-    //멘토 정보 등록
-    public Mono<ResultCodes> postMentorInfo(MentoInfoRequestDto requestDto, ServerWebExchange exchange) {
-        ObjectId memberId = tokenProvider.getMemberId(exchange);
-        return mentoringRepository.insertMentorInfo(memberId, requestDto)
-                .then(Mono.just(ResultCodes.SUCCESS));
     }
 
 }

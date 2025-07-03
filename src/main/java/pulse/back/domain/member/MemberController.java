@@ -6,15 +6,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
 import pulse.back.common.config.auth.TokenResponseDto;
-import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SocialRule;
 import pulse.back.common.repository.CategoryRepository;
@@ -22,12 +19,10 @@ import pulse.back.common.repository.ItemRepository;
 import pulse.back.common.response.ResultData;
 import pulse.back.domain.admin.terms.TermsRepository;
 import pulse.back.domain.member.dto.*;
-import pulse.back.domain.member.repository.MemberRepository;
+import pulse.back.common.repository.MemberRepository;
 import pulse.back.domain.social.NaverLoginUrlGenerator;
 import pulse.back.entity.common.Category;
 import pulse.back.entity.common.Item;
-import pulse.back.entity.member.Member;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -169,7 +164,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> join(
-            @RequestBody @Valid MemberJoinRequestDto requestDto,
+            @RequestBody MemberJoinRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         return memberProcessor.join(requestDto, exchange);

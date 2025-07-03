@@ -3,8 +3,8 @@ package pulse.back.common.repository;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
-import pulse.back.entity.mento.Mento;
+import pulse.back.entity.mento.MentoInfo;
 
 @Repository
-public interface MentoRepository extends ReactiveMongoRepository<Mento, ObjectId>, MentoRepositoryCustom {
+public interface MentoInfoRepository extends ReactiveMongoRepository<MentoInfo, ObjectId>, MentoInfoRepositoryCustom {
 }

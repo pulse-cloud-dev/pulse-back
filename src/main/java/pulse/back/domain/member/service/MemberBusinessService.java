@@ -23,7 +23,7 @@ import pulse.back.domain.social.NaverLoginUrlGenerator;
 import pulse.back.entity.member.Member;
 import reactor.core.publisher.Mono;
 import org.springframework.http.ResponseCookie;
-import pulse.back.domain.member.repository.MemberRepository;
+import pulse.back.common.repository.MemberRepository;
 
 import java.util.List;
 

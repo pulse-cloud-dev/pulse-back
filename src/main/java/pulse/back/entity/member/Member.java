@@ -39,8 +39,8 @@ public record Member(
         // 유저권한 (Admin, User 등)
         MemberRole memberRole,
 
-        // 멘토소개말 (멘토 등록했을 경우)
-        String mentorIntroduction,
+        // 프로필 이미지
+        MultipartFile profileImage,
 
         // 생성일
         @Indexed
@@ -59,21 +59,6 @@ public record Member(
         ObjectId updatedMemberId,
 
         // 삭제자
-        ObjectId deletedMemberId,
-
-        // 학력정보
-        List<AcademicInfo> academicInfo,
-
-        // 자격증정보
-        List<CertificateInfo> certificateInfo,
-
-        // 직업정보
-        String jobInfo,
-
-        // 경력정보
-        List<CareerInfo> careerInfo,
-
-        // 프로필 이미지
-        MultipartFile profileImage
+        ObjectId deletedMemberId
 ) {
 }

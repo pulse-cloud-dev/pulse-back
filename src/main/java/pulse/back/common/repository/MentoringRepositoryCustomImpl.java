@@ -1,4 +1,4 @@
-package pulse.back.domain.mentoring.repository;
+package pulse.back.common.repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +19,7 @@ import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.entity.common.Item;
 import pulse.back.entity.common.Meta;
 import pulse.back.entity.member.Member;
+import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -68,37 +69,6 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
     }
 
     @Override
-    public Mono<Void> insertMentorInfo(ObjectId mentorId, MentoInfoRequestDto requestDto) {
-        Update update = new Update();
-
-        if (requestDto.academicInfoList() != null && !requestDto.academicInfoList().isEmpty()) {
-            update.set("academicInfo", requestDto.academicInfoList());
-        }
-
-        if (requestDto.certificateInfoList() != null && !requestDto.certificateInfoList().isEmpty()) {
-            update.set("certificateInfo", requestDto.certificateInfoList());
-        }
-
-        if (requestDto.jobInfo() != null) {
-            update.set("jobInfo", requestDto.jobInfo());
-        }
-
-        if (requestDto.careerInfoList() != null && !requestDto.careerInfoList().isEmpty()) {
-            update.set("careerInfo", requestDto.careerInfoList());
-        }
-
-        if(requestDto.mentorIntroduction() != null){
-            update.set("mentorIntroduction", requestDto.mentorIntroduction());
-        }
-
-        update.set("updatedAt", LocalDateTime.now());
-        update.set("updatedMemberId", mentorId);
-
-        Query query = Query.query(Criteria.where("_id").is(mentorId));
-        return mongoOperations.updateFirst(query, update, Member.class).then();
-    }
-
-    @Override
     public Flux<List<MentoringListResponseDto>> getMentoringList(
             String field, LectureType lectureType, String region,
             SortType sortType, String searchText, int page, int size,
@@ -110,10 +80,17 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                     query.limit(size);
 
                     return mongoOperations.find(query, Mentoring.class)
-                            .flatMap(mentoring ->
-                                    mongoOperations.findById(mentoring.createdMemberId(), Member.class)
-                                            .map(member -> MentoringListResponseDto.of(mentoring, member))
-                            )
+                            .flatMap(mentoring -> {
+                                ObjectId memberId = mentoring.createdMemberId();
+
+                                Mono<Member> memberMono = mongoOperations.findById(memberId, Member.class);
+
+                                Query mentoQuery = Query.query(Criteria.where("memberId").is(memberId));
+                                Mono<MentoInfo> mentoMono = mongoOperations.findOne(mentoQuery, MentoInfo.class);
+
+                                return Mono.zip(memberMono, mentoMono)
+                                        .map(tuple -> MentoringListResponseDto.of(mentoring, tuple.getT1(), tuple.getT2()));
+                            })
                             .collectList();
                 });
     }

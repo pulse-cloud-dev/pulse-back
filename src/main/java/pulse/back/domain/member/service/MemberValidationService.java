@@ -12,7 +12,7 @@ import pulse.back.common.exception.CustomException;
 import pulse.back.domain.member.dto.MemberJoinRequestDto;
 import pulse.back.domain.member.dto.MemberLoginRequestDto;
 import pulse.back.domain.member.dto.PasswordResetRequestDto;
-import pulse.back.domain.member.repository.MemberRepository;
+import pulse.back.common.repository.MemberRepository;
 import pulse.back.entity.member.Member;
 import pulse.back.common.enums.ErrorCodes;
 import reactor.core.publisher.Mono;
@@ -80,7 +80,7 @@ public class MemberValidationService {
     ) {
         return memberRepository.findByEmail(requestDto.memberId())
                 .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MEMBER_NOT_FOUND)))
-                .flatMap(member -> {return Mono.just(true);});
+                .flatMap(member -> Mono.just(true));
     }
 
     //닉네임 중복체크

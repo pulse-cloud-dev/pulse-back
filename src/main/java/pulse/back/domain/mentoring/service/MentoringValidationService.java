@@ -11,11 +11,10 @@ import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.SortType;
 import pulse.back.common.exception.CustomException;
 import pulse.back.common.util.CheckDateUtils;
-import pulse.back.domain.member.repository.MemberRepository;
+import pulse.back.common.repository.MemberRepository;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
-import pulse.back.domain.mentoring.repository.MentoringRepository;
-import pulse.back.entity.mentoring.Mentoring;
+import pulse.back.common.repository.MentoringRepository;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -66,11 +65,6 @@ public class MentoringValidationService {
                         return Mono.error(new CustomException(ErrorCodes.MENTO_NOT_REGISTERED));
                     }
                 });
-    }
-
-    //멘토 정보 등록
-    public Mono<Boolean> validateMentorInfoRequestDto(MentoInfoRequestDto requestDto, ServerWebExchange exchange) {
-        return Mono.just(true);
     }
 
     private boolean hasValue(String value) {

@@ -30,11 +30,6 @@ public record MemberJoinRequestDto(
         @Schema(description = "회원 휴대폰번호", example = "01012345678")
         String phoneNumber,
 
-//        @NotNull
-//        @Pattern(regexp = GlobalPatterns.YYYYMMDD, message = "생년월일 형식에 맞지 않습니다.")
-//        @Schema(description = "회원 생년월일", example = "19900101")
-//        String birth,
-
         @NotNull
         @Schema(description = "회원 이름", example = "홍길동")
         String name,
@@ -56,11 +51,6 @@ public record MemberJoinRequestDto(
                 MemberRole.USER,
                 null,
                 LocalDateTime.now(),
-                null,
-                null,
-                null,
-                null,
-                null,
                 null,
                 null,
                 null,

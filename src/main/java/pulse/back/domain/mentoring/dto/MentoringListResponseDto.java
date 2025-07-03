@@ -7,6 +7,7 @@ import pulse.back.common.enums.LectureType;
 import pulse.back.common.util.MyDateUtils;
 import pulse.back.entity.mento.CareerInfo;
 import pulse.back.entity.member.Member;
+import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
 
 import java.time.LocalDate;
@@ -44,18 +45,18 @@ public record MentoringListResponseDto(
         // 멘토링 모집마감 기한(mm.dd)
         LocalDate deadlineTime
 ) {
-    public static MentoringListResponseDto of(Mentoring mentoring, Member member) {
+    public static MentoringListResponseDto of(Mentoring mentoring, Member member, MentoInfo mentoInfo) {
         int mentorCareerTotalYear = 0;
 
-        if (member.careerInfo() != null && !member.careerInfo().isEmpty()) {
+        if (mentoInfo.careerInfo() != null && !mentoInfo.careerInfo().isEmpty()) {
             // 가장 최근 입사일자를 가진 회사 찾기
-            CareerInfo latestCareer = member.careerInfo().stream()
+            CareerInfo latestCareer = mentoInfo.careerInfo().stream()
                     .max(Comparator.comparing(CareerInfo::joinDate))
                     .orElse(null);
 
             // 총 근무 개월 수 계산
             long totalMonths = 0;
-            for (CareerInfo careerInfo : member.careerInfo()) {
+            for (CareerInfo careerInfo : mentoInfo.careerInfo()) {
                 if (careerInfo.joinDate() != null) {
                     LocalDate joinDate = MyDateUtils.fromString(careerInfo.joinDate());
                     LocalDate retireDate;
@@ -81,7 +82,7 @@ public record MentoringListResponseDto(
                 mentoring.lectureType(),
                 mentoring.title(),
                 member.profileImage(),
-                member.jobInfo(),
+                mentoInfo.jobInfo(),
                 mentorCareerTotalYear,
                 mentoring.onlinePlatform(),
                 member.nickName(),

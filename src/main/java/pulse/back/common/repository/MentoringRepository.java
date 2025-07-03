@@ -1,4 +1,4 @@
-package pulse.back.domain.mentoring.repository;
+package pulse.back.common.repository;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

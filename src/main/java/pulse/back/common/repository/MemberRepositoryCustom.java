@@ -1,9 +1,8 @@
-package pulse.back.domain.member.repository;
+package pulse.back.common.repository;
 
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ServerWebExchange;
-import pulse.back.domain.member.dto.PasswordResetRequestDto;
 import reactor.core.publisher.Mono;
 
 @Repository
