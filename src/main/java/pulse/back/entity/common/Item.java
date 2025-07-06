@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Document
 public record Item(
@@ -27,13 +28,13 @@ public record Item(
 
         // 생성일
         @Indexed
-        LocalDateTime createdAt,
+        OffsetDateTime createdAt,
 
         // 수정일
-        LocalDateTime updatedAt,
+        OffsetDateTime updatedAt,
 
         // 삭제일
-        LocalDateTime deletedAt,
+        OffsetDateTime deletedAt,
 
         // 생성자
         ObjectId createdMemberId,

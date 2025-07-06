@@ -12,6 +12,7 @@ import pulse.back.entity.mento.CareerInfo;
 import pulse.back.entity.mento.CertificateInfo;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @QueryEntity
@@ -44,13 +45,13 @@ public record Member(
 
         // 생성일
         @Indexed
-        LocalDateTime createdAt,
+        OffsetDateTime createdAt,
 
         // 수정일
-        LocalDateTime updatedAt,
+        OffsetDateTime updatedAt,
 
         // 삭제일
-        LocalDateTime deletedAt,
+        OffsetDateTime deletedAt,
 
         // 생성자
         ObjectId createdMemberId,

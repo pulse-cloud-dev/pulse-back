@@ -3,8 +3,7 @@ package pulse.back.common.util;
 import org.springframework.stereotype.Component;
 import pulse.back.common.config.GlobalPatterns;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import io.micrometer.common.util.StringUtils;
 import java.util.regex.Pattern;
@@ -16,31 +15,32 @@ public class MyDateUtils {
     private static final DateTimeFormatter FORMATTER_HHMM = DateTimeFormatter.ofPattern("HHmm");
 
     // 날짜
-    public static LocalDate fromStringAsSTART(String yyyyMMdd){
+    public static OffsetDateTime fromStringAsSTART(String yyyyMMdd){
         return fromString(yyyyMMdd);
     }
 
-    public static LocalDate fromStringAsEND(String yyyyMMdd){
-        LocalDate localDate = fromString(yyyyMMdd);
+    public static OffsetDateTime fromStringAsEND(String yyyyMMdd){
+        OffsetDateTime localDate = fromString(yyyyMMdd);
         return localDate==null ? null : localDate.plusDays(1);
     }
 
 
-    public static LocalDate fromString(String yyyyMMdd){
-        if(StringUtils.isEmpty(yyyyMMdd)) return null;
-        if(!Pattern.matches(GlobalPatterns.YYYYMMDD, yyyyMMdd)) return null;
+    public static OffsetDateTime fromString(String yyyyMMdd) {
+        if (StringUtils.isEmpty(yyyyMMdd)) return null;
+        if (!Pattern.matches(GlobalPatterns.YYYYMMDD, yyyyMMdd)) return null;
 
-        return LocalDate.parse(yyyyMMdd, FORMATTER_YYYYMMDD);
+        LocalDate localDate = LocalDate.parse(yyyyMMdd, FORMATTER_YYYYMMDD);
+        return localDate.atStartOfDay().atOffset(ZoneOffset.ofHours(9)); // KST
     }
 
-    //시간
-    public static LocalTime timeFromString(String HHmm) {
+    public static OffsetTime timeFromString(String HHmm) {
         if (StringUtils.isEmpty(HHmm)) return null;
-        // 정규식으로 HHMM 형식 검증 (00-23시, 00-59분)
         if (!Pattern.matches("^([0-1][0-9]|2[0-3])[0-5][0-9]$", HHmm)) return null;
 
-        return LocalTime.parse(HHmm, FORMATTER_HHMM);
+        LocalTime localTime = LocalTime.parse(HHmm, FORMATTER_HHMM);
+        return localTime.atOffset(ZoneOffset.ofHours(9)); // KST
     }
+
 
     // LocalTime을 HHMM 문자열로 변환
     public static String timeToString(LocalTime time) {

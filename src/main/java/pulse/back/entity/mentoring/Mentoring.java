@@ -9,9 +9,7 @@ import pulse.back.common.util.MyDateUtils;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 
 @Document
@@ -27,16 +25,16 @@ public record Mentoring(
         String content,
 
         // 멘토링 모집마감 기한
-        LocalDate deadlineDate,
+        OffsetDateTime deadlineDate,
 
         // 멘토링 모집마감 시간
-        LocalTime deadlineTime,
+        OffsetTime deadlineTime,
 
         // 멘토링 시작일
-        LocalDate startDate,
+        OffsetDateTime startDate,
 
         // 멘토링 마감일
-        LocalDate endDate,
+        OffsetDateTime endDate,
 
         // 강의형식
         LectureType lectureType,
@@ -64,13 +62,13 @@ public record Mentoring(
 
         // 생성일
         @Indexed
-        LocalDateTime createdAt,
+        OffsetDateTime createdAt,
 
         // 수정일
-        LocalDateTime updatedAt,
+        OffsetDateTime updatedAt,
 
         // 삭제일
-        LocalDateTime deletedAt,
+        OffsetDateTime deletedAt,
 
         // 생성자
         ObjectId createdMemberId,
@@ -98,7 +96,7 @@ public record Mentoring(
                 requestDto.recruitNumber(),
                 requestDto.cost(),
                 null,
-                LocalDateTime.now(),
+                OffsetDateTime.now(),
                 null,
                 null,
                 mentorId,

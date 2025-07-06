@@ -14,6 +14,8 @@ import pulse.back.entity.mentoring.Mentoring;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 
@@ -52,19 +54,19 @@ public record MentoringDetailResponseDto(
 
         //멘토링 모집마감 기한 (yyyyMMdd)
         @Schema(description = "멘토링 모집마감 기한", example = "yyyyMMdd")
-        LocalDate deadlineDate,
+        OffsetDateTime deadlineDate,
 
         //멘토링 모집마감 시간 (HHmm)
         @Schema(description = "멘토링 모집마감 시간", example = "HHmm")
-        LocalTime deadlineTime,
+        OffsetTime deadlineTime,
 
         //멘토링 시작일 (yyyyMMdd)
         @Schema(description = "멘토링 시작일", example = "yyyyMMdd")
-        LocalDate startDate,
+        OffsetDateTime startDate,
 
         //멘토링 마감일 (yyyyMMdd)
         @Schema(description = "멘토링 마감일", example = "yyyyMMdd")
-        LocalDate endDate,
+        OffsetDateTime endDate,
 
         //강의형식
         @Schema(description = "강의형식", example = "LectureType : ONLINE, OFFLINE")
@@ -112,11 +114,11 @@ public record MentoringDetailResponseDto(
                         long totalMonths = 0;
                         for (CareerInfo careerInfo : mentoInfo.careerInfo()) {
                                 if (careerInfo.joinDate() != null) {
-                                        LocalDate joinDate = MyDateUtils.fromString(careerInfo.joinDate());
-                                        LocalDate retireDate;
+                                        OffsetDateTime joinDate = MyDateUtils.fromString(careerInfo.joinDate());
+                                        OffsetDateTime retireDate;
 
                                         if (careerInfo.isWorking()) {
-                                                retireDate = LocalDate.now();
+                                                retireDate = OffsetDateTime.now();
                                         } else {
                                                 retireDate = MyDateUtils.fromString(careerInfo.retireDate());
                                         }

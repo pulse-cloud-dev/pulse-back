@@ -11,6 +11,7 @@ import pulse.back.common.enums.MemberRole;
 import pulse.back.entity.member.*;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -50,7 +51,7 @@ public record MemberJoinRequestDto(
                 requestDto.nickName(),
                 MemberRole.USER,
                 null,
-                LocalDateTime.now(),
+                OffsetDateTime.now(),
                 null,
                 null,
                 null,

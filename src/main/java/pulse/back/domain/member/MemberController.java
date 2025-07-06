@@ -28,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Slf4j
@@ -319,7 +320,7 @@ public class MemberController {
                 name,
                 description,
                 code,
-                LocalDateTime.now(),
+                OffsetDateTime.now(),
                 null,
                 null,
                 new ObjectId(),
@@ -345,7 +346,7 @@ public class MemberController {
                 name,
                 description,
                 code,
-                LocalDateTime.now(),
+                OffsetDateTime.now(),
                 null,
                 null,
                 new ObjectId(),
@@ -375,7 +376,7 @@ public class MemberController {
                 content,
                 categoryList,
                 expiredAt,
-                LocalDateTime.now(),
+                OffsetDateTime.now(),
                 null,
                 null,
                 new ObjectId(),
