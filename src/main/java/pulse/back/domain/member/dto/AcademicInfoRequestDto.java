@@ -3,10 +3,14 @@ package pulse.back.domain.member.dto;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Pattern;
+import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.enums.EducationLevel;
 import pulse.back.common.enums.EducationStatus;
+import pulse.back.common.util.MyDateUtils;
 import pulse.back.entity.mento.AcademicInfo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -25,11 +29,13 @@ public record AcademicInfoRequestDto(
         @Schema(description = "졸업여부", example = "EducationStatus 으로 입력 : GRADUATED, GRADUATING,,,")
         EducationStatus educationStatus,
 
-        @Schema(description = "입학년월")
-        OffsetDateTime admissionDate,
+        @Pattern(regexp = GlobalPatterns.YYYYMM)
+        @Schema(description = "입학년월", example = "yyyyMM")
+        String admissionDate,
 
-        @Schema(description = "졸업년월")
-        OffsetDateTime graduationDate
+        @Pattern(regexp = GlobalPatterns.YYYYMM)
+        @Schema(description = "졸업년월", example = "yyyyMM")
+        String graduationDate
 ) {
     public static AcademicInfo of(AcademicInfoRequestDto requestDto) {
         return new AcademicInfo(

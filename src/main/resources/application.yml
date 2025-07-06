@@ -10,6 +10,7 @@ logging:
     org.springframework.data.mongodb: debug
     com.bubaum.bupay.admin.api: debug
 
+
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%5p]) [%thread] %cyan(%logger) - %msg%n"
     #    for dev
@@ -61,6 +62,10 @@ spring:
     include: private
   jackson:
     property-naming-strategy: SNAKE_CASE
+    deserialization:
+      adjust-dates-to-context-time-zone: false
+    serialization:
+      write-dates-as-timestamps: false
   security:
     oauth2:
       client:

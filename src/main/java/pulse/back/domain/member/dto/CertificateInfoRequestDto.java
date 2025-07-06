@@ -3,6 +3,8 @@ package pulse.back.domain.member.dto;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Pattern;
+import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.enums.PassStatus;
 import pulse.back.entity.mento.CertificateInfo;
 
@@ -25,8 +27,9 @@ public record CertificateInfoRequestDto(
         PassStatus passStatus,
 
         //합격년월
+        @Pattern(regexp = GlobalPatterns.YYYYMM)
         @Schema(description = "합격년월")
-        OffsetDateTime passDate
+        String passDate
 ) {
     public static CertificateInfo of(CertificateInfoRequestDto requestDto) {
         return new CertificateInfo(

@@ -19,6 +19,6 @@ public record CertificateInfo(
     PassStatus passStatus,
 
     //합격년월
-    OffsetDateTime passDate
+    String passDate
 ) {
 }

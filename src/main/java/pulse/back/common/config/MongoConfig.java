@@ -22,18 +22,8 @@ import java.util.Arrays;
 import java.util.Date;
 
 @Configuration
-@EnableReactiveMongoRepositories(basePackages = "pulse.back", reactiveMongoTemplateRef = "simpleReactiveMongoTemplate")
+@EnableReactiveMongoRepositories(basePackages = "pulse.back")
 public class MongoConfig {
-
-    @Bean
-    public MongoClient mongoClient() {
-        return MongoClients.create("mongodb+srv://ssddo:0524@cluster.0mtmr.mongodb.net/pulse?retryWrites=true&w=majority");
-    }
-
-    @Bean
-    public ReactiveMongoDatabaseFactory reactiveMongoDatabaseFactory(MongoClient mongoClient) {
-        return new SimpleReactiveMongoDatabaseFactory(mongoClient, "pulse");
-    }
 
     @Bean
     public MongoCustomConversions customConversions() {
@@ -43,28 +33,7 @@ public class MongoConfig {
         ));
     }
 
-    @Bean
-    public MongoMappingContext mongoMappingContext() {
-        MongoMappingContext context = new MongoMappingContext();
-        context.setSimpleTypeHolder(customConversions().getSimpleTypeHolder());
-        return context;
-    }
-
-    @Bean
-    public MappingMongoConverter reactiveMappingMongoConverter(ReactiveMongoDatabaseFactory factory,
-                                                               MongoMappingContext context) {
-        MappingMongoConverter converter = new MappingMongoConverter(ReactiveMongoTemplate.NO_OP_REF_RESOLVER, context);
-        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
-        converter.setCustomConversions(customConversions());
-        converter.afterPropertiesSet();
-        return converter;
-    }
-
-    @Bean
-    public ReactiveMongoTemplate simpleReactiveMongoTemplate(ReactiveMongoDatabaseFactory reactiveMongoDatabaseFactory,
-                                                             MappingMongoConverter reactiveMappingMongoConverter) {
-        return new ReactiveMongoTemplate(reactiveMongoDatabaseFactory, reactiveMappingMongoConverter);
-    }
+    // 다른 Bean들은 일단 제거하고 Spring Boot 기본 설정 사용
 
     @WritingConverter
     public static class OffsetDateTimeToDateConverter implements Converter<OffsetDateTime, Date> {

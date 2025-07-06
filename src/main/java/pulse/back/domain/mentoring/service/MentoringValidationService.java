@@ -10,6 +10,7 @@ import pulse.back.common.enums.ErrorCodes;
 import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.SortType;
 import pulse.back.common.exception.CustomException;
+import pulse.back.common.repository.MentoInfoRepository;
 import pulse.back.common.util.CheckDateUtils;
 import pulse.back.common.repository.MemberRepository;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
@@ -22,6 +23,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class MentoringValidationService {
     private final MentoringRepository mentoringRepository;
+    private final MentoInfoRepository mentoInfoRepository;
     private final MemberRepository memberRepository;
 
     private final TokenProvider tokenProvider;
@@ -41,31 +43,40 @@ public class MentoringValidationService {
 
     //멘토링 등록시 유효성 검사
     public Mono<Boolean> validateMentoringPostRequestDto(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {
-        return memberRepository.checkMentorInfoExists(tokenProvider.getMemberId(exchange))
+        ObjectId memberId = tokenProvider.getMemberId(exchange);
+
+        return memberRepository.checkMentorInfoExists(memberId)
                 .flatMap(isExists -> {
-                    if (Boolean.TRUE.equals(isExists)) {
-                        // CheckDateUtils를 사용한 날짜 검증
-                        return checkDateUtils.validateMentoringDates(requestDto)
-                                .then(Mono.fromCallable(() -> {
-                                    // 강의 형식과 주소 정보 검증
-                                    if (requestDto.lectureType() == LectureType.ONLINE) {
-                                        // ONLINE인 경우 address와 detailAddress가 존재하면 안됨
-                                        if (hasValue(requestDto.address()) || hasValue(requestDto.detailAddress())) {
-                                            throw new CustomException(ErrorCodes.INVALID_ONLINE_ADDRESS);
-                                        }
-                                    } else if (requestDto.lectureType() == LectureType.OFFLINE) {
-                                        // OFFLINE인 경우 address가 반드시 존재해야 함
-                                        if (!hasValue(requestDto.address())) {
-                                            throw new CustomException(ErrorCodes.MISSING_OFFLINE_ADDRESS);
-                                        }
-                                    }
-                                    return true;
-                                }));
-                    } else {
+                    if (!Boolean.TRUE.equals(isExists)) {
                         return Mono.error(new CustomException(ErrorCodes.MENTO_NOT_REGISTERED));
                     }
+
+                    // 멘토 등록 여부 추가 확인
+                    return mentoInfoRepository.existsByMemberId(memberId)
+                            .flatMap(isRegistered -> {
+                                if (!isRegistered) {
+                                    return Mono.error(new CustomException(ErrorCodes.MENTO_NOT_REGISTERED_USER));
+                                }
+
+                                // 날짜 검증
+                                return checkDateUtils.validateMentoringDates(requestDto)
+                                        .then(Mono.fromCallable(() -> {
+                                            // 강의 형식과 주소 정보 검증
+                                            if (requestDto.lectureType() == LectureType.ONLINE) {
+                                                if (hasValue(requestDto.address()) || hasValue(requestDto.detailAddress())) {
+                                                    throw new CustomException(ErrorCodes.INVALID_ONLINE_ADDRESS);
+                                                }
+                                            } else if (requestDto.lectureType() == LectureType.OFFLINE) {
+                                                if (!hasValue(requestDto.address())) {
+                                                    throw new CustomException(ErrorCodes.MISSING_OFFLINE_ADDRESS);
+                                                }
+                                            }
+                                            return true;
+                                        }));
+                            });
                 });
     }
+
 
     private boolean hasValue(String value) {
         return value != null && !value.trim().isEmpty();

@@ -1,6 +1,7 @@
 package pulse.back.domain.mentoInfo;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class MentoInfoController {
     }
 
     //멘토 정보 등록
-    @PostMapping
+    @PostMapping("/register")
     @Operation(operationId = "PULSE-123", summary = "멘토 정보 등록", description = """
             ### [ 설명 ]
             - 멘토 정보를 등록합니다.
@@ -88,6 +89,7 @@ public class MentoInfoController {
             @RequestBody MentoInfoRequestDto requestDto,
             ServerWebExchange exchange
     ) {
+        log.debug("[validation] request : {}", requestDto);
         return mentoInfoProcessor.postMentorInfo(requestDto, exchange);
     }
 

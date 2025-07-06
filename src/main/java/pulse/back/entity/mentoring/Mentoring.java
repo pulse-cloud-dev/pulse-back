@@ -59,6 +59,7 @@ public record Mentoring(
 
         //멘토링에 참여한 멘티 pk
         List<MenteeInfo> menteeInfoList,
+        int viewCount,
 
         // 생성일
         @Indexed
@@ -96,6 +97,7 @@ public record Mentoring(
                 requestDto.recruitNumber(),
                 requestDto.cost(),
                 null,
+                0,
                 OffsetDateTime.now(),
                 null,
                 null,

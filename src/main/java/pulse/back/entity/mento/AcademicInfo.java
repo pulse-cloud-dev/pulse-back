@@ -23,9 +23,9 @@ public record AcademicInfo(
         EducationStatus educationStatus,
 
         //입학년월
-        OffsetDateTime admissionDate,
+        String admissionDate,
 
         //졸업년월
-        OffsetDateTime graduationDate
+        String graduationDate
 ) {
 }
