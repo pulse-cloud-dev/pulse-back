@@ -2,6 +2,7 @@ package pulse.back.domain.mentoring;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -120,7 +121,7 @@ public class MentoringController {
 
 
     //멘토링 상세조회
-    @GetMapping("/{mentoringId}")
+    @GetMapping("/{mentoring_id}")
     @Operation(operationId = "PULSE-114", summary = "멘토링 상세조회", description = """
             ### [ 설명 ]
             - 멘토링 상세정보를 조회합니다.

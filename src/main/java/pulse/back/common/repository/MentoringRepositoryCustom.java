@@ -24,4 +24,6 @@ public interface MentoringRepositoryCustom{
     Mono<Long> getMentoringListTotalCount(
             String field, LectureType lectureType, String region, SortType sortType, String searchText
     );
+
+    Mono<Void> incrementViewCount(ObjectId mentoringId);
 }

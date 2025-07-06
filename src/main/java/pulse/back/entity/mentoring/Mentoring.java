@@ -24,11 +24,8 @@ public record Mentoring(
         // 멘토링 내용
         String content,
 
-        // 멘토링 모집마감 기한
+        // 멘토링 모집마감
         OffsetDateTime deadlineDate,
-
-        // 멘토링 모집마감 시간
-        OffsetTime deadlineTime,
 
         // 멘토링 시작일
         OffsetDateTime startDate,
@@ -59,6 +56,8 @@ public record Mentoring(
 
         //멘토링에 참여한 멘티 pk
         List<MenteeInfo> menteeInfoList,
+
+        // 조회수
         int viewCount,
 
         // 생성일
@@ -85,8 +84,7 @@ public record Mentoring(
                 new ObjectId(),
                 requestDto.title(),
                 requestDto.content(),
-                MyDateUtils.fromString(requestDto.deadlineDate()),
-                MyDateUtils.timeFromString(requestDto.deadlineTime()),
+                MyDateUtils.fromDateAndTime(requestDto.deadlineDate(), requestDto.deadlineTime()),
                 MyDateUtils.fromString(requestDto.startDate()),
                 MyDateUtils.fromString(requestDto.endDate()),
                 requestDto.lectureType(),

@@ -101,6 +101,15 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                 .flatMap(query -> mongoOperations.count(query, Mentoring.class));
     }
 
+    @Override
+    public Mono<Void> incrementViewCount(ObjectId mentoringId) {
+        Query query = new Query(Criteria.where("id").is(mentoringId));
+        Update update = new Update().inc("viewCount", 1);
+
+        return mongoOperations.updateFirst(query, update, Mentoring.class)
+                .then();
+    }
+
 
     private Mono<Query> getMentoringSearchQuery(
             String field, LectureType lectureType, String region, SortType sortType, String searchText

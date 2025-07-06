@@ -24,6 +24,19 @@ public class MyDateUtils {
         return localDate==null ? null : localDate.plusDays(1);
     }
 
+    public static OffsetDateTime fromDateAndTime(String yyyyMMdd, String hhmm) {
+        if (StringUtils.isEmpty(yyyyMMdd) || StringUtils.isEmpty(hhmm)) return null;
+        if (!Pattern.matches(GlobalPatterns.YYYYMMDD, yyyyMMdd)) return null;
+        if (!Pattern.matches(GlobalPatterns.HHMM, hhmm)) return null;
+
+        LocalDate date = LocalDate.parse(yyyyMMdd, FORMATTER_YYYYMMDD);
+        LocalTime time = LocalTime.parse(hhmm, FORMATTER_HHMM);
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+
+        return dateTime.atOffset(ZoneOffset.ofHours(9)); // KST
+    }
+
+
 
     public static OffsetDateTime fromString(String yyyyMMdd) {
         if (StringUtils.isEmpty(yyyyMMdd)) return null;

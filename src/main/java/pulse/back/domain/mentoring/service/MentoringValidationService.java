@@ -45,36 +45,31 @@ public class MentoringValidationService {
     public Mono<Boolean> validateMentoringPostRequestDto(MentoringPostRequestDto requestDto, ServerWebExchange exchange) {
         ObjectId memberId = tokenProvider.getMemberId(exchange);
 
-        return memberRepository.checkMentorInfoExists(memberId)
-                .flatMap(isExists -> {
-                    if (!Boolean.TRUE.equals(isExists)) {
-                        return Mono.error(new CustomException(ErrorCodes.MENTO_NOT_REGISTERED));
+        // 멘토 등록 여부 추가 확인
+        return mentoInfoRepository.existsByMemberId(memberId)
+                .flatMap(isRegistered -> {
+                    if (!isRegistered) {
+                        return Mono.error(new CustomException(ErrorCodes.MENTO_NOT_REGISTERED_USER));
                     }
 
-                    // 멘토 등록 여부 추가 확인
-                    return mentoInfoRepository.existsByMemberId(memberId)
-                            .flatMap(isRegistered -> {
-                                if (!isRegistered) {
-                                    return Mono.error(new CustomException(ErrorCodes.MENTO_NOT_REGISTERED_USER));
+                    // 날짜 검증
+                    return checkDateUtils.validateMentoringDates(requestDto)
+                            .then(Mono.fromCallable(() -> {
+                                // 강의 형식과 주소 정보 검증
+                                if (requestDto.lectureType() == LectureType.ONLINE) {
+                                    if (hasValue(requestDto.address()) || hasValue(requestDto.detailAddress())) {
+                                        throw new CustomException(ErrorCodes.INVALID_ONLINE_ADDRESS);
+                                    }
+                                } else if (requestDto.lectureType() == LectureType.OFFLINE) {
+                                    if (!hasValue(requestDto.address())) {
+                                        throw new CustomException(ErrorCodes.MISSING_OFFLINE_ADDRESS);
+                                    }
                                 }
-
-                                // 날짜 검증
-                                return checkDateUtils.validateMentoringDates(requestDto)
-                                        .then(Mono.fromCallable(() -> {
-                                            // 강의 형식과 주소 정보 검증
-                                            if (requestDto.lectureType() == LectureType.ONLINE) {
-                                                if (hasValue(requestDto.address()) || hasValue(requestDto.detailAddress())) {
-                                                    throw new CustomException(ErrorCodes.INVALID_ONLINE_ADDRESS);
-                                                }
-                                            } else if (requestDto.lectureType() == LectureType.OFFLINE) {
-                                                if (!hasValue(requestDto.address())) {
-                                                    throw new CustomException(ErrorCodes.MISSING_OFFLINE_ADDRESS);
-                                                }
-                                            }
-                                            return true;
-                                        }));
-                            });
-                });
+                                return true;
+                            }
+                    )
+                );
+        });
     }
 
 
