@@ -17,12 +17,20 @@ import pulse.back.entity.mento.MentoInfo;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Slf4j
 @Primary
 @RequiredArgsConstructor
 public class MentoInfoRepositoryCustomImpl implements MentoInfoRepositoryCustom {
     private final ReactiveMongoOperations mongoOperations;
+
+    @Override
+    public Mono<Boolean> existsByMemberId(ObjectId memberId) {
+        return mongoOperations.exists(
+                Query.query(Criteria.where("memberId").is(memberId)),
+                MentoInfo.class);
+    }
 
     @Override
     public Mono<MentoInfo> findByMemberId(ObjectId memberId) {
@@ -46,7 +54,7 @@ public class MentoInfoRepositoryCustomImpl implements MentoInfoRepositoryCustom 
                         requestDto.jobInfo().jobCode() : null, // 직업정보 (JobInfoRequestDto -> String)
                 requestDto.careerInfoList() != null && !requestDto.careerInfoList().isEmpty() ?
                         CareerInfoRequestDto.of(requestDto.careerInfoList()) : null, // 경력정보
-                LocalDateTime.now(), // 생성일
+                OffsetDateTime.now(), // 생성일
                 null, // 수정일
                 null, // 삭제일
                 mentorId, // 생성자

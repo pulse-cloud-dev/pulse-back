@@ -5,6 +5,7 @@ import pulse.back.common.enums.EducationLevel;
 import pulse.back.common.enums.EducationStatus;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 //학력정보
 @Document
@@ -22,9 +23,9 @@ public record AcademicInfo(
         EducationStatus educationStatus,
 
         //입학년월
-        LocalDateTime admissionDate,
+        OffsetDateTime admissionDate,
 
         //졸업년월
-        LocalDateTime graduationDate
+        OffsetDateTime graduationDate
 ) {
 }

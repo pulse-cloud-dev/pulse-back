@@ -7,6 +7,7 @@ import pulse.back.common.enums.PassStatus;
 import pulse.back.entity.mento.CertificateInfo;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -25,7 +26,7 @@ public record CertificateInfoRequestDto(
 
         //합격년월
         @Schema(description = "합격년월")
-        LocalDateTime passDate
+        OffsetDateTime passDate
 ) {
     public static CertificateInfo of(CertificateInfoRequestDto requestDto) {
         return new CertificateInfo(

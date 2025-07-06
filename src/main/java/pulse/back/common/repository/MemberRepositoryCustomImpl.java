@@ -13,6 +13,7 @@ import pulse.back.entity.member.Member;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Slf4j
 @Primary
@@ -26,7 +27,7 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
         Query query = new Query(Criteria.where("email").is(email));
         Update update = new Update()
                 .set("password", newPassword)
-                .set("updatedAt", LocalDateTime.now());
+                .set("updatedAt", OffsetDateTime.now());
 
         return mongoOperations.updateFirst(query, update, Member.class)
                 .map(updateResult -> updateResult.getModifiedCount() > 0)

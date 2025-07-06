@@ -17,6 +17,13 @@ import reactor.core.publisher.Mono;
 public class MentoInfoBusinessService {
     private final TokenProvider tokenProvider;
     private final MentoInfoRepository mentoInfoRepository;
+
+    //멘토 정보 등록 여부
+    public Mono<Boolean> getMentoInfoExist(ServerWebExchange exchange) {
+        ObjectId memberId = tokenProvider.getMemberId(exchange);
+        return mentoInfoRepository.existsByMemberId(memberId);
+    }
+
     //멘토 정보 등록
     public Mono<ResultCodes> postMentorInfo(MentoInfoRequestDto requestDto, ServerWebExchange exchange) {
         ObjectId memberId = tokenProvider.getMemberId(exchange);

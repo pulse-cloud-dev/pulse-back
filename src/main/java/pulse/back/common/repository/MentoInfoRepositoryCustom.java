@@ -8,6 +8,7 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface MentoInfoRepositoryCustom {
+    Mono<Boolean> existsByMemberId(ObjectId memberId);
     Mono<MentoInfo> findByMemberId(ObjectId memberId);
     Mono<Void> insertMentorInfo(ObjectId mentorId, MentoInfoRequestDto requestDto);
 }

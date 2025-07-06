@@ -4,6 +4,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import pulse.back.common.enums.PassStatus;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 //자격증정보
 @Document
@@ -18,6 +19,6 @@ public record CertificateInfo(
     PassStatus passStatus,
 
     //합격년월
-    LocalDateTime passDate
+    OffsetDateTime passDate
 ) {
 }

@@ -8,6 +8,7 @@ import pulse.back.common.enums.EducationStatus;
 import pulse.back.entity.mento.AcademicInfo;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -25,10 +26,10 @@ public record AcademicInfoRequestDto(
         EducationStatus educationStatus,
 
         @Schema(description = "입학년월")
-        LocalDateTime admissionDate,
+        OffsetDateTime admissionDate,
 
         @Schema(description = "졸업년월")
-        LocalDateTime graduationDate
+        OffsetDateTime graduationDate
 ) {
     public static AcademicInfo of(AcademicInfoRequestDto requestDto) {
         return new AcademicInfo(

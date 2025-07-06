@@ -31,7 +31,7 @@ public record Terms(
         List<String> categoryList,
 
         // 약관 만기일 (null: 무기한)
-        LocalDateTime expiredAt,
+        OffsetDateTime expiredAt,
 
         // 생성일
         @Indexed

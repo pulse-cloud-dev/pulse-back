@@ -24,6 +24,12 @@ public class MentoInfoProcessor {
     private final MentoInfoBusinessService mentoInfoBusinessService;
     private final MentoInfoValidationService mentoInfoValidationService;
 
+    //멘토 정보 등록 여부
+    public Mono<ResultData<Boolean>> getMentoInfoExist(ServerWebExchange exchange) {
+        return mentoInfoBusinessService.getMentoInfoExist(exchange)
+                .flatMap(isExist -> Mono.just(new ResultData<>(isExist, "멘토 정보 등록 여부 조회에 성공하였습니다.")));
+    }
+
     //멘토 정보 등록
     public Mono<ResultData<ResultCodes>> postMentorInfo(MentoInfoRequestDto requestDto, ServerWebExchange exchange){
         log.debug("[validation] request : {}" , requestDto);

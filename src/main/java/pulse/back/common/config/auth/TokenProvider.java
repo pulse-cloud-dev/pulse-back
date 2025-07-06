@@ -23,6 +23,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -104,14 +105,14 @@ public class TokenProvider implements InitializingBean {
      * */
     private String createAccessToken(String id, MemberRole role) {
         long now = System.currentTimeMillis();
-        Date accessTokenValidity = new Date(now + GlobalVariables.getAccessTokenExpiredTime());
 
-        // 최신 JJWT API 사용
+        Instant accessTokenValidity = Instant.ofEpochMilli(now + GlobalVariables.getAccessTokenExpiredTime());
+
         return Jwts.builder()
                 .setSubject(id)
-                .claim("auth", role.name())  // 커스텀 클레임 설정
-                .setExpiration(accessTokenValidity)
-                .signWith(key, SignatureAlgorithm.HS256) // 서명 키와 알고리즘을 명시적으로 지정
+                .claim("auth", role.name())
+                .setExpiration(Date.from(accessTokenValidity))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -121,13 +122,12 @@ public class TokenProvider implements InitializingBean {
      * */
     private String createRefreshToken(String id) {
         long now = System.currentTimeMillis();
-        Date refreshTokenValidity = new Date(now + GlobalVariables.getRefreshTokenExpiredTime());
+        Instant refreshTokenValidity = Instant.ofEpochMilli(now + GlobalVariables.getRefreshTokenExpiredTime());
 
-        // 최신 JJWT API 사용
         return Jwts.builder()
                 .setSubject(id)
-                .setExpiration(refreshTokenValidity)
-                .signWith(key, SignatureAlgorithm.HS256) // 서명 키와 알고리즘을 명시적으로 지정
+                .setExpiration(Date.from(refreshTokenValidity))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 

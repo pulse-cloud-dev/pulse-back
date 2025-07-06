@@ -2,24 +2,28 @@ package pulse.back.common.config;
 
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.convert.ReadingConverter;
+import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.SimpleReactiveMongoDatabaseFactory;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.Arrays;
+import java.util.Date;
 
 @Configuration
 @EnableReactiveMongoRepositories(basePackages = "pulse.back", reactiveMongoTemplateRef = "simpleReactiveMongoTemplate")
-@RequiredArgsConstructor
 public class MongoConfig {
-
-    private final MongoMappingContext mongoMappingContext;
 
     @Bean
     public MongoClient mongoClient() {
@@ -32,10 +36,27 @@ public class MongoConfig {
     }
 
     @Bean
-    public MappingMongoConverter reactiveMappingMongoConverter() {
-        MappingMongoConverter converter = new MappingMongoConverter(ReactiveMongoTemplate.NO_OP_REF_RESOLVER,
-                mongoMappingContext);
+    public MongoCustomConversions customConversions() {
+        return new MongoCustomConversions(Arrays.asList(
+                new OffsetDateTimeToDateConverter(),
+                new DateToOffsetDateTimeConverter()
+        ));
+    }
+
+    @Bean
+    public MongoMappingContext mongoMappingContext() {
+        MongoMappingContext context = new MongoMappingContext();
+        context.setSimpleTypeHolder(customConversions().getSimpleTypeHolder());
+        return context;
+    }
+
+    @Bean
+    public MappingMongoConverter reactiveMappingMongoConverter(ReactiveMongoDatabaseFactory factory,
+                                                               MongoMappingContext context) {
+        MappingMongoConverter converter = new MappingMongoConverter(ReactiveMongoTemplate.NO_OP_REF_RESOLVER, context);
         converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+        converter.setCustomConversions(customConversions());
+        converter.afterPropertiesSet();
         return converter;
     }
 
@@ -43,5 +64,21 @@ public class MongoConfig {
     public ReactiveMongoTemplate simpleReactiveMongoTemplate(ReactiveMongoDatabaseFactory reactiveMongoDatabaseFactory,
                                                              MappingMongoConverter reactiveMappingMongoConverter) {
         return new ReactiveMongoTemplate(reactiveMongoDatabaseFactory, reactiveMappingMongoConverter);
+    }
+
+    @WritingConverter
+    public static class OffsetDateTimeToDateConverter implements Converter<OffsetDateTime, Date> {
+        @Override
+        public Date convert(OffsetDateTime source) {
+            return Date.from(source.toInstant());
+        }
+    }
+
+    @ReadingConverter
+    public static class DateToOffsetDateTimeConverter implements Converter<Date, OffsetDateTime> {
+        @Override
+        public OffsetDateTime convert(Date source) {
+            return source.toInstant().atOffset(ZoneOffset.UTC);
+        }
     }
 }
