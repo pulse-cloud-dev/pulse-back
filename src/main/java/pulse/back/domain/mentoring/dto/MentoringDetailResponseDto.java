@@ -15,8 +15,8 @@ import pulse.back.entity.mentoring.Mentoring;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
-import java.time.OffsetTime;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 
@@ -56,15 +56,15 @@ public record MentoringDetailResponseDto(
 
         //멘토링 모집마감 기한
         @Schema(description = "멘토링 모집마감 기한", example = "2025-07-06T13:07:28.090+00:00")
-        OffsetDateTime deadlineDate,
+        LocalDateTime deadlineDate,
 
         //멘토링 시작일 (yyyyMMdd)
         @Schema(description = "멘토링 시작일", example = "yyyyMMdd")
-        OffsetDateTime startDate,
+        LocalDateTime startDate,
 
         //멘토링 마감일 (yyyyMMdd)
         @Schema(description = "멘토링 마감일", example = "yyyyMMdd")
-        OffsetDateTime endDate,
+        LocalDateTime endDate,
 
         //강의형식
         @Schema(description = "강의형식", example = "LectureType : ONLINE, OFFLINE")
@@ -114,11 +114,11 @@ public record MentoringDetailResponseDto(
                         long totalMonths = 0;
                         for (CareerInfo careerInfo : mentoInfo.careerInfo()) {
                                 if (careerInfo.joinDate() != null) {
-                                        OffsetDateTime joinDate = MyDateUtils.fromString(careerInfo.joinDate());
-                                        OffsetDateTime retireDate;
+                                        LocalDateTime joinDate = MyDateUtils.fromString(careerInfo.joinDate());
+                                        LocalDateTime retireDate;
 
                                         if (careerInfo.isWorking()) {
-                                                retireDate = OffsetDateTime.now();
+                                                retireDate = LocalDateTime.now();
                                         } else {
                                                 retireDate = MyDateUtils.fromString(careerInfo.retireDate());
                                         }

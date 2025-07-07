@@ -143,7 +143,7 @@ Caused by: java.net.UnknownHostException: cluster-shard-00-00.0mtmr.mongodb.net
 2025-07-06 20:24:31.845 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.repository.query.MongoQueryCreator - Created query Query: { "email" : "0524@test.com"}, Fields: {}, Sort: {}
 2025-07-06 20:24:31.888 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 20:24:32.395 [ERROR] [async-channel-group-0-handler-executor] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [5b021413-1]  500 Server Error for HTTP POST "/api/v1/members/login"
-org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.OffsetDateTime]
+org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.LocalDateTime]
 	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:294)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -283,7 +283,7 @@ Original Stack Trace:
 2025-07-06 20:28:08.018 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.repository.query.MongoQueryCreator - Created query Query: { "email" : "0524@test.com"}, Fields: {}, Sort: {}
 2025-07-06 20:28:08.163 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 20:28:08.751 [ERROR] [async-channel-group-0-handler-executor] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [0109dc27-1]  500 Server Error for HTTP POST "/api/v1/members/login"
-org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.OffsetDateTime]
+org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.LocalDateTime]
 	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:294)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -399,7 +399,7 @@ Original Stack Trace:
 2025-07-06 20:28:41.063 [DEBUG] [reactor-http-nio-1] org.springframework.data.mongodb.repository.query.MongoQueryCreator - Created query Query: { "email" : "0524@test.com"}, Fields: {}, Sort: {}
 2025-07-06 20:28:41.076 [DEBUG] [reactor-http-nio-1] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 20:28:41.137 [ERROR] [async-channel-group-0-handler-executor] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [6cc15c15-11]  500 Server Error for HTTP POST "/api/v1/members/login"
-org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.OffsetDateTime]
+org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.LocalDateTime]
 	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:294)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -539,7 +539,7 @@ Original Stack Trace:
 2025-07-06 20:35:23.575 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.repository.query.MongoQueryCreator - Created query Query: { "email" : "0524@test.com"}, Fields: {}, Sort: {}
 2025-07-06 20:35:23.616 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 20:35:24.091 [ERROR] [async-channel-group-0-handler-executor] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [4cabb60a-1]  500 Server Error for HTTP POST "/api/v1/members/login"
-org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.OffsetDateTime]
+org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.LocalDateTime]
 	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:294)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -679,7 +679,7 @@ Original Stack Trace:
 2025-07-06 20:48:23.199 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.repository.query.MongoQueryCreator - Created query Query: { "email" : "0524@test.com"}, Fields: {}, Sort: {}
 2025-07-06 20:48:23.247 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 20:48:23.853 [ERROR] [async-channel-group-0-handler-executor] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [c621a021-1]  500 Server Error for HTTP POST "/api/v1/members/login"
-org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.OffsetDateTime]
+org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.LocalDateTime]
 	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:294)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -795,7 +795,7 @@ Original Stack Trace:
 2025-07-06 20:48:53.469 [DEBUG] [reactor-http-nio-1] org.springframework.data.mongodb.repository.query.MongoQueryCreator - Created query Query: { "email" : "0524@test.com"}, Fields: {}, Sort: {}
 2025-07-06 20:48:53.479 [DEBUG] [reactor-http-nio-1] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 20:48:53.516 [ERROR] [async-channel-group-0-handler-executor] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [006fac06-11]  500 Server Error for HTTP POST "/api/v1/members/login"
-org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.OffsetDateTime]
+org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.LocalDateTime]
 	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:294)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -910,7 +910,7 @@ Original Stack Trace:
 2025-07-06 20:49:05.971 [DEBUG] [reactor-http-nio-2] org.springframework.data.mongodb.repository.query.MongoQueryCreator - Created query Query: { "email" : "0524@test.com"}, Fields: {}, Sort: {}
 2025-07-06 20:49:05.975 [DEBUG] [reactor-http-nio-2] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 20:49:06.010 [ERROR] [async-channel-group-0-handler-executor] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [e0c15ff1-12]  500 Server Error for HTTP POST "/api/v1/members/login"
-org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.OffsetDateTime]
+org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.util.Date] to type [java.time.LocalDateTime]
 	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:294)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -1051,7 +1051,7 @@ Original Stack Trace:
 2025-07-06 21:06:19.264 [DEBUG] [reactor-http-nio-1] org.springframework.data.mongodb.core.ReactiveMongoTemplate - find using query: { "email" : "0524@test.com"} fields: Document{{}} for class: class pulse.back.entity.member.Member in collection: member
 2025-07-06 21:06:20.026 [DEBUG] [async-channel-group-0-handler-executor] org.springframework.data.mongodb.core.ReactiveMongoTemplate - Inserting Document containing fields: [_id, email, password, phoneNumber, name, nickName, memberRole, createdAt] in collection: member
 2025-07-06 21:06:20.087 [ERROR] [AsyncGetter-5-thread-1] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [1022ff4b-10]  500 Server Error for HTTP POST "/api/v1/members/join"
-org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for CodecCacheKey{clazz=class java.time.OffsetDateTime, types=null}.
+org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for CodecCacheKey{clazz=class java.time.LocalDateTime, types=null}.
 	at org.bson.internal.ProvidersCodecRegistry.lambda$get$0(ProvidersCodecRegistry.java:87)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
@@ -1811,7 +1811,7 @@ Original Stack Trace:
 2025-07-06 23:10:55.157 [DEBUG] [reactor-http-nio-3] org.springframework.data.mongodb.core.ReactiveMongoTemplate - exists: { "memberId" : { "$oid" : "686a69158f711616a2a5fb93"}} in collection: mentoInfo
 2025-07-06 23:10:56.154 [DEBUG] [reactor-http-nio-4] org.springframework.data.mongodb.core.ReactiveMongoTemplate - Inserting Document containing fields: [_id, title, content, deadlineDate, deadlineTime, startDate, endDate, lectureType, address, detailAddress, location, recruitNumber, cost, viewCount, createdAt, createdMemberId, _class] in collection: mentoring
 2025-07-06 23:10:56.231 [ERROR] [AsyncGetter-6-thread-1] org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler - [16c65ebc-1]  500 Server Error for HTTP POST "/api/v1/mentoring/post"
-org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for CodecCacheKey{clazz=class java.time.OffsetTime, types=null}.
+org.bson.codecs.configuration.CodecConfigurationException: Can't find a codec for CodecCacheKey{clazz=class java.time.LocalTime, types=null}.
 	at org.bson.internal.ProvidersCodecRegistry.lambda$get$0(ProvidersCodecRegistry.java:87)
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):

@@ -11,7 +11,7 @@ import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 
@@ -44,7 +44,7 @@ public record MentoringListResponseDto(
         String mentorNickname,
 
         // 멘토링 모집마감 기한(mm.dd)
-        OffsetDateTime deadlineTime,
+        LocalDateTime deadlineTime,
 
         // 조회수
         int viewCount
@@ -62,11 +62,11 @@ public record MentoringListResponseDto(
             long totalMonths = 0;
             for (CareerInfo careerInfo : mentoInfo.careerInfo()) {
                 if (careerInfo.joinDate() != null) {
-                    OffsetDateTime joinDate = MyDateUtils.fromString(careerInfo.joinDate());
-                    OffsetDateTime retireDate;
+                    LocalDateTime joinDate = MyDateUtils.fromString(careerInfo.joinDate());
+                    LocalDateTime retireDate;
 
                     if (careerInfo.isWorking()) {
-                        retireDate = OffsetDateTime.now();
+                        retireDate = LocalDateTime.now();
                     } else {
                         retireDate = MyDateUtils.fromString(careerInfo.retireDate());
                     }

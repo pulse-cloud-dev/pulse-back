@@ -4,7 +4,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import pulse.back.common.enums.PassStatus;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 //자격증정보
 @Document

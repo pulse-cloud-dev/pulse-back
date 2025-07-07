@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.ReactiveMongoOperations;
 import pulse.back.entity.mentoring.MentoringBookmarks;
 import reactor.core.publisher.Mono;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Primary
@@ -17,7 +17,7 @@ public class MentoringBookmarksRepositoryCustomImpl implements MentoringBookmark
     private final ReactiveMongoOperations mongoOperations;
 
     @Override
-    public Mono<Void> insertMentoringBookmark(ObjectId memberId, ObjectId mentoringId, OffsetDateTime createdAt) {
+    public Mono<Void> insertMentoringBookmark(ObjectId memberId, ObjectId mentoringId, LocalDateTime createdAt) {
         // 멘토링 북마크 엔티티 생성
         MentoringBookmarks mentoringBookmark = new MentoringBookmarks(
                 new ObjectId(), // 새로운 ID 생성

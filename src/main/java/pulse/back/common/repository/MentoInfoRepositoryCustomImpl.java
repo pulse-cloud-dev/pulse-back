@@ -17,7 +17,7 @@ import pulse.back.entity.mento.MentoInfo;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Primary
@@ -54,7 +54,7 @@ public class MentoInfoRepositoryCustomImpl implements MentoInfoRepositoryCustom 
                         requestDto.jobInfo().jobCode() : null, // 직업정보 (JobInfoRequestDto -> String)
                 requestDto.careerInfoList() != null && !requestDto.careerInfoList().isEmpty() ?
                         CareerInfoRequestDto.of(requestDto.careerInfoList()) : null, // 경력정보
-                OffsetDateTime.now(), // 생성일
+                LocalDateTime.now(), // 생성일
                 null, // 수정일
                 null, // 삭제일
                 mentorId, // 생성자

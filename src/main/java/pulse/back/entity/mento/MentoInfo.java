@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record MentoInfo(
@@ -33,13 +33,13 @@ public record MentoInfo(
 
         // 생성일
         @Indexed
-        OffsetDateTime createdAt,
+        LocalDateTime createdAt,
 
         // 수정일
-        OffsetDateTime updatedAt,
+        LocalDateTime updatedAt,
 
         // 삭제일
-        OffsetDateTime deletedAt,
+        LocalDateTime deletedAt,
 
         // 생성자
         ObjectId createdMemberId,

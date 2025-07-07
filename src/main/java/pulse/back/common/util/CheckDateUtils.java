@@ -7,7 +7,7 @@ import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -25,8 +25,8 @@ public class CheckDateUtils {
      * @throws DateTimeParseException 날짜 형식이 잘못된 경우
      */
     public boolean isAfterToday(String dateStr) {
-        OffsetDateTime today = OffsetDateTime.now().truncatedTo(ChronoUnit.DAYS);
-        OffsetDateTime targetDate = parseToOffsetDateTime(dateStr);
+        LocalDateTime today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+        LocalDateTime targetDate = parseToLocalDateTime(dateStr);
         return !targetDate.isBefore(today);
     }
 
@@ -38,8 +38,8 @@ public class CheckDateUtils {
      * @throws DateTimeParseException 날짜 형식이 잘못된 경우
      */
     public boolean isValidDateRange(String startDateStr, String endDateStr) {
-        OffsetDateTime startDate = parseToOffsetDateTime(startDateStr);
-        OffsetDateTime endDate = parseToOffsetDateTime(endDateStr);
+        LocalDateTime startDate = parseToLocalDateTime(startDateStr);
+        LocalDateTime endDate = parseToLocalDateTime(endDateStr);
         return !startDate.isAfter(endDate);
     }
 
@@ -76,14 +76,13 @@ public class CheckDateUtils {
     }
 
     /**
-     * yyyyMMdd 형식의 문자열을 OffsetDateTime으로 변환
+     * yyyyMMdd 형식의 문자열을 LocalDateTime으로 변환
      * @param dateStr yyyyMMdd 형식의 날짜 문자열
-     * @return OffsetDateTime 객체 (시간은 00:00:00 UTC)
+     * @return LocalDateTime 객체 (시간은 00:00:00 UTC)
      * @throws DateTimeParseException 날짜 형식이 잘못된 경우
      */
-    private OffsetDateTime parseToOffsetDateTime(String dateStr) {
+    private LocalDateTime parseToLocalDateTime(String dateStr) {
         return LocalDate.parse(dateStr, DATE_FORMATTER)
-                .atStartOfDay()
-                .atOffset(ZoneOffset.UTC);
+                .atStartOfDay();
     }
 }

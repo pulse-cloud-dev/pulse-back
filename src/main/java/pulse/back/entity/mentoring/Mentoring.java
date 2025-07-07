@@ -25,13 +25,13 @@ public record Mentoring(
         String content,
 
         // 멘토링 모집마감
-        OffsetDateTime deadlineDate,
+        LocalDateTime deadlineDate,
 
         // 멘토링 시작일
-        OffsetDateTime startDate,
+        LocalDateTime startDate,
 
         // 멘토링 마감일
-        OffsetDateTime endDate,
+        LocalDateTime endDate,
 
         // 강의형식
         LectureType lectureType,
@@ -62,13 +62,13 @@ public record Mentoring(
 
         // 생성일
         @Indexed
-        OffsetDateTime createdAt,
+        LocalDateTime createdAt,
 
         // 수정일
-        OffsetDateTime updatedAt,
+        LocalDateTime updatedAt,
 
         // 삭제일
-        OffsetDateTime deletedAt,
+        LocalDateTime deletedAt,
 
         // 생성자
         ObjectId createdMemberId,
@@ -96,7 +96,7 @@ public record Mentoring(
                 requestDto.cost(),
                 null,
                 0,
-                OffsetDateTime.now(),
+                LocalDateTime.now(),
                 null,
                 null,
                 mentorId,

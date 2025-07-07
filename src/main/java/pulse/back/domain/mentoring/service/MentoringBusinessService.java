@@ -28,7 +28,7 @@ import pulse.back.entity.mentoring.Mentoring;
 import pulse.back.entity.mentoring.MentoringViewLog;
 import reactor.core.publisher.Mono;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -181,7 +181,7 @@ public class MentoringBusinessService {
                 mentoringId,
                 memberId,
                 ipAddress,
-                OffsetDateTime.now(),
+                LocalDateTime.now(),
                 memberId
         );
 

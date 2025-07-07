@@ -28,7 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -320,7 +320,7 @@ public class MemberController {
                 name,
                 description,
                 code,
-                OffsetDateTime.now(),
+                LocalDateTime.now(),
                 null,
                 null,
                 new ObjectId(),
@@ -346,7 +346,7 @@ public class MemberController {
                 name,
                 description,
                 code,
-                OffsetDateTime.now(),
+                LocalDateTime.now(),
                 null,
                 null,
                 new ObjectId(),
@@ -365,7 +365,7 @@ public class MemberController {
             @RequestParam(value = "title", required = false) @Schema(description = "제목") String title,
             @RequestParam(value = "content", required = false) @Schema(description = "내용") String content,
             @RequestParam(value = "category_list", required = false) @Schema(description = "약관이 사용되는 카테고리 리스트 (예: TERMS_PAYMENT, TERMS_MEMBER)") List<String> categoryList,
-            @RequestParam(value = "expired_at", required = false) @Schema(description = "약관 만기일 (null: 무기한)") OffsetDateTime expiredAt,
+            @RequestParam(value = "expired_at", required = false) @Schema(description = "약관 만기일 (null: 무기한)") LocalDateTime expiredAt,
             ServerWebExchange exchange
     ) {
         pulse.back.entity.terms.Terms terms = new pulse.back.entity.terms.Terms(
@@ -376,7 +376,7 @@ public class MemberController {
                 content,
                 categoryList,
                 expiredAt,
-                OffsetDateTime.now(),
+                LocalDateTime.now(),
                 null,
                 null,
                 new ObjectId(),

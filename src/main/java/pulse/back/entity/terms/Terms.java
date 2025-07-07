@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Document
@@ -31,17 +31,17 @@ public record Terms(
         List<String> categoryList,
 
         // 약관 만기일 (null: 무기한)
-        OffsetDateTime expiredAt,
+        LocalDateTime expiredAt,
 
         // 생성일
         @Indexed
-        OffsetDateTime createdAt,
+        LocalDateTime createdAt,
 
         // 수정일
-        OffsetDateTime updatedAt,
+        LocalDateTime updatedAt,
 
         // 삭제일
-        OffsetDateTime deletedAt,
+        LocalDateTime deletedAt,
 
         // 생성자
         ObjectId createdMemberId,

@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Document
 public record MentoringBookmarks(
@@ -19,7 +19,7 @@ public record MentoringBookmarks(
         ObjectId memberId,
 
         // 멘토링 북마크한 날짜
-        OffsetDateTime createdAt,
+        LocalDateTime createdAt,
 
         ObjectId createdMemberId
 ) {

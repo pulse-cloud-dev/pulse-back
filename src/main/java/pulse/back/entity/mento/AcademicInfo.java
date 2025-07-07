@@ -5,7 +5,7 @@ import pulse.back.common.enums.EducationLevel;
 import pulse.back.common.enums.EducationStatus;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 //학력정보
 @Document

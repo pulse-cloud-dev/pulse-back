@@ -9,7 +9,7 @@ import pulse.back.common.enums.PassStatus;
 import pulse.back.entity.mento.CertificateInfo;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
