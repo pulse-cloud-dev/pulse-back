@@ -36,4 +36,9 @@ public class MentoringViewLogRepositoryImpl implements MentoringViewLogRepositor
 
         return mongoOperations.exists(query, MentoringViewLog.class);
     }
+
+    @Override
+    public Mono<Void> deleteAllMentoringViewLogs() {
+        return mongoOperations.remove(new Query(), MentoringViewLog.class).then();
+    }
 }

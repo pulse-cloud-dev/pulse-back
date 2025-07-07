@@ -8,4 +8,5 @@ import reactor.core.publisher.Mono;
 public interface MentoringViewLogRepositoryCustom {
     Mono<Boolean> checkViewLogByIp(ObjectId mentoringId, String ipAddress);
     Mono<Boolean> checkViewLogByMemberId(ObjectId mentoringId, ObjectId memberId);
+    Mono<Void> deleteAllMentoringViewLogs();
 }
