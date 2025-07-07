@@ -44,7 +44,10 @@ public record MentoringListResponseDto(
         String mentorNickname,
 
         // 멘토링 모집마감 기한(mm.dd)
-        OffsetDateTime deadlineTime
+        OffsetDateTime deadlineTime,
+
+        // 조회수
+        int viewCount
 ) {
     public static MentoringListResponseDto of(Mentoring mentoring, Member member, MentoInfo mentoInfo) {
         int mentorCareerTotalYear = 0;
@@ -87,7 +90,8 @@ public record MentoringListResponseDto(
                 mentorCareerTotalYear,
                 mentoring.onlinePlatform(),
                 member.nickName(),
-                mentoring.deadlineDate()
+                mentoring.deadlineDate(),
+                mentoring.viewCount()
         );
     }
 }
