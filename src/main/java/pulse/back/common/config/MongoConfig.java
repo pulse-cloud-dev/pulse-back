@@ -49,7 +49,7 @@ public class MongoConfig {
         context.setSimpleTypeHolder(customConversions().getSimpleTypeHolder());
         return context;
     }
-//
+
     @Bean
     public MappingMongoConverter reactiveMappingMongoConverter(ReactiveMongoDatabaseFactory factory,
                                                                MongoMappingContext context) {
