@@ -52,24 +52,30 @@ public class MentoringValidationService {
                         return Mono.error(new CustomException(ErrorCodes.MENTO_NOT_REGISTERED_USER));
                     }
 
-                    // 날짜 검증
-                    return checkDateUtils.validateMentoringDates(requestDto)
-                            .then(Mono.fromCallable(() -> {
-                                // 강의 형식과 주소 정보 검증
-                                if (requestDto.lectureType() == LectureType.ONLINE) {
-                                    if (hasValue(requestDto.address()) || hasValue(requestDto.detailAddress())) {
-                                        throw new CustomException(ErrorCodes.INVALID_ONLINE_ADDRESS);
-                                    }
-                                } else if (requestDto.lectureType() == LectureType.OFFLINE) {
-                                    if (!hasValue(requestDto.address())) {
-                                        throw new CustomException(ErrorCodes.MISSING_OFFLINE_ADDRESS);
-                                    }
+                    // 멘토링 등록 개수 확인 (5개 초과 시 에러)
+                    return mentoringRepository.countByCreatedMemberId(memberId)
+                            .flatMap(count -> {
+                                if (count > 5) {
+                                    return Mono.error(new CustomException(ErrorCodes.MENTORING_ALREADY_EXIST));
                                 }
-                                return true;
-                            }
-                    )
-                );
-        });
+
+                                // 날짜 검증
+                                return checkDateUtils.validateMentoringDates(requestDto)
+                                        .then(Mono.fromCallable(() -> {
+                                            // 강의 형식과 주소 정보 검증
+                                            if (requestDto.lectureType() == LectureType.ONLINE) {
+                                                if (hasValue(requestDto.address()) || hasValue(requestDto.detailAddress())) {
+                                                    throw new CustomException(ErrorCodes.INVALID_ONLINE_ADDRESS);
+                                                }
+                                            } else if (requestDto.lectureType() == LectureType.OFFLINE) {
+                                                if (!hasValue(requestDto.address())) {
+                                                    throw new CustomException(ErrorCodes.MISSING_OFFLINE_ADDRESS);
+                                                }
+                                            }
+                                            return true;
+                                        }));
+                            });
+                });
     }
 
 

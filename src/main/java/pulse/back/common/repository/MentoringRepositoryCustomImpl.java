@@ -110,6 +110,13 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                 .then();
     }
 
+    @Override
+    public Mono<Integer> countByCreatedMemberId(ObjectId memberId) {
+        return mongoOperations.count(
+                        Query.query(Criteria.where("createdMemberId").is(memberId)),
+                        Mentoring.class)
+                .map(Long::intValue);
+    }
 
     private Mono<Query> getMentoringSearchQuery(
             String field, LectureType lectureType, String region, SortType sortType, String searchText

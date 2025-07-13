@@ -26,4 +26,5 @@ public interface MentoringRepositoryCustom{
     );
 
     Mono<Void> incrementViewCount(ObjectId mentoringId);
+    Mono<Integer> countByCreatedMemberId(ObjectId memberId);
 }

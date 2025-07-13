@@ -14,6 +14,7 @@ import pulse.back.domain.member.dto.CertificateInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.entity.member.Member;
 import pulse.back.entity.mento.MentoInfo;
+import pulse.back.entity.mentoring.Mentoring;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
