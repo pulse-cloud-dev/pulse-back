@@ -132,6 +132,55 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                 .map(Long::intValue);
     }
 
+    @Override
+    public Mono<List<MentoringListResponseDto>> findMentoringByLocation(Double latitude, Double longitude, int distance, ObjectId currentMemberId) {
+        Query query = new Query();
+
+        // OFFLINE 타입이면서 좌표값이 존재하는 조건
+        query.addCriteria(Criteria.where("lectureType").is(LectureType.OFFLINE)
+                .and("location.x").exists(true).ne(null).ne("")
+                .and("location.y").exists(true).ne(null).ne(""));
+
+        return mongoOperations.find(query, Mentoring.class)
+                .filter(mentoring -> {
+                    try {
+                        // 거리 계산 (하버사인 공식 사용)
+                        double mentoringLat = Double.parseDouble(mentoring.location().y());
+                        double mentoringLng = Double.parseDouble(mentoring.location().x());
+                        double calculatedDistance = calculateDistance(latitude, longitude, mentoringLat, mentoringLng);
+                        return calculatedDistance <= distance;
+                    } catch (NumberFormatException e) {
+                        // 좌표값 파싱 실패 시 제외
+                        return false;
+                    }
+                })
+                .flatMap(mentoring -> {
+                    ObjectId memberId = mentoring.createdMemberId();
+                    ObjectId mentoringId = mentoring.id();
+
+                    Mono<Member> memberMono = mongoOperations.findById(memberId, Member.class);
+
+                    Query mentoQuery = Query.query(Criteria.where("memberId").is(memberId));
+                    Mono<MentoInfo> mentoMono = mongoOperations.findOne(mentoQuery, MentoInfo.class);
+
+                    // 북마크 여부 확인
+                    Query bookmarkQuery = Query.query(
+                            Criteria.where("mentoringId").is(mentoringId)
+                                    .and("memberId").is(currentMemberId)
+                    );
+                    Mono<Boolean> bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
+
+                    return Mono.zip(memberMono, mentoMono, bookmarkMono)
+                            .map(tuple -> MentoringListResponseDto.of(
+                                    mentoring,
+                                    tuple.getT1(),
+                                    tuple.getT2(),
+                                    tuple.getT3()
+                            ));
+                })
+                .collectList();
+    }
+
     private Mono<Query> getMentoringSearchQuery(
             String field, LectureType lectureType, String region, SortType sortType, String searchText
     ) {
@@ -197,5 +246,21 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
 
         return mongoOperations.find(memberQuery, Member.class)
                 .map(member -> member.id().toString());
+    }
+
+    // 하버사인 공식을 사용한 거리 계산 (단위: km)
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // 지구 반지름 (km)
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c;
     }
 }

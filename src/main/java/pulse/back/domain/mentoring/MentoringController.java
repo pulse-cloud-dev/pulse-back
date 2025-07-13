@@ -165,6 +165,37 @@ public class MentoringController {
         return mentoringProcessor.postMentoring(requestDto, exchange);
     }
 
+    //좌표값에 따라 멘토링 글 조회하기
+    @GetMapping("/location")
+    @Operation(operationId = "PULSE-115", summary = "좌표값에 따라 멘토링 글 조회하기", description = """
+            ### [ 설명 ]
+            - 좌표값에 따라 멘토링 글을 조회합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 좌표값은 위도와 경도로 입력해야 합니다.
+            - 아무값도 입력하지 않을 경우, 전체조회가 됩니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Response : [ResultData<List<MentoringListResponseDto>>]
+            ```
+            """)
+    public Mono<ResultData<List<MentoringListResponseDto>>> getMentoringByLocation(
+            @RequestParam(required = false, value = "latitude")
+            @Schema(description = "위도") Double latitude,
+
+            @RequestParam(required = false, value = "longitude")
+            @Schema(description = "경도") Double longitude,
+
+            @RequestParam(required = false, value = "distance")
+            @Schema(description = "거리") int distance,
+
+            ServerWebExchange exchange
+    ) {
+        return mentoringProcessor.getMentoringByLocation(latitude, longitude, distance, exchange);
+    }
+
+
     //멘토링 신청
 //    @PostMapping("/apply")
 //    @Operation(operationId = "PULSE-113", summary = "멘토링 신청", description = """

@@ -27,4 +27,5 @@ public interface MentoringRepositoryCustom{
 
     Mono<Void> incrementViewCount(ObjectId mentoringId);
     Mono<Integer> countByCreatedMemberId(ObjectId memberId);
+    Mono<List<MentoringListResponseDto>> findMentoringByLocation(Double latitude, Double longitude, int distance, ObjectId currentMemberId);
 }

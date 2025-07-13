@@ -24,6 +24,7 @@ import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
 import pulse.back.entity.mentoring.MentoringBookmarks;
 import pulse.back.entity.mentoring.MentoringViewLog;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -255,5 +256,11 @@ public class MentoringBusinessService {
                     }
                 })
                 .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MENTORING_NOT_FOUND)));
+    }
+
+    public Mono<List<MentoringListResponseDto>> getMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
+        ObjectId currentMemberId = tokenProvider.getMemberId(exchange);
+
+        return mentoringRepository.findMentoringByLocation(latitude, longitude, distance, currentMemberId);
     }
 }

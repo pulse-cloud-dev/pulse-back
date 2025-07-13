@@ -88,4 +88,17 @@ public class MentoringProcessor {
                 })
                 .block();
     }
+
+    public Mono<ResultData<List<MentoringListResponseDto>>> getMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
+        log.debug("[validation] latitude : {}, longitude : {}, distance : {}", latitude, longitude, distance);
+        return mentoringValidationService.validateMentoringByLocation(latitude, longitude, distance, exchange)
+                .flatMap(isValid -> {
+                    if (Boolean.TRUE.equals(isValid)) {
+                        return mentoringBusinessService.getMentoringByLocation(latitude, longitude, distance, exchange)
+                                .map(mentoringList -> new ResultData<>(mentoringList, "좌표값에 따른 멘토링 글 조회에 성공하였습니다."));
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.BAD_REQUEST));
+                    }
+                });
+    }
 }

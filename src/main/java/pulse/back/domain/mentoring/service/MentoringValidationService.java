@@ -101,4 +101,8 @@ public class MentoringValidationService {
     private boolean hasValue(String value) {
         return value != null && !value.trim().isEmpty();
     }
+
+    public Mono<Object> validateMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
+        return Mono.just(true);
+    }
 }
