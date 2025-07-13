@@ -1,5 +1,6 @@
 package pulse.back.domain.mentoring;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -72,5 +73,19 @@ public class MentoringProcessor {
                         return Mono.error(new CustomException(ErrorCodes.MENTORING_REGISTER_FAILED));
                     }
                 });
+    }
+
+    public ResultData<ResultCodes> uploadMentoringBookmark(UploadMentoringBookmarkRequestDto requestDto, ServerWebExchange exchange) {
+        log.debug("[validation] request : {}", requestDto);
+        return mentoringValidationService.validateUploadMentoringBookmark(requestDto, exchange)
+                .flatMap(isValid -> {
+                    if (Boolean.TRUE.equals(isValid)) {
+                        return mentoringBusinessService.uploadMentoringBookmark(requestDto, exchange)
+                                .map(resultCodes -> new ResultData<>(resultCodes, "멘토링 북마크 업로드에 성공하였습니다."));
+                    } else {
+                        throw new CustomException(ErrorCodes.BAD_REQUEST);
+                    }
+                })
+                .block();
     }
 }

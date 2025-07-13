@@ -159,7 +159,7 @@ public class MentoringController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> postMentoring(
-            @RequestBody MentoringPostRequestDto requestDto,
+            @RequestBody @Valid MentoringPostRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         return mentoringProcessor.postMentoring(requestDto, exchange);

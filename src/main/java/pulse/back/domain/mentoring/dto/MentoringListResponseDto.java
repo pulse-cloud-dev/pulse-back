@@ -47,9 +47,12 @@ public record MentoringListResponseDto(
         LocalDateTime deadlineTime,
 
         // 조회수
-        int viewCount
+        int viewCount,
+
+        // 북마크
+        boolean isBookmark
 ) {
-    public static MentoringListResponseDto of(Mentoring mentoring, Member member, MentoInfo mentoInfo) {
+    public static MentoringListResponseDto of(Mentoring mentoring, Member member, MentoInfo mentoInfo, boolean isBookmark) {
         int mentorCareerTotalYear = 0;
 
         if (mentoInfo.careerInfo() != null && !mentoInfo.careerInfo().isEmpty()) {
@@ -91,7 +94,8 @@ public record MentoringListResponseDto(
                 mentoring.onlinePlatform(),
                 member.nickName(),
                 mentoring.deadlineDate(),
-                mentoring.viewCount()
+                mentoring.viewCount(),
+                isBookmark
         );
     }
 }

@@ -86,7 +86,7 @@ public class MentoInfoController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> postMentorInfo(
-            @RequestBody MentoInfoRequestDto requestDto,
+            @RequestBody @Valid MentoInfoRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         log.debug("[validation] request : {}", requestDto);

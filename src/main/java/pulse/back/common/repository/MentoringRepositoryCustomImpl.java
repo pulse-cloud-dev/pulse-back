@@ -21,6 +21,7 @@ import pulse.back.entity.common.Meta;
 import pulse.back.entity.member.Member;
 import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
+import pulse.back.entity.mentoring.MentoringBookmarks;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -82,14 +83,27 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                     return mongoOperations.find(query, Mentoring.class)
                             .flatMap(mentoring -> {
                                 ObjectId memberId = mentoring.createdMemberId();
+                                ObjectId mentoringId = mentoring.id(); // 멘토링 ID
 
                                 Mono<Member> memberMono = mongoOperations.findById(memberId, Member.class);
 
                                 Query mentoQuery = Query.query(Criteria.where("memberId").is(memberId));
                                 Mono<MentoInfo> mentoMono = mongoOperations.findOne(mentoQuery, MentoInfo.class);
 
-                                return Mono.zip(memberMono, mentoMono)
-                                        .map(tuple -> MentoringListResponseDto.of(mentoring, tuple.getT1(), tuple.getT2()));
+                                // 북마크 여부 확인 쿼리 추가
+                                Query bookmarkQuery = Query.query(
+                                        Criteria.where("mentoringId").is(mentoringId)
+                                                .and("memberId").is(memberId)
+                                );
+                                Mono<Boolean> bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
+
+                                return Mono.zip(memberMono, mentoMono, bookmarkMono)
+                                        .map(tuple -> MentoringListResponseDto.of(
+                                                mentoring,
+                                                tuple.getT1(),
+                                                tuple.getT2(),
+                                                tuple.getT3()
+                                        ));
                             })
                             .collectList();
                 });

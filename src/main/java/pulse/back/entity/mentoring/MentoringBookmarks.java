@@ -24,3 +24,4 @@ public record MentoringBookmarks(
         ObjectId createdMemberId
 ) {
 }
+

@@ -13,18 +13,16 @@ import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SortType;
 import pulse.back.common.exception.CustomException;
-import pulse.back.common.repository.MentoInfoRepository;
-import pulse.back.common.repository.MentoringViewLogRepository;
+import pulse.back.common.repository.*;
 import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.common.util.MyNumberUtils;
 import pulse.back.domain.api.geocoding.GeocodingService;
-import pulse.back.common.repository.MemberRepository;
 import pulse.back.domain.mentoring.dto.*;
-import pulse.back.common.repository.MentoringRepository;
 import pulse.back.entity.member.Member;
 import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
+import pulse.back.entity.mentoring.MentoringBookmarks;
 import pulse.back.entity.mentoring.MentoringViewLog;
 import reactor.core.publisher.Mono;
 
@@ -39,6 +37,7 @@ public class MentoringBusinessService {
     private final MemberRepository memberRepository;
     private final MentoInfoRepository mentoInfoRepository;
     private final MentoringViewLogRepository mentoringViewLogRepository;
+    private final MentoringBookmarksRepository mentoringBookmarksRepository;
     private final TokenProvider tokenProvider;
     private final GeocodingService geocodingService;
 
@@ -213,5 +212,48 @@ public class MentoringBusinessService {
             log.error("IP 주소 추출 중 에러 발생: {}", e.getMessage());
             return "unknown";
         }
+    }
+
+    public Mono<ResultCodes> uploadMentoringBookmark(UploadMentoringBookmarkRequestDto requestDto, ServerWebExchange exchange) {
+        log.debug("[validation] request : {}", requestDto);
+        ObjectId memberId = tokenProvider.getMemberId(exchange);
+        ObjectId mentoringId = new ObjectId(requestDto.mentoringId());
+
+        return mentoringRepository.findById(mentoringId)
+                .flatMap(mentoring -> {
+                    if (mentoring == null) {
+                        return Mono.error(new CustomException(ErrorCodes.MENTORING_NOT_FOUND));
+                    }
+
+                    if (requestDto.isBookmark()) {
+                        // 북마크 추가 - 기존에 있는지 확인 후 없으면 추가
+                        return mentoringBookmarksRepository.findByMentoringIdAndMemberId(mentoringId, memberId)
+                                .flatMap(existingBookmark -> {
+                                    // 이미 북마크가 존재하면 성공 반환 (중복 방지)
+                                    return Mono.just(ResultCodes.SUCCESS);
+                                })
+                                .switchIfEmpty(
+                                        // 북마크가 없으면 새로 추가
+                                        Mono.defer(() -> {
+                                            MentoringBookmarks mentoringBookmarks = UploadMentoringBookmarkRequestDto.from(requestDto, memberId);
+                                            return mentoringBookmarksRepository.insert(mentoringBookmarks)
+                                                    .then(Mono.just(ResultCodes.SUCCESS));
+                                        })
+                                );
+                    } else {
+                        // 북마크 삭제 - 기존에 있는지 확인 후 있으면 삭제
+                        return mentoringBookmarksRepository.findByMentoringIdAndMemberId(mentoringId, memberId)
+                                .flatMap(existingBookmark -> {
+                                    // 북마크가 존재하면 삭제
+                                    return mentoringBookmarksRepository.delete(existingBookmark)
+                                            .then(Mono.just(ResultCodes.SUCCESS));
+                                })
+                                .switchIfEmpty(
+                                        // 북마크가 없으면 에러 반환
+                                        Mono.error(new CustomException(ErrorCodes.BOOKMARK_NOT_FOUND))
+                                );
+                    }
+                })
+                .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MENTORING_NOT_FOUND)));
     }
 }

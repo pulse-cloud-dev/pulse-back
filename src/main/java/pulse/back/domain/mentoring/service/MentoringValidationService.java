@@ -11,11 +11,13 @@ import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.SortType;
 import pulse.back.common.exception.CustomException;
 import pulse.back.common.repository.MentoInfoRepository;
+import pulse.back.common.repository.MentoringBookmarksRepository;
 import pulse.back.common.util.CheckDateUtils;
 import pulse.back.common.repository.MemberRepository;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
 import pulse.back.domain.mentoring.dto.MentoringPostRequestDto;
 import pulse.back.common.repository.MentoringRepository;
+import pulse.back.domain.mentoring.dto.UploadMentoringBookmarkRequestDto;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -25,6 +27,7 @@ public class MentoringValidationService {
     private final MentoringRepository mentoringRepository;
     private final MentoInfoRepository mentoInfoRepository;
     private final MemberRepository memberRepository;
+    private final MentoringBookmarksRepository mentoringBookmarksRepository;
 
     private final TokenProvider tokenProvider;
     private final CheckDateUtils checkDateUtils;
@@ -78,6 +81,22 @@ public class MentoringValidationService {
                 });
     }
 
+    public Mono<Boolean> validateUploadMentoringBookmark(UploadMentoringBookmarkRequestDto requestDto, ServerWebExchange exchange) {
+        ObjectId memberId = tokenProvider.getMemberId(exchange);
+
+        if (requestDto.isBookmark()) {
+            return mentoringBookmarksRepository.countByMemberId(memberId)
+                    .flatMap(count -> {
+                        if (count > 500) {
+                            return Mono.error(new CustomException(ErrorCodes.BOOKMARK_REGISTRATION_LIMIT_EXCEEDED));
+                        }
+                        return Mono.just(true);
+                    });
+        } else {
+            // 북마크 삭제 요청인 경우에는 개수 제한 검증 불필요
+            return Mono.just(true);
+        }
+    }
 
     private boolean hasValue(String value) {
         return value != null && !value.trim().isEmpty();

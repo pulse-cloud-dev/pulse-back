@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import pulse.back.entity.mentoring.MentoringBookmarks;
 import reactor.core.publisher.Mono;
 
@@ -30,5 +32,22 @@ public class MentoringBookmarksRepositoryCustomImpl implements MentoringBookmark
         // MongoDB에 멘토링 북마크 저장
         return mongoOperations.insert(mentoringBookmark)
                 .then(); // Mono<Void> 반환
+    }
+
+    @Override
+    public Mono<MentoringBookmarks> findByMentoringIdAndMemberId(ObjectId mentoringId, ObjectId memberId){
+        return mongoOperations.findOne(
+                Query.query(Criteria.where("mentoringId").is(mentoringId)
+                        .and("memberId").is(memberId)),
+                MentoringBookmarks.class
+        );
+    }
+
+    @Override
+    public Mono<Long> countByMemberId(ObjectId memberId) {
+        return mongoOperations.count(
+                Query.query(Criteria.where("memberId").is(memberId)),
+                MentoringBookmarks.class
+        );
     }
 }
