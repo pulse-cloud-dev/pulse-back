@@ -12,7 +12,7 @@ public enum ErrorCodes {
     MENTORING_REGISTER_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 등록에 실패하였습니다."),
     MENTO_NOT_REGISTERED(HttpStatus.BAD_REQUEST.value(), "멘토로 등록되어 있지 않습니다."),
     MENTORING_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "존재하지 않는 멘토링입니다."),
-    MENTORING_ALREADY_EXIST(HttpStatus.BAD_REQUEST.value(), "이미 진행중인 멘토링이 종료되고 다시 등록해주세요!"),
+    MENTORING_ALREADY_EXIST(HttpStatus.BAD_REQUEST.value(), "멘토링은 최대 5개까지 진행이 가능합니다. 진행중인 멘토링을 종료 후 다시 등록해주세요."),
     FILE_DELETE_FAILED(HttpStatus.BAD_REQUEST.value(), "파일 삭제에 실패했습니다."),
     FILE_UPLOAD_FAILED(HttpStatus.BAD_REQUEST.value(), "파일 업로드에 실패했습니다."),
     MEMBER_ALREADY_EXIST(HttpStatus.BAD_REQUEST.value(), "이미 존재하는 회원입니다."),
