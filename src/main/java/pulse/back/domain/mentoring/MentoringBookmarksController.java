@@ -16,7 +16,7 @@ import pulse.back.domain.mentoring.dto.UploadMentoringBookmarkRequestDto;
 @RequestMapping("/api/v1/mentoring-bookmarks")
 public class MentoringBookmarksController {
     private final MentoringProcessor mentoringProcessor;
-
+//
     @PostMapping("/upload")
     @Operation(summary = "멘토링 북마크 업로드", description = """
             ### [ 설명 ]
