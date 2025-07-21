@@ -50,17 +50,26 @@ public class MentoringBusinessService {
     //멘토링 목록조회
     public Mono<ResultData<PaginationDto<MentoringListResponseDto>>> getMentoringList(
             String field, LectureType lectureType, String region, SortType sortType,
-            String searchText, int page, int size, ServerWebExchange exchange) {
+            String searchText, int page, int size, ServerWebExchange exchange
+    ) {
 
         Sort.Direction direction = convertSortTypeToDirection(sortType);
 
+        ObjectId requesterId = null;
+
+        if (exchange != null) {
+            try {
+                requesterId = tokenProvider.getMemberId(exchange);
+            } catch (Exception ignored) {}
+        }
+
+        ObjectId finalRequesterId = requesterId;
         return mentoringRepository.getMentoringListTotalCount(field, lectureType, region, sortType, searchText)
                 .flatMap(totalCount -> {
                     int totalPages = MyNumberUtils.getTotalPages(totalCount, size);
                     final int adjustedPage = Math.min(totalPages, page);
 
-                    return mentoringRepository.getMentoringList(field, lectureType, region, sortType, searchText, adjustedPage, size, exchange)
-                            .next()  // Flux<List>를 Mono<List>로 변환
+                    return mentoringRepository.getMentoringList(field, lectureType, region, sortType, searchText, adjustedPage, size, finalRequesterId)
                             .map(mentoringList -> {
                                 PaginationDto<MentoringListResponseDto> paginationDto = PaginationDto.<MentoringListResponseDto>builder()
                                         .contents(mentoringList)

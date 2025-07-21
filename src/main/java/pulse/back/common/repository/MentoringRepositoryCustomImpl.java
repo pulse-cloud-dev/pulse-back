@@ -71,32 +71,38 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
     }
 
     @Override
-    public Flux<List<MentoringListResponseDto>> getMentoringList(
+    public Mono<List<MentoringListResponseDto>> getMentoringList(
             String field, LectureType lectureType, String region,
             SortType sortType, String searchText, int page, int size,
-            ServerWebExchange exchange) {
+            ObjectId requesterId
+    ) {
 
         return getMentoringSearchQuery(field, lectureType, region, sortType, searchText)
-                .flatMapMany(query -> {
+                .flatMap(query -> {
                     query.skip((long) (page - 1) * size);
                     query.limit(size);
 
                     return mongoOperations.find(query, Mentoring.class)
                             .flatMap(mentoring -> {
                                 ObjectId memberId = mentoring.createdMemberId();
-                                ObjectId mentoringId = mentoring.id(); // 멘토링 ID
+                                ObjectId mentoringId = mentoring.id();
 
                                 Mono<Member> memberMono = mongoOperations.findById(memberId, Member.class);
 
                                 Query mentoQuery = Query.query(Criteria.where("memberId").is(memberId));
                                 Mono<MentoInfo> mentoMono = mongoOperations.findOne(mentoQuery, MentoInfo.class);
 
-                                // 북마크 여부 확인 쿼리 추가
-                                Query bookmarkQuery = Query.query(
-                                        Criteria.where("mentoringId").is(mentoringId)
-                                                .and("memberId").is(memberId)
-                                );
-                                Mono<Boolean> bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
+                                // 현재 요청한 사용자의 북마크 여부 확인, 비회원일 경우 false 처리
+                                Mono<Boolean> bookmarkMono;
+                                if (requesterId == null) {
+                                    bookmarkMono = Mono.just(false);
+                                } else {
+                                    Query bookmarkQuery = Query.query(
+                                            Criteria.where("mentoringId").is(mentoringId)
+                                                    .and("memberId").is(requesterId)
+                                    );
+                                    bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
+                                }
 
                                 return Mono.zip(memberMono, mentoMono, bookmarkMono)
                                         .map(tuple -> MentoringListResponseDto.of(
@@ -248,7 +254,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                     query.with(Sort.by(Sort.Direction.DESC, "createdAt"));
                     break;
                 case POPULAR:
-                    // 인기순 정렬 로직은 추후 구현
+                    query.with(Sort.by(Sort.Direction.DESC, "viewCount"));
                     break;
             }
         }

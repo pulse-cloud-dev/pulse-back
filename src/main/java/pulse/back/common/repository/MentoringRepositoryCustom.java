@@ -18,8 +18,8 @@ import java.util.List;
 public interface MentoringRepositoryCustom{
     Mono<List<JobInfoList>> findJobInfo();
 
-    Flux<List<MentoringListResponseDto>> getMentoringList(
-            String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange
+    Mono<List<MentoringListResponseDto>> getMentoringList(
+            String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ObjectId requesterId
     );
 
     Mono<Long> getMentoringListTotalCount(
