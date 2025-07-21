@@ -195,6 +195,31 @@ public class MentoringController {
         return mentoringProcessor.getMentoringByLocation(latitude, longitude, distance, exchange);
     }
 
+    // 마이페이지 > 멘토링 조회수 높은거 n개 노출 (default : 8개)
+    @GetMapping("/popular")
+    @Operation(summary = "[마이페이지] 멘토링 조회수 높은 순 n개 노출", description = """
+            ### [ 설명 ]
+            - 마이페이지에서 조회수 높은 멘토링을 n개 노출합니다.
+            - 추후 확성을 고려하여 size 파라미터를 추가했습니다.
+            - 기본값은 8개입니다.
+            <br>
+            ### [ 주의사항 ]
+            - 기본값이 8개이므로 요청 시 size 파라미터를 생략하면 8개가 조회됩니다.
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [int] size (default : 8)
+            - Response : [ResultData<List<MentoringListResponseDto>>]
+            ```
+            """)
+    public Mono<ResultData<List<MentoringListResponseDto>>> getPopularMentoringList(
+            @RequestParam(required = false, value = "size", defaultValue = "8")
+            @Schema(description = "조회할 멘토링 개수 (default : 8)") @Min(1) int size,
+            ServerWebExchange exchange
+    ) {
+        return mentoringProcessor.getPopularMentoringList(size, exchange);
+    }
+
 
     //멘토링 신청
 //    @PostMapping("/apply")

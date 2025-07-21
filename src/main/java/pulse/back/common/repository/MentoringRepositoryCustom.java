@@ -7,6 +7,7 @@ import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.SortType;
 import pulse.back.domain.mentoring.dto.JobInfoList;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
+import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
 import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,4 +29,5 @@ public interface MentoringRepositoryCustom{
     Mono<Void> incrementViewCount(ObjectId mentoringId);
     Mono<Integer> countByCreatedMemberId(ObjectId memberId);
     Mono<List<MentoringListResponseDto>> findMentoringByLocation(Double latitude, Double longitude, int distance, ObjectId currentMemberId);
+    Mono<List<MentoringListResponseDto>> getPopularMentoringList(int size);
 }

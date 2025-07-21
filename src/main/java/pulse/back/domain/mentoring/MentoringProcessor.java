@@ -1,6 +1,7 @@
 package pulse.back.domain.mentoring;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -100,5 +101,10 @@ public class MentoringProcessor {
                         return Mono.error(new CustomException(ErrorCodes.BAD_REQUEST));
                     }
                 });
+    }
+
+    public Mono<ResultData<List<MentoringListResponseDto>>> getPopularMentoringList(int size, ServerWebExchange exchange) {
+        return mentoringBusinessService.getPopularMentoringList(size, exchange)
+                .map(mentoringList -> new ResultData<>(mentoringList, "인기 멘토링 목록 조회에 성공하였습니다."));
     }
 }

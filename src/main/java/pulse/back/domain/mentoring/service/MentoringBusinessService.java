@@ -263,4 +263,16 @@ public class MentoringBusinessService {
 
         return mentoringRepository.findMentoringByLocation(latitude, longitude, distance, currentMemberId);
     }
+
+    public Mono<List<MentoringListResponseDto>> getPopularMentoringList(int size, ServerWebExchange exchange) {
+        return mentoringRepository.getPopularMentoringList(size)
+                .flatMap(mentoringList -> {
+                    if (mentoringList == null || mentoringList.isEmpty()) {
+                        return Mono.just(List.of());
+                    }
+                    return Mono.just(mentoringList);
+                });
+    }
+
+
 }

@@ -15,6 +15,7 @@ import pulse.back.common.enums.SortType;
 import pulse.back.domain.member.dto.JobInfoResponseDto;
 import pulse.back.domain.mentoring.dto.JobInfoList;
 import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
+import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
 import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
 import pulse.back.entity.common.Item;
 import pulse.back.entity.common.Meta;
@@ -180,6 +181,48 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                 })
                 .collectList();
     }
+
+    @Override
+    public Mono<List<MentoringListResponseDto>> getPopularMentoringList(int size) {
+        Query query = new Query();
+
+        // 인기순 정렬 (fallback으로 createdAt 추가)
+        query.with(Sort.by(
+                Sort.Order.desc("viewCount"),
+                Sort.Order.desc("createdAt")
+        ));
+
+        query.limit(size);
+
+        return mongoOperations.find(query, Mentoring.class)
+                .flatMap(mentoring -> {
+                    ObjectId memberId = mentoring.createdMemberId();
+                    ObjectId mentoringId = mentoring.id();
+
+                    Mono<Member> memberMono = mongoOperations.findById(memberId, Member.class);
+
+                    Query mentoQuery = Query.query(Criteria.where("memberId").is(memberId));
+                    Mono<MentoInfo> mentoMono = mongoOperations.findOne(mentoQuery, MentoInfo.class);
+
+                    // 북마크 여부 확인
+                    Query bookmarkQuery = Query.query(
+                            Criteria.where("mentoringId").is(mentoringId)
+                                    .and("memberId").is(memberId)
+                    );
+                    Mono<Boolean> bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
+
+                    return Mono.zip(memberMono, mentoMono, bookmarkMono)
+                            .map(tuple -> MentoringListResponseDto.of(
+                                    mentoring,
+                                    tuple.getT1(),
+                                    tuple.getT2(),
+                                    tuple.getT3()
+                            ));
+                })
+                .collectList();
+    }
+
+
 
     private Mono<Query> getMentoringSearchQuery(
             String field, LectureType lectureType, String region, SortType sortType, String searchText
