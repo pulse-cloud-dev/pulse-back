@@ -33,7 +33,7 @@ public class MentoringBookmarksController {
             ```
             """)
     public ResultData<ResultCodes> uploadMentoringBookmark(
-            @RequestBody @Valid UploadMentoringBookmarkRequestDto requestDto, ServerWebExchange exchange
+            @RequestBody UploadMentoringBookmarkRequestDto requestDto, ServerWebExchange exchange
     ) {
         return mentoringProcessor.uploadMentoringBookmark(requestDto, exchange);
     }

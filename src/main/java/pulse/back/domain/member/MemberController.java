@@ -115,7 +115,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<MemberTokenResponseDto>> login(
-            @RequestBody @Valid MemberLoginRequestDto requestDto,
+            @RequestBody MemberLoginRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         log.info("requestDto : {}", requestDto);
@@ -165,7 +165,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> join(
-            @RequestBody @Valid MemberJoinRequestDto requestDto,
+            @RequestBody MemberJoinRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         return memberProcessor.join(requestDto, exchange);
@@ -260,7 +260,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> resetPassword(
-            @RequestBody @Valid PasswordResetRequestDto requestDto,
+            @RequestBody PasswordResetRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         return memberProcessor.resetPassword(requestDto, exchange);
