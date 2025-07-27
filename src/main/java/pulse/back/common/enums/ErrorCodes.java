@@ -37,6 +37,7 @@ public enum ErrorCodes {
     LENGTH_MISMATCH(HttpStatus.BAD_REQUEST.value(),"자리수가 일치하지 않습니다."),
     VALIDATION_CHECK_FOR_BIND_EXCEPTION(HttpStatus.BAD_REQUEST.value(),"바인드 익셉션을 위한 에러코드 (자동호출로 사용)"),
     INVALID_FORMAT(HttpStatus.BAD_REQUEST.value(),"올바른 형식이 아닙니다."),
+    MENTO_ALREADY_REGISTERED(HttpStatus.BAD_REQUEST.value(), "이미 멘토로 등록된 사용자입니다."),
 
     //401
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "인증되지 않은 사용자입니다."),

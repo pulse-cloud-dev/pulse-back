@@ -56,7 +56,6 @@ public record MentoringPostRequestDto(
         @Schema(description = "모집인원", example = "50 (최대 254)")
         int recruitNumber,
 
-        @Pattern(regexp = GlobalPatterns.DIGITS_9, message = "숫자는 최대 9자리까지 입력 가능합니다.")
         @Schema(description = "멘토링 비용", example = "25000")
         BigDecimal cost
 ) {

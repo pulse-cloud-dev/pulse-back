@@ -3,6 +3,7 @@ package pulse.back.domain.member;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
+import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.config.auth.TokenResponseDto;
 import pulse.back.common.enums.ResultCodes;
 import pulse.back.common.enums.SocialRule;
@@ -165,7 +167,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> join(
-            @RequestBody MemberJoinRequestDto requestDto,
+            @RequestBody @Valid MemberJoinRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         return memberProcessor.join(requestDto, exchange);
@@ -212,7 +214,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> emailDuplicateCheck(
-            @RequestParam String email,
+            @RequestParam @Pattern(regexp = GlobalPatterns.EMAIL, message = "이메일 형식에 맞지 않습니다.")String email,
             ServerWebExchange exchange
     ) {
         return memberProcessor.emailDuplicateCheck(email, exchange);
@@ -260,7 +262,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<ResultCodes>> resetPassword(
-            @RequestBody PasswordResetRequestDto requestDto,
+            @RequestBody @Valid PasswordResetRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         return memberProcessor.resetPassword(requestDto, exchange);
