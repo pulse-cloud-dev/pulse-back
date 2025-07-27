@@ -32,6 +32,12 @@ public enum ErrorCodes {
     INVALID_ONLINE_ADDRESS(HttpStatus.BAD_REQUEST.value(),"온라인 강의는 주소 정보를 입력할 수 없습니다"),
     MISSING_OFFLINE_ADDRESS(HttpStatus.BAD_REQUEST.value(),"오프라인 강의는 주소를 반드시 입력해야 합니다"),
     INVALID_ADDRESS(HttpStatus.BAD_REQUEST.value(), "주소가 잘못되었습니다."),
+    INVALID_VALUE(HttpStatus.BAD_REQUEST.value(),"올바른 값이 아닙니다."),
+    REQUIRED_REQUEST_BODY_EMPTY(HttpStatus.BAD_REQUEST.value(),"요청값이 비어있습니다."),
+    LENGTH_MISMATCH(HttpStatus.BAD_REQUEST.value(),"자리수가 일치하지 않습니다."),
+    VALIDATION_CHECK_FOR_BIND_EXCEPTION(HttpStatus.BAD_REQUEST.value(),"바인드 익셉션을 위한 에러코드 (자동호출로 사용)"),
+    INVALID_FORMAT(HttpStatus.BAD_REQUEST.value(),"올바른 형식이 아닙니다."),
+
     //401
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "인증되지 않은 사용자입니다."),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED.value(), "토큰이 잘못되었습니다."),

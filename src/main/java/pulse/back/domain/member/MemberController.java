@@ -115,7 +115,7 @@ public class MemberController {
             ```
             """)
     public Mono<ResultData<MemberTokenResponseDto>> login(
-            @RequestBody MemberLoginRequestDto requestDto,
+            @RequestBody @Valid MemberLoginRequestDto requestDto,
             ServerWebExchange exchange
     ) {
         log.info("requestDto : {}", requestDto);
