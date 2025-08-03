@@ -10,13 +10,12 @@ import pulse.back.entity.member.Member;
 import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public record MentoringListResponseDto(
+public record GetMentoringListResponseDto(
         // 멘토링 ID
         String mentoringId,
 
@@ -52,7 +51,7 @@ public record MentoringListResponseDto(
         // 북마크
         boolean isBookmark
 ) {
-    public static MentoringListResponseDto of(Mentoring mentoring, Member member, MentoInfo mentoInfo, boolean isBookmark) {
+    public static GetMentoringListResponseDto of(Mentoring mentoring, Member member, MentoInfo mentoInfo, boolean isBookmark) {
         int mentorCareerTotalYear = 0;
 
         if (mentoInfo.careerInfo() != null && !mentoInfo.careerInfo().isEmpty()) {
@@ -84,7 +83,7 @@ public record MentoringListResponseDto(
             // 연차 계산: 총 개월 수를 12로 나누고 1을 더함
             mentorCareerTotalYear = (int)(totalMonths / 12) + 1;
         }
-        return new MentoringListResponseDto(
+        return new GetMentoringListResponseDto(
                 mentoring.id().toString(),
                 mentoring.lectureType(),
                 mentoring.title(),

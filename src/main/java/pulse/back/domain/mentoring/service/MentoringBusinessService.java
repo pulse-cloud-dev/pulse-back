@@ -24,7 +24,7 @@ import pulse.back.entity.mento.MentoInfo;
 import pulse.back.entity.mentoring.Mentoring;
 import pulse.back.entity.mentoring.MentoringBookmarks;
 import pulse.back.entity.mentoring.MentoringViewLog;
-import reactor.core.publisher.Flux;
+import pulse.back.entity.s3.MemberDocument;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -39,6 +39,7 @@ public class MentoringBusinessService {
     private final MentoInfoRepository mentoInfoRepository;
     private final MentoringViewLogRepository mentoringViewLogRepository;
     private final MentoringBookmarksRepository mentoringBookmarksRepository;
+    private final MemberDocumentRepository memberDocumentRepository;
     private final TokenProvider tokenProvider;
     private final GeocodingService geocodingService;
 
@@ -48,7 +49,7 @@ public class MentoringBusinessService {
     }
 
     //멘토링 목록조회
-    public Mono<ResultData<PaginationDto<MentoringListResponseDto>>> getMentoringList(
+    public Mono<ResultData<PaginationDto<GetMentoringListResponseDto>>> getMentoringList(
             String field, LectureType lectureType, String region, SortType sortType,
             String searchText, int page, int size, ServerWebExchange exchange
     ) {
@@ -71,7 +72,7 @@ public class MentoringBusinessService {
 
                     return mentoringRepository.getMentoringList(field, lectureType, region, sortType, searchText, adjustedPage, size, finalRequesterId)
                             .map(mentoringList -> {
-                                PaginationDto<MentoringListResponseDto> paginationDto = PaginationDto.<MentoringListResponseDto>builder()
+                                PaginationDto<GetMentoringListResponseDto> paginationDto = PaginationDto.<GetMentoringListResponseDto>builder()
                                         .contents(mentoringList)
                                         .totalCount(totalCount)
                                         .totalPages(totalPages)
@@ -267,13 +268,13 @@ public class MentoringBusinessService {
                 .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MENTORING_NOT_FOUND)));
     }
 
-    public Mono<List<MentoringListResponseDto>> getMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
+    public Mono<List<GetMentoringListResponseDto>> getMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
         ObjectId currentMemberId = tokenProvider.getMemberId(exchange);
 
         return mentoringRepository.findMentoringByLocation(latitude, longitude, distance, currentMemberId);
     }
 
-    public Mono<List<MentoringListResponseDto>> getPopularMentoringList(int size, ServerWebExchange exchange) {
+    public Mono<List<GetMentoringListResponseDto>> getPopularMentoringList(int size, ServerWebExchange exchange) {
         return mentoringRepository.getPopularMentoringList(size)
                 .flatMap(mentoringList -> {
                     if (mentoringList == null || mentoringList.isEmpty()) {
@@ -284,4 +285,67 @@ public class MentoringBusinessService {
     }
 
 
+    public Mono<GetMentoInfoDetailResponseDto> getMentoInfoDetail(String mentoId, ServerWebExchange exchange) {
+        ObjectId mentoObjectId = new ObjectId(mentoId);
+
+        log.info("멘토 프로필 상세조회 시작: mentoId={}", mentoId);
+
+        return mentoInfoRepository.findById(mentoObjectId)
+                .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MENTO_NOT_FOUND)))
+                .doOnNext(mentoInfo -> log.info("MentoInfo 조회 성공: mentoInfoId={}, memberId={}",
+                        mentoInfo.id(), mentoInfo.memberId()))
+                .flatMap(mentoInfo -> {
+                    ObjectId memberId = mentoInfo.memberId();
+
+                    log.info("관련 데이터 조회 시작: memberId={}", memberId);
+
+                    // 병렬로 필요한 데이터들을 조회
+                    Mono<Member> memberMono = memberRepository.findById(memberId)
+                            .doOnNext(member -> log.info("Member 조회 성공: nickname={}",
+                                    member != null ? member.nickName() : "null"));
+
+                    // mentoObjectId로 멘토링 목록 조회 (멘토가 생성한 멘토링들)
+                    Mono<List<GetMentoringListResponseDto>> mentoringListMono =
+                            mentoringRepository.getMentoringListByMentoId(mentoObjectId, exchange)
+                                    .doOnNext(list -> log.info("MentoringList 조회 성공: size={}",
+                                            list != null ? list.size() : 0));
+
+                    // MemberDocument 조회 (프로필 이미지)
+                    Mono<MemberDocument> memberDocumentMono = memberDocumentRepository.findByMemberId(memberId)
+                            .doOnNext(doc -> log.info("MemberDocument 조회 성공: filePath={}",
+                                    doc != null ? doc.filePath() : "null"))
+                            .switchIfEmpty(Mono.fromSupplier(() -> {
+                                log.info("MemberDocument 없음, 기본값 사용");
+                                return new MemberDocument(null, null, null, null);
+                            }));
+
+                    // 모든 데이터를 병렬로 조회하고 DTO 생성
+                    return Mono.zip(memberMono, mentoringListMono, memberDocumentMono)
+                            .doOnNext(tuple -> log.info("모든 데이터 조회 완료"))
+                            .map(tuple -> {
+                                Member member = tuple.getT1();
+                                List<GetMentoringListResponseDto> mentoringList = tuple.getT2();
+                                MemberDocument memberDocument = tuple.getT3();
+
+                                if (member == null) {
+                                    log.error("Member가 null입니다. memberId={}", memberId);
+                                    throw new CustomException(ErrorCodes.MEMBER_NOT_FOUND);
+                                }
+
+                                log.info("DTO 생성 시작 - member: {}, mentoringListSize: {}, memberDocument: {}",
+                                        member.nickName(),
+                                        mentoringList != null ? mentoringList.size() : 0,
+                                        memberDocument != null ? memberDocument.filePath() : "null");
+
+                                GetMentoInfoDetailResponseDto result = GetMentoInfoDetailResponseDto.of(
+                                        mentoInfo,
+                                        mentoringList
+                                );
+
+                                return result;
+                            });
+                })
+                .doOnError(error -> log.error("멘토 프로필 상세조회 실패: mentoId={}, error={}",
+                        mentoId, error.getMessage()));
+    }
 }

@@ -98,11 +98,21 @@ public class MentoringValidationService {
         }
     }
 
+    public Mono<Object> validateMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
+        return Mono.just(true);
+    }
+
     private boolean hasValue(String value) {
         return value != null && !value.trim().isEmpty();
     }
 
-    public Mono<Object> validateMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
-        return Mono.just(true);
+    public Mono<Boolean> validateMentoInfoDetail(
+            String mentoId, ServerWebExchange exchange
+    ) {
+        return mentoInfoRepository.findById(new ObjectId(mentoId))
+                .switchIfEmpty(Mono.error(new CustomException(ErrorCodes.MENTO_NOT_FOUND)))
+                .map(mentoInfo -> {
+                    return true;
+                });
     }
 }

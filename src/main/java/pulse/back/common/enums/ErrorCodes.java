@@ -7,6 +7,7 @@ public enum ErrorCodes {
     BOOKMARK_REGISTRATION_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST.value(), "등록 가능한 북마크 개수를 초과하였습니다."),
     BOOKMARK_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "존재하지 않는 북마크입니다."),
     INVALID_MEMBER_NAME(HttpStatus.BAD_REQUEST.value(), "특수문자가 포함되어 사용이 불가능합니다."),
+    MENTO_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "존재하지 않는 멘토입니다."),
     MENTO_NOT_REGISTERED_USER(HttpStatus.BAD_REQUEST.value(), "멘토로 등록되지 않은 사용자입니다."),
     MENTORING_LIST_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 목록조회에 실패하였습니다."),
     MENTORING_DETAIL_FAILED(HttpStatus.BAD_REQUEST.value(), "멘토링 상세조회에 실패하였습니다."),

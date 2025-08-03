@@ -10,13 +10,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.server.ServerWebExchange;
+import pulse.back.common.config.auth.TokenProvider;
 import pulse.back.common.enums.LectureType;
 import pulse.back.common.enums.SortType;
 import pulse.back.domain.member.dto.JobInfoResponseDto;
 import pulse.back.domain.mentoring.dto.JobInfoList;
-import pulse.back.domain.mentoring.dto.MentoInfoRequestDto;
-import pulse.back.domain.mentoring.dto.MentoringDetailResponseDto;
-import pulse.back.domain.mentoring.dto.MentoringListResponseDto;
+import pulse.back.domain.mentoring.dto.GetMentoringListResponseDto;
 import pulse.back.entity.common.Item;
 import pulse.back.entity.common.Meta;
 import pulse.back.entity.member.Member;
@@ -26,7 +25,6 @@ import pulse.back.entity.mentoring.MentoringBookmarks;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +34,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom {
     private final ReactiveMongoOperations mongoOperations;
+    private final TokenProvider tokenProvider;
 
     @Override
     public Mono<List<JobInfoList>> findJobInfo() {
@@ -71,7 +70,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
     }
 
     @Override
-    public Mono<List<MentoringListResponseDto>> getMentoringList(
+    public Mono<List<GetMentoringListResponseDto>> getMentoringList(
             String field, LectureType lectureType, String region,
             SortType sortType, String searchText, int page, int size,
             ObjectId requesterId
@@ -105,7 +104,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                                 }
 
                                 return Mono.zip(memberMono, mentoMono, bookmarkMono)
-                                        .map(tuple -> MentoringListResponseDto.of(
+                                        .map(tuple -> GetMentoringListResponseDto.of(
                                                 mentoring,
                                                 tuple.getT1(),
                                                 tuple.getT2(),
@@ -140,7 +139,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
     }
 
     @Override
-    public Mono<List<MentoringListResponseDto>> findMentoringByLocation(Double latitude, Double longitude, int distance, ObjectId currentMemberId) {
+    public Mono<List<GetMentoringListResponseDto>> findMentoringByLocation(Double latitude, Double longitude, int distance, ObjectId currentMemberId) {
         Query query = new Query();
 
         // OFFLINE 타입이면서 좌표값이 존재하는 조건
@@ -178,7 +177,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                     Mono<Boolean> bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
 
                     return Mono.zip(memberMono, mentoMono, bookmarkMono)
-                            .map(tuple -> MentoringListResponseDto.of(
+                            .map(tuple -> GetMentoringListResponseDto.of(
                                     mentoring,
                                     tuple.getT1(),
                                     tuple.getT2(),
@@ -189,7 +188,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
     }
 
     @Override
-    public Mono<List<MentoringListResponseDto>> getPopularMentoringList(int size) {
+    public Mono<List<GetMentoringListResponseDto>> getPopularMentoringList(int size) {
         Query query = new Query();
 
         // 인기순 정렬 (fallback으로 createdAt 추가)
@@ -218,7 +217,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                     Mono<Boolean> bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
 
                     return Mono.zip(memberMono, mentoMono, bookmarkMono)
-                            .map(tuple -> MentoringListResponseDto.of(
+                            .map(tuple -> GetMentoringListResponseDto.of(
                                     mentoring,
                                     tuple.getT1(),
                                     tuple.getT2(),
@@ -228,6 +227,56 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                 .collectList();
     }
 
+    @Override
+    public Mono<List<GetMentoringListResponseDto>> getMentoringListByMentoId(ObjectId mentoObjectId, ServerWebExchange exchange) {
+        // 현재 사용자 ID 확인 (exchange가 존재하면 로그인된 사용자)
+        ObjectId currentMemberId = null;
+        if (exchange != null) {
+            try {
+                currentMemberId = tokenProvider.getMemberId(exchange);
+            } catch (Exception e) {
+                currentMemberId = null;
+            }
+        }
+        final ObjectId finalCurrentMemberId = currentMemberId;
+
+        // 1. mentoObjectId로 MentoInfo 조회해서 memberId 가져오기
+        return mongoOperations.findById(mentoObjectId, MentoInfo.class)
+                .flatMap(mentoInfo -> {
+                    ObjectId memberId = mentoInfo.memberId();
+
+                    // 2. memberId로 멘토링 목록 조회
+                    Query mentoringQuery = Query.query(Criteria.where("createdMemberId").is(memberId));
+
+                    return mongoOperations.find(mentoringQuery, Mentoring.class)
+                            .flatMap(mentoring -> {
+                                // 3. Member 정보 조회
+                                Mono<Member> memberMono = mongoOperations.findById(memberId, Member.class);
+
+                                // 4. 북마크 여부 확인
+                                Mono<Boolean> bookmarkMono;
+                                if (finalCurrentMemberId != null) {
+                                    Query bookmarkQuery = Query.query(
+                                            Criteria.where("mentoringId").is(mentoring.id())
+                                                    .and("memberId").is(finalCurrentMemberId)
+                                    );
+                                    bookmarkMono = mongoOperations.exists(bookmarkQuery, MentoringBookmarks.class);
+                                } else {
+                                    bookmarkMono = Mono.just(false);
+                                }
+
+                                return Mono.zip(memberMono, bookmarkMono)
+                                        .map(tuple -> GetMentoringListResponseDto.of(
+                                                mentoring,
+                                                tuple.getT1(),
+                                                mentoInfo,
+                                                tuple.getT2()
+                                        ));
+                            })
+                            .collectList();
+                })
+                .switchIfEmpty(Mono.just(List.of()));
+    }
 
 
     private Mono<Query> getMentoringSearchQuery(

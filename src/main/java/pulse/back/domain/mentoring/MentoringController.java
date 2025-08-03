@@ -90,7 +90,7 @@ public class MentoringController {
             - Response : [ResultData<PaginationDto<MentoringListResponseDto>>]
             ```
             """)
-    public Mono<ResultData<PaginationDto<MentoringListResponseDto>>> getMentoringList(
+    public Mono<ResultData<PaginationDto<GetMentoringListResponseDto>>> getMentoringList(
             @RequestParam(required = false, value = "field")
             @Schema(description = "분야") String field,
 
@@ -180,7 +180,7 @@ public class MentoringController {
             - Response : [ResultData<List<MentoringListResponseDto>>]
             ```
             """)
-    public Mono<ResultData<List<MentoringListResponseDto>>> getMentoringByLocation(
+    public Mono<ResultData<List<GetMentoringListResponseDto>>> getMentoringByLocation(
             @RequestParam(required = false, value = "latitude")
             @Schema(description = "위도") Double latitude,
 
@@ -212,7 +212,7 @@ public class MentoringController {
             - Response : [ResultData<List<MentoringListResponseDto>>]
             ```
             """)
-    public Mono<ResultData<List<MentoringListResponseDto>>> getPopularMentoringList(
+    public Mono<ResultData<List<GetMentoringListResponseDto>>> getPopularMentoringList(
             @RequestParam(required = false, value = "size", defaultValue = "8")
             @Schema(description = "조회할 멘토링 개수 (default : 8)") @Min(1) int size,
             ServerWebExchange exchange
@@ -221,23 +221,33 @@ public class MentoringController {
     }
 
 
-    //멘토링 신청
-//    @PostMapping("/apply")
-//    @Operation(operationId = "PULSE-113", summary = "멘토링 신청", description = """
-//            ### [ 설명 ]
-//            - 멘토링을 신청합니다.
-//            <br>
-//            ### [ 주의사항 ]
-//            -
-//            <br>
-//            ### [ 요청응답 ]
-//            ```
-//            - Request  : [MentoringApplyRequestDto]
-//            - Response : [ResultData<ResultCodes>]
-//            ```
-//            """)
+    //////////////////////////////////////////////////////////////////////////////////
+    // 멘토 찾기
+    //////////////////////////////////////////////////////////////////////////////////
 
+    @GetMapping("/mento-info/{mentoId}")
+    @Operation(summary = "멘토 프로필 상세조회", description = """
+            ### [ 설명 ]
+            - 멘토의 프로필 상세 정보를 조회합니다.
+            - 멘토링 프로필 경로를 통하여 `` api 로 요청하여 파일을 확인합니다.
+            <br>
+            ### [ 주의사항 ]
+            - 
+            <br>
+            ### [ 요청응답 ]
+            ```
+            - Request  : [String] mentoId
+            - Response : [ResultData<GetMentoInfoDetailResponseDto>]
+            ```
+            """)
+    public Mono<ResultData<GetMentoInfoDetailResponseDto>> getMentoInfoDetail(
+            @PathVariable(name = "mentoId") String mentoId,
+            ServerWebExchange exchange
+    ) {
+        return mentoringProcessor.getMentoInfoDetail(mentoId, exchange);
+    }
 
+    //분야, 경력, 멘토링 진행횟수 필터링
 
 
 }

@@ -1,7 +1,5 @@
 package pulse.back.domain.mentoring;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,9 +13,7 @@ import pulse.back.domain.mentoring.service.MentoringBusinessService;
 import pulse.back.domain.mentoring.service.MentoringValidationService;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -33,7 +29,7 @@ public class MentoringProcessor {
     }
 
     //멘토링 목록조회
-    public Mono<ResultData<PaginationDto<MentoringListResponseDto>>> getMentoringList(
+    public Mono<ResultData<PaginationDto<GetMentoringListResponseDto>>> getMentoringList(
             String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange
     ) {
         log.debug("[validation] field : {}, lectureType : {}, region : {}, sortType : {}, searchText : {}, page : {}, size : {}",
@@ -90,7 +86,7 @@ public class MentoringProcessor {
                 .block();
     }
 
-    public Mono<ResultData<List<MentoringListResponseDto>>> getMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
+    public Mono<ResultData<List<GetMentoringListResponseDto>>> getMentoringByLocation(Double latitude, Double longitude, int distance, ServerWebExchange exchange) {
         log.debug("[validation] latitude : {}, longitude : {}, distance : {}", latitude, longitude, distance);
         return mentoringValidationService.validateMentoringByLocation(latitude, longitude, distance, exchange)
                 .flatMap(isValid -> {
@@ -103,8 +99,23 @@ public class MentoringProcessor {
                 });
     }
 
-    public Mono<ResultData<List<MentoringListResponseDto>>> getPopularMentoringList(int size, ServerWebExchange exchange) {
+    public Mono<ResultData<List<GetMentoringListResponseDto>>> getPopularMentoringList(int size, ServerWebExchange exchange) {
         return mentoringBusinessService.getPopularMentoringList(size, exchange)
                 .map(mentoringList -> new ResultData<>(mentoringList, "인기 멘토링 목록 조회에 성공하였습니다."));
+    }
+
+    public Mono<ResultData<GetMentoInfoDetailResponseDto>> getMentoInfoDetail(
+            String mentoId, ServerWebExchange exchange
+    ) {
+        log.debug("[validation] mentoId : {}", mentoId);
+        return mentoringValidationService.validateMentoInfoDetail(mentoId, exchange)
+                .flatMap(isValid -> {
+                    if (Boolean.TRUE.equals(isValid)) {
+                        return mentoringBusinessService.getMentoInfoDetail(mentoId, exchange)
+                                .map(mentoInfoDetail -> new ResultData<>(mentoInfoDetail, "멘토 정보 상세 조회에 성공하였습니다."));
+                    } else {
+                        return Mono.error(new CustomException(ErrorCodes.BAD_REQUEST));
+                    }
+                });
     }
 }
