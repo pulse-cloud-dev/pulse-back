@@ -27,7 +27,7 @@ public class MongoConfig {
 
     @Bean
     public MongoClient mongoClient() {
-        return MongoClients.create("mongodb+srv://ssddo:0524@cluster.0mtmr.mongodb.net/pulse?retryWrites=true&w=majority");
+        return MongoClients.create("mongodb://ssddo:0524@cluster-shard-00-00.0mtmr.mongodb.net:27017,cluster-shard-00-01.0mtmr.mongodb.net:27017,cluster-shard-00-02.0mtmr.mongodb.net:27017/pulse?ssl=true&replicaSet=Cluster-shard-0&authSource=admin&retryWrites=true&w=majority&sslInvalidHostNameAllowed=true&tlsAllowInvalidCertificates=true");
     }
 
     @Bean
