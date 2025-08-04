@@ -27,7 +27,14 @@ public class MongoConfig {
 
     @Bean
     public MongoClient mongoClient() {
-        return MongoClients.create("mongodb+srv://ssddo:0524@cluster.0mtmr.mongodb.net/pulse?retryWrites=true&w=majority");
+        // 방법 1: 최신 TLS 옵션 사용 (권장)
+        return MongoClients.create("mongodb://ssddo:0524@cluster-shard-00-00.0mtmr.mongodb.net:27017,cluster-shard-00-01.0mtmr.mongodb.net:27017,cluster-shard-00-02.0mtmr.mongodb.net:27017/pulse?ssl=true&replicaSet=atlas-2baa9v-shard-0&authSource=admin&retryWrites=true&w=majority&tlsAllowInvalidHostnames=true");
+
+        // 방법 2: MongoDB Atlas 표준 연결 문자열 (가장 안전)
+        // return MongoClients.create("mongodb://ssddo:0524@cluster-shard-00-00.0mtmr.mongodb.net:27017,cluster-shard-00-01.0mtmr.mongodb.net:27017,cluster-shard-00-02.0mtmr.mongodb.net:27017/pulse?ssl=true&replicaSet=atlas-2baa9v-shard-0&authSource=admin&retryWrites=true&w=majority");
+
+        // 방법 3: replica set 자동 발견
+        // return MongoClients.create("mongodb://ssddo:0524@cluster-shard-00-00.0mtmr.mongodb.net:27017,cluster-shard-00-01.0mtmr.mongodb.net:27017,cluster-shard-00-02.0mtmr.mongodb.net:27017/pulse?ssl=true&authSource=admin&retryWrites=true&w=majority");
     }
 
     @Bean

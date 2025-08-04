@@ -31,6 +31,9 @@ public record MentoInfo(
         // 경력정보
         List<CareerInfo> careerInfo,
 
+        // 선호지역
+        List<String> preferredAreas,
+
         // 생성일
         @Indexed
         LocalDateTime createdAt,

@@ -49,6 +49,7 @@ public class MentoInfoController {
             - 멘토 정보를 등록합니다.
             <br>
             ### [ 주의사항 ]
+            - 선호지역의 값은 `/meta-list/{item_code}` 에서 item_code에서 categoryCode가 "REGION"인 데이터만 입력 가능합니다.
             <br>
             ### [ 추가정보 ]
             - 멘토 정보 등록시 시, Enum 을 사용하여 Request 를 받는 필드들이 존재합니다.
