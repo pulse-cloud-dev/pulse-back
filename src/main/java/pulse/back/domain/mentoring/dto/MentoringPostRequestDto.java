@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import pulse.back.common.config.GlobalPatterns;
 import pulse.back.common.enums.LectureType;
 import pulse.back.entity.member.Member;
@@ -18,7 +19,7 @@ public record MentoringPostRequestDto(
         @Schema(description = "멘토링 제목", example = "자소서 맨토링입니다.")
         String title,
 
-        @Pattern(regexp = GlobalPatterns.CONTENT_3000, message = "내용은 최대 3000자까지 입력 가능합니다.")
+        @Size(min = 1, max = 3000)
         @Schema(description = "멘토링 내용", example = "자소서 작성법을 알려드립니다.")
         String content,
 
