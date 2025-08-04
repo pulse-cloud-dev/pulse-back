@@ -40,6 +40,8 @@ public class MentoringBusinessService {
     private final MentoringViewLogRepository mentoringViewLogRepository;
     private final MentoringBookmarksRepository mentoringBookmarksRepository;
     private final MemberDocumentRepository memberDocumentRepository;
+    private final ItemRepository itemRepository;
+    private final MetaRepository metaRepository;
     private final TokenProvider tokenProvider;
     private final GeocodingService geocodingService;
 
@@ -339,7 +341,9 @@ public class MentoringBusinessService {
 
                                 GetMentoInfoDetailResponseDto result = GetMentoInfoDetailResponseDto.of(
                                         mentoInfo,
-                                        mentoringList
+                                        mentoringList,
+                                        itemRepository,
+                                        metaRepository
                                 );
 
                                 return result;

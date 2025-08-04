@@ -27,6 +27,9 @@ public record MentoInfoRequestDto(
         @Schema(description = "회원 경력사항")
         List<CareerInfoRequestDto> careerInfoList,
 
+        @Schema(description = "선호지역")
+        List<String> preferredLocations,
+
         @Max(5000)
         @Schema(description = "멘토 소개")
         String mentorIntroduction

@@ -55,6 +55,7 @@ public class MentoInfoRepositoryCustomImpl implements MentoInfoRepositoryCustom 
                         requestDto.jobInfo().jobCode() : null, // 직업정보 (JobInfoRequestDto -> String)
                 requestDto.careerInfoList() != null && !requestDto.careerInfoList().isEmpty() ?
                         CareerInfoRequestDto.of(requestDto.careerInfoList()) : null, // 경력정보
+                requestDto.preferredLocations() != null ? requestDto.preferredLocations() : null, // 선호지역
                 LocalDateTime.now(), // 생성일
                 null, // 수정일
                 null, // 삭제일

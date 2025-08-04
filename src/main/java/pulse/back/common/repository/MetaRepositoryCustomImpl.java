@@ -13,6 +13,7 @@ import pulse.back.entity.common.Meta;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Primary
@@ -33,5 +34,19 @@ public class MetaRepositoryCustomImpl implements MetaRepositoryCustom {
     public Mono<Boolean> existsByMetaCode(String metaCode) {
         Query query = new Query(Criteria.where("code").is(metaCode));
         return mongoOperations.exists(query, Meta.class);
+    }
+
+    @Override
+    public Mono<List<String>> findAllByItemCode(Set<String> regionCodes) {
+        Query query = new Query(Criteria.where("regionCode").in(regionCodes));
+        return mongoOperations.find(query, Meta.class)
+                .map(Meta::code)
+                .collectList();
+    }
+
+    @Override
+    public Mono<Meta> findByCode(String code) {
+        Query query = new Query(Criteria.where("code").is(code));
+        return mongoOperations.findOne(query, Meta.class);
     }
 }
