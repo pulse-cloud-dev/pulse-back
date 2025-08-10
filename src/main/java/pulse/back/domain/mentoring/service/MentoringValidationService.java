@@ -20,6 +20,8 @@ import pulse.back.common.repository.MentoringRepository;
 import pulse.back.domain.mentoring.dto.UploadMentoringBookmarkRequestDto;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -33,7 +35,7 @@ public class MentoringValidationService {
     private final CheckDateUtils checkDateUtils;
 
     //멘토링 목록조회
-    public Mono<Boolean> validateMentoringListRequestDto(String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange) {
+    public Mono<Boolean> validateMentoringListRequestDto(List<String> field, LectureType lectureType, List<String> region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange) {
         return Mono.just(true);
     }
 

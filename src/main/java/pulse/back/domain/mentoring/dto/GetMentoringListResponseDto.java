@@ -34,10 +34,8 @@ public record GetMentoringListResponseDto(
         // 멘토 연차
         int mentorCareerTotalYear,
 
-        // onlinePlatform (온라인일 경우)
-        String onlinePlatform,
-
-        // 멘토링 주소 (오프라인일 경우)
+        // 멘토링 지역 주소 (오프라인일 경우)
+        String region,
 
         // 멘토 닉네임
         String mentorNickname,
@@ -55,11 +53,6 @@ public record GetMentoringListResponseDto(
         int mentorCareerTotalYear = 0;
 
         if (mentoInfo.careerInfo() != null && !mentoInfo.careerInfo().isEmpty()) {
-            // 가장 최근 입사일자를 가진 회사 찾기
-            CareerInfo latestCareer = mentoInfo.careerInfo().stream()
-                    .max(Comparator.comparing(CareerInfo::joinDate))
-                    .orElse(null);
-
             // 총 근무 개월 수 계산
             long totalMonths = 0;
             for (CareerInfo careerInfo : mentoInfo.careerInfo()) {
@@ -74,15 +67,16 @@ public record GetMentoringListResponseDto(
                     }
 
                     if (joinDate != null && retireDate != null) {
-                        // 각 회사별 근무 개월 수 계산
                         totalMonths += ChronoUnit.MONTHS.between(joinDate, retireDate);
                     }
                 }
             }
-
-            // 연차 계산: 총 개월 수를 12로 나누고 1을 더함
             mentorCareerTotalYear = (int)(totalMonths / 12) + 1;
         }
+
+        // 지역 정보 추출
+        String region = extractRegionFromAddress(mentoring.address(), mentoring.lectureType());
+
         return new GetMentoringListResponseDto(
                 mentoring.id().toString(),
                 mentoring.lectureType(),
@@ -90,11 +84,44 @@ public record GetMentoringListResponseDto(
                 member.profileImage(),
                 mentoInfo.jobInfo(),
                 mentorCareerTotalYear,
-                mentoring.onlinePlatform(),
+                region,
                 member.nickName(),
                 mentoring.deadlineDate(),
                 mentoring.viewCount(),
                 isBookmark
         );
+    }
+
+    /**
+     * 주소에서 지역명 추출 (시 단위)
+     */
+    private static String extractRegionFromAddress(String address, LectureType lectureType) {
+        // 온라인 강의의 경우 지역 정보 없음
+        if (lectureType == LectureType.ONLINE || address == null || address.trim().isEmpty()) {
+            return null;
+        }
+
+        String addr = address.trim();
+
+        // contains로 지역명 확인
+        if (addr.contains("서울")) return "서울";
+        if (addr.contains("부산")) return "부산";
+        if (addr.contains("대구")) return "대구";
+        if (addr.contains("인천")) return "인천";
+        if (addr.contains("광주")) return "광주";
+        if (addr.contains("대전")) return "대전";
+        if (addr.contains("울산")) return "울산";
+        if (addr.contains("세종")) return "세종";
+        if (addr.contains("경기")) return "경기";
+        if (addr.contains("강원")) return "강원";
+        if (addr.contains("충북")) return "충북";
+        if (addr.contains("충남")) return "충남";
+        if (addr.contains("전북")) return "전북";
+        if (addr.contains("전남")) return "전남";
+        if (addr.contains("경북")) return "경북";
+        if (addr.contains("경남")) return "경남";
+        if (addr.contains("제주")) return "제주";
+
+        return "기타";
     }
 }

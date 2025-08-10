@@ -71,7 +71,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
 
     @Override
     public Mono<List<GetMentoringListResponseDto>> getMentoringList(
-            String field, LectureType lectureType, String region,
+            List<String> field, LectureType lectureType, List<String> region,
             SortType sortType, String searchText, int page, int size,
             ObjectId requesterId
     ) {
@@ -116,7 +116,10 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
     }
 
     @Override
-    public Mono<Long> getMentoringListTotalCount(String field, LectureType lectureType, String region, SortType sortType, String searchText) {
+    public Mono<Long> getMentoringListTotalCount(
+            List<String> field, LectureType lectureType, List<String> region,
+            SortType sortType, String searchText
+    ) {
         return getMentoringSearchQuery(field, lectureType, region, sortType, searchText)
                 .flatMap(query -> mongoOperations.count(query, Mentoring.class));
     }
@@ -280,13 +283,13 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
 
 
     private Mono<Query> getMentoringSearchQuery(
-            String field, LectureType lectureType, String region, SortType sortType, String searchText
+            List<String> field, LectureType lectureType, List<String> region, SortType sortType, String searchText
     ) {
         Query query = new Query();
 
         Mono<Query> baseQueryMono;
-        if (field != null) {
-            Query mentoInfoQuery = Query.query(Criteria.where("jobInfo").is(field));
+        if (field != null && !field.isEmpty()) {
+            Query mentoInfoQuery = Query.query(Criteria.where("jobInfo").in(field)); // is -> in으로 변경
             baseQueryMono = mongoOperations.find(mentoInfoQuery, MentoInfo.class)
                     .map(MentoInfo::memberId)
                     .collectList()
@@ -307,8 +310,14 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                 baseQuery.addCriteria(Criteria.where("lectureType").is(lectureType));
             }
 
-            if (region != null) {
-                baseQuery.addCriteria(Criteria.where("region").is(region));
+            // 지역 필터링 로직 수정 - 이미 변환된 지역명 리스트를 받음
+            if (region != null && !region.isEmpty()) {
+                // address 필드에서 지역명이 포함되어 있는지 확인
+                List<Criteria> regionCriteria = region.stream()
+                        .map(regionName -> Criteria.where("address").regex(regionName, "i"))
+                        .collect(Collectors.toList());
+
+                baseQuery.addCriteria(new Criteria().orOperator(regionCriteria.toArray(new Criteria[0])));
             }
 
             if (sortType != null) {
@@ -322,7 +331,7 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
                 }
             }
 
-            if (searchText != null) {
+            if (searchText != null && !searchText.trim().isEmpty()) {
                 return getMemberIdsBySearchText(searchText)
                         .collectList()
                         .map(memberIds -> {

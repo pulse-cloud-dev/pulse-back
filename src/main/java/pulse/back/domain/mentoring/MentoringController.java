@@ -92,13 +92,13 @@ public class MentoringController {
             """)
     public Mono<ResultData<PaginationDto<GetMentoringListResponseDto>>> getMentoringList(
             @RequestParam(required = false, value = "field")
-            @Schema(description = "분야") String field,
+            @Schema(description = "분야(최대 3개)") List<String> field,
 
             @RequestParam(required = false, value = "lecture_type")
             @Schema(description = "온오프라인 : ONLINE, OFFLINE") LectureType lectureType,
 
             @RequestParam(required = false, value = "region")
-            @Schema(description = "지역") String region,
+            @Schema(description = "지역(최대 10개)") List<String> region,
 
             @RequestParam(required = false, value = "sort_type")
             @Schema(description = "정렬 : DEFAULT(기본순), POPULAR(인기순), LATEST(최신순)") SortType sortType,

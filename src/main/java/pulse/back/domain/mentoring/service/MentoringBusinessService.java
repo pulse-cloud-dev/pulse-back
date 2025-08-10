@@ -18,6 +18,7 @@ import pulse.back.common.response.PaginationDto;
 import pulse.back.common.response.ResultData;
 import pulse.back.common.util.MyNumberUtils;
 import pulse.back.domain.api.geocoding.GeocodingService;
+import pulse.back.domain.category.service.RegionCodeService;
 import pulse.back.domain.mentoring.dto.*;
 import pulse.back.entity.member.Member;
 import pulse.back.entity.mento.MentoInfo;
@@ -40,6 +41,7 @@ public class MentoringBusinessService {
     private final MentoringViewLogRepository mentoringViewLogRepository;
     private final MentoringBookmarksRepository mentoringBookmarksRepository;
     private final MemberDocumentRepository memberDocumentRepository;
+    private final RegionCodeService regionCodeService;
     private final ItemRepository itemRepository;
     private final MetaRepository metaRepository;
     private final TokenProvider tokenProvider;
@@ -52,7 +54,7 @@ public class MentoringBusinessService {
 
     //멘토링 목록조회
     public Mono<ResultData<PaginationDto<GetMentoringListResponseDto>>> getMentoringList(
-            String field, LectureType lectureType, String region, SortType sortType,
+            List<String> field, LectureType lectureType, List<String> region, SortType sortType,
             String searchText, int page, int size, ServerWebExchange exchange
     ) {
 
@@ -67,40 +69,37 @@ public class MentoringBusinessService {
         }
 
         ObjectId finalRequesterId = requesterId;
-        return mentoringRepository.getMentoringListTotalCount(field, lectureType, region, sortType, searchText)
-                .flatMap(totalCount -> {
-                    int totalPages = MyNumberUtils.getTotalPages(totalCount, size);
-                    final int adjustedPage = Math.min(totalPages, page);
 
-                    return mentoringRepository.getMentoringList(field, lectureType, region, sortType, searchText, adjustedPage, size, finalRequesterId)
-                            .map(mentoringList -> {
-                                PaginationDto<GetMentoringListResponseDto> paginationDto = PaginationDto.<GetMentoringListResponseDto>builder()
-                                        .contents(mentoringList)
-                                        .totalCount(totalCount)
-                                        .totalPages(totalPages)
-                                        .size(size)
-                                        .page(adjustedPage)
-                                        .sort(direction)
-                                        .build();
-                                return new ResultData<>(paginationDto, "멘토링 목록 조회에 성공하였습니다.");
-                            });
-                });
+        // 지역 코드를 지역명으로 변환
+        return regionCodeService.convertRegionCodesToNames(region)
+                .flatMap(convertedRegions ->
+                        mentoringRepository.getMentoringListTotalCount(field, lectureType, convertedRegions, sortType, searchText)
+                                .flatMap(totalCount -> {
+                                    int totalPages = MyNumberUtils.getTotalPages(totalCount, size);
+                                    final int adjustedPage = Math.min(totalPages, page);
+
+                                    return mentoringRepository.getMentoringList(field, lectureType, convertedRegions, sortType, searchText, adjustedPage, size, finalRequesterId)
+                                            .map(mentoringList -> {
+                                                PaginationDto<GetMentoringListResponseDto> paginationDto = PaginationDto.<GetMentoringListResponseDto>builder()
+                                                        .contents(mentoringList)
+                                                        .totalCount(totalCount)
+                                                        .totalPages(totalPages)
+                                                        .size(size)
+                                                        .page(adjustedPage)
+                                                        .sort(direction)
+                                                        .build();
+                                                return new ResultData<>(paginationDto, "멘토링 목록 조회에 성공하였습니다.");
+                                            });
+                                })
+                );
     }
 
     private Sort.Direction convertSortTypeToDirection(SortType sortType) {
-        if (sortType == null) {
-            return Sort.Direction.DESC;
-        }
-
-        switch (sortType) {
-            case LATEST:
-            case DEFAULT:
-                return Sort.Direction.DESC;
-            case POPULAR:
-                return Sort.Direction.DESC;
-            default:
-                return Sort.Direction.DESC;
-        }
+        if (sortType == null) return Sort.Direction.DESC;
+        return switch (sortType) {
+            case LATEST, POPULAR -> Sort.Direction.DESC;
+            default -> Sort.Direction.DESC;
+        };
     }
 
     //멘토링 상세조회

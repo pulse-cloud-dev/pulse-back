@@ -16,11 +16,11 @@ public interface MentoringRepositoryCustom{
     Mono<List<JobInfoList>> findJobInfo();
 
     Mono<List<GetMentoringListResponseDto>> getMentoringList(
-            String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ObjectId requesterId
+            List<String> field, LectureType lectureType, List<String> region, SortType sortType, String searchText, int page, int size, ObjectId requesterId
     );
 
     Mono<Long> getMentoringListTotalCount(
-            String field, LectureType lectureType, String region, SortType sortType, String searchText
+            List<String> field, LectureType lectureType, List<String> region, SortType sortType, String searchText
     );
 
     Mono<Void> incrementViewCount(ObjectId mentoringId);

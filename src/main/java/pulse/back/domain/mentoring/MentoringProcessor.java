@@ -30,7 +30,7 @@ public class MentoringProcessor {
 
     //멘토링 목록조회
     public Mono<ResultData<PaginationDto<GetMentoringListResponseDto>>> getMentoringList(
-            String field, LectureType lectureType, String region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange
+            List<String> field, LectureType lectureType, List<String> region, SortType sortType, String searchText, int page, int size, ServerWebExchange exchange
     ) {
         log.debug("[validation] field : {}, lectureType : {}, region : {}, sortType : {}, searchText : {}, page : {}, size : {}",
                 field, lectureType, region, sortType, searchText, page, size);
