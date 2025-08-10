@@ -284,53 +284,66 @@ public class MentoringRepositoryCustomImpl implements MentoringRepositoryCustom 
     ) {
         Query query = new Query();
 
+        Mono<Query> baseQueryMono;
         if (field != null) {
-            query.addCriteria(Criteria.where("field").is(field));
-        }
-
-        if (lectureType != null) {
-            query.addCriteria(Criteria.where("lectureType").is(lectureType));
-        }
-
-        if (region != null) {
-            query.addCriteria(Criteria.where("region").is(region));
-        }
-
-        // 정렬 조건 추가
-        if (sortType != null) {
-            switch (sortType) {
-                case LATEST:
-                    query.with(Sort.by(Sort.Direction.DESC, "createdAt"));
-                    break;
-                case POPULAR:
-                    query.with(Sort.by(Sort.Direction.DESC, "viewCount"));
-                    break;
-            }
-        }
-
-        if (searchText != null) {
-            return getMemberIdsBySearchText(searchText)
+            Query mentoInfoQuery = Query.query(Criteria.where("jobInfo").is(field));
+            baseQueryMono = mongoOperations.find(mentoInfoQuery, MentoInfo.class)
+                    .map(MentoInfo::memberId)
                     .collectList()
                     .map(memberIds -> {
-                        List<Criteria> searchCriteria = new ArrayList<>();
-
-                        // Mentoring 컬렉션 내 필드 검색
-                        searchCriteria.add(Criteria.where("title").regex(searchText, "i"));
-                        searchCriteria.add(Criteria.where("content").regex(searchText, "i"));
-                        searchCriteria.add(Criteria.where("address").regex(searchText, "i"));
-                        searchCriteria.add(Criteria.where("detailAddress").regex(searchText, "i"));
-
-                        // Member 관련 검색 - 찾은 멤버 ID들로 OR 조건 구성
                         if (!memberIds.isEmpty()) {
-                            searchCriteria.add(Criteria.where("createdMemberId").in(memberIds));
+                            query.addCriteria(Criteria.where("createdMemberId").in(memberIds));
+                        } else {
+                            query.addCriteria(Criteria.where("_id").is(new ObjectId()));
                         }
-
-                        query.addCriteria(new Criteria().orOperator(searchCriteria.toArray(new Criteria[0])));
                         return query;
                     });
+        } else {
+            baseQueryMono = Mono.just(query);
         }
 
-        return Mono.just(query);
+        return baseQueryMono.flatMap(baseQuery -> {
+            if (lectureType != null) {
+                baseQuery.addCriteria(Criteria.where("lectureType").is(lectureType));
+            }
+
+            if (region != null) {
+                baseQuery.addCriteria(Criteria.where("region").is(region));
+            }
+
+            if (sortType != null) {
+                switch (sortType) {
+                    case LATEST:
+                        baseQuery.with(Sort.by(Sort.Direction.DESC, "createdAt"));
+                        break;
+                    case POPULAR:
+                        baseQuery.with(Sort.by(Sort.Direction.DESC, "viewCount"));
+                        break;
+                }
+            }
+
+            if (searchText != null) {
+                return getMemberIdsBySearchText(searchText)
+                        .collectList()
+                        .map(memberIds -> {
+                            List<Criteria> searchCriteria = new ArrayList<>();
+
+                            searchCriteria.add(Criteria.where("title").regex(searchText, "i"));
+                            searchCriteria.add(Criteria.where("content").regex(searchText, "i"));
+                            searchCriteria.add(Criteria.where("address").regex(searchText, "i"));
+                            searchCriteria.add(Criteria.where("detailAddress").regex(searchText, "i"));
+
+                            if (!memberIds.isEmpty()) {
+                                searchCriteria.add(Criteria.where("createdMemberId").in(memberIds));
+                            }
+
+                            baseQuery.addCriteria(new Criteria().orOperator(searchCriteria.toArray(new Criteria[0])));
+                            return baseQuery;
+                        });
+            }
+
+            return Mono.just(baseQuery);
+        });
     }
 
     private Flux<String> getMemberIdsBySearchText(String searchText) {
